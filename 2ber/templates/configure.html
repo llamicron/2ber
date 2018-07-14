@@ -195,19 +195,20 @@
                         <!-- Tab Content -->
                         <!-- Valve Tab -->
                         <div class="mdl-tabs__panel is-active" id="relay-panel">
+                          <br>
                           <!-- New Relay Form -->
                           <!-- Controller Number input -->
                           <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                             <select class="mdl-textfield__input" id="newRelayType" name="newRelayController">
-                              <option value="str116">STR116</option>
-                              <option value="omega">Omega CN7500</option>
+                              <option value="str116">Main STR116</option>
+                              <option value="str008">Secondary STR008</option>
                             </select>
                             <label class="mdl-textfield__label" for="newRelayController">Controller</label>
                           </div>
                           <!-- Relay Number input -->
                           <div class="mdl-textfield mdl-js-textfield">
                             <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="newRelayNum">
-                            <label class="mdl-textfield__label" for="newRelayNum">Relay Number...</label>
+                            <label class="mdl-textfield__label" for="newRelayNum">Relay Address...</label>
                             <span class="mdl-textfield__error">Needs to be a number</span>
                           </div>
                           <!-- Valve Name Input -->
@@ -248,7 +249,25 @@
                         </div>
                         <!-- Thermostat Tab -->
                         <div class="mdl-tabs__panel" id="thermostat-panel">
-
+                          <br>
+                          <!-- Controller Select -->
+                          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                            <select class="mdl-textfield__input" id="newThermoController" name="newThermoController">
+                              <option value="0">Omega CN7500</option>
+                            </select>
+                            <label class="mdl-textfield__label" for="newThermoController">Controller</label>
+                          </div>
+                          <!-- Name Text Field -->
+                          <div class="mdl-textfield mdl-js-textfield">
+                            <input class="mdl-textfield__input" type="text" id="newThermoName">
+                            <label class="mdl-textfield__label" for="newThermoName">Name...</label>
+                          </div>
+                          <!-- Address Text Field -->
+                            <div class="mdl-textfield mdl-js-textfield">
+                              <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="newThermoAddress">
+                              <label class="mdl-textfield__label" for="newThermoAddress">Address...</label>
+                              <span class="mdl-textfield__error">Needs to be a number</span>
+                            </div>
                         </div>
                       </div>
                     </div>
@@ -262,12 +281,14 @@
                 <!-- Right Column (table) -->
                 <div class="mdl-cell mdl-cell--7-col mdl-cell--12-col-phone mdl-cell--12-col-tablet">
                   <!-- Relays Table -->
-                  <table style="width: 100%" class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+                  <h4>Relays</h4>
+                  <table class="mdl-data-table full-width mdl-js-data-table mdl-shadow--2dp">
                     <thead>
                       <tr>
-                        <th class="mdl-data-table__cell--non-numeric">Relay Name</th>
-                        <th class="mdl-data-table__cell--non-numeric">Relay Type</th>
-                        <th>Relay Number</th>
+                        <th class="mdl-data-table__cell--non-numeric">Name</th>
+                        <th class="mdl-data-table__cell--non-numeric">Type</th>
+                        <th>Controller</th>
+                        <th>Relay Address</th>
                         <th>State</th>
                       </tr>
                     </thead>
@@ -277,6 +298,7 @@
                         <td class="mdl-data-table__cell--non-numeric">RIMS Divert</td>
                         <!-- Type -->
                         <td class="mdl-data-table__cell--non-numeric">Divert</td>
+                        <td class="mdl-data-table__cell--non-numeric">Main STR116</td>
                         <!-- Number -->
                         <td>3</td>
                         <!-- State -->
@@ -290,6 +312,7 @@
                         <td class="mdl-data-table__cell--non-numeric">HLT</td>
                         <!-- Type -->
                         <td class="mdl-data-table__cell--non-numeric">Binary</td>
+                        <td class="mdl-data-table__cell--non-numeric">Main STR116</td>
                         <!-- Number -->
                         <td>4</td>
                         <!-- State -->
@@ -297,6 +320,27 @@
                           <code>open</code> or
                           <code>closed</code>
                         </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <br>
+                  <h4>Thermostats</h4>
+                  <table class="mdl-data-table full-width mdl-js-data-table mdl-shadow--2dp">
+                    <thead>
+                      <tr>
+                        <th class="mdl-data-table__cell--non-numeric">Name</th>
+                        <th class="mdl-data-table__cell--non-numeric">Controller</th>
+                        <th>Address</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <!-- Name -->
+                        <td class="mdl-data-table__cell--non-numeric">RIMS Thermo</td>
+                        <!-- Type -->
+                        <td class="mdl-data-table__cell--non-numeric">Omega CN7500</td>
+                        <!-- Number -->
+                        <td>1</td>
                       </tr>
                     </tbody>
                   </table>
