@@ -25,7 +25,8 @@
 
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-  <link rel="stylesheet" href="(( url_for('static', filename='mdl.css') ))">
+  <!-- <link rel="stylesheet" href="(( url_for('static', filename='mdl.css') ))"> -->
+  <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.blue_grey-indigo.min.css" />
   <link rel="stylesheet" href="(( url_for('static', filename='styles.css') ))">
 
 </head>
@@ -52,21 +53,109 @@
       </div>
 
       <!-- Main Content -->
-      <main class="mdl-layout__content mdl-color--grey-100" id="controller-tab">
+      <main class="mdl-layout__content mdl-color--grey-100">
         <div class="mdl-grid demo-content">
-          <!-- Procedure Window -->
           <h3>Configuration Options</h3>
+
+          <!-- Configuration Area -->
           <div class="demo-graphs mdl-shadow--2dp mdl-color--white mdl-cell mdl-cell--12-col">
-            <!-- Relay Section -->
-            <section id="configureRelays">
-              <h3>Map Relays</h3>
+            <section id="configureControllers">
+              <h3>Controllers</h3>
+              <div class="mdl-grid">
+                <div class="mdl-cell mdl-cell--middle mdl-cell--5-col mdl-cell--12-col-phone mdl-cell--12-col-tablet">
+                  <!-- Add Controller Card -->
+                  <div id="addControllerCard" class="colored-card--green mdl-card mdl-shadow--2dp">
+                    <div class="mdl-card__title mdl-card--expand">
+                      <h2 class="mdl-card__title-text">Add a Controller</h2>
+                    </div>
+                    <div class="mdl-card__supporting-text">
+                      <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                        <select class="mdl-textfield__input" id="newControllerType" name="newControllerType">
+                          <option value="str116">STR116</option>
+                          <option value="str008">STR008</option>
+                          <option value="omegacn7500">Omega CN7500</option>
+                        </select>
+                        <label class="mdl-textfield__label" for="newControllerType">Type</label>
+                      </div>
+                      <br>
+                      <div class="mdl-textfield mdl-js-textfield">
+                        <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="newControllerAddress">
+                        <label class="mdl-textfield__label" for="newControllerAddress">Controller Address</label>
+                        <span class="mdl-textfield__error">Needs to be a number</span>
+                      </div>
+                      <br>
+                      <div class="mdl-textfield mdl-js-textfield">
+                        <input class="mdl-textfield__input" type="text" id="newControllerName">
+                        <label class="mdl-textfield__label" for="newControllerName">Controller Name</label>
+                      </div>
+                      <br>
+                    </div>
+                    <div class="mdl-card__actions mdl-card--border">
+                      <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+                        Add
+                      </a>
+                    </div>
+                  </div>
+                </div>
+                <div class="mdl-cell mdl-cell--7-col mdl-cell--12-col-phone mdl-cell--12-col-tablet">
+                  <!-- Controller Table -->
+                  <table style="width: 100%" class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+                    <thead>
+                      <tr>
+                        <th class="mdl-data-table__cell--non-numeric">Controller Name</th>
+                        <th class="mdl-data-table__cell--non-numeric">Type</th>
+                        <th>Address</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <!-- Name -->
+                        <td class="mdl-data-table__cell--non-numeric">STR116 Relay Board</td>
+                        <!-- Type -->
+                        <td class="mdl-data-table__cell--non-numeric">STR116</td>
+                        <!-- Address -->
+                        <td>3</td>
+                      </tr>
+                      <tr>
+                        <!-- Name -->
+                        <td class="mdl-data-table__cell--non-numeric">Boil Omega</td>
+                        <!-- Type -->
+                        <td class="mdl-data-table__cell--non-numeric">Omega CN7500</td>
+                        <!-- Address -->
+                        <td>4</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <hr>
+
+
+                  <!-- Info -->
+                  <div class="colored-card--blue full-width mdl-card mdl-shadow--2dp">
+                    <div class="mdl-card__title mdl-card--expand">
+                      <h2 class="mdl-card__title-text">Info</h2>
+                    </div>
+                    <div class="mdl-card__supporting-text">
+                      Controllers can be relay boards (STR116, STR008), or a PID (Omega CN7500). Later, you can add a device to each controller.
+                      You can add relays to relay boards, or thermostats to PIDs. You'll need an address for each device.
+                      <br>
+                      <br> Relays can control a few different types of valves, and pumps.
+                      <br>
+                      <br> Thermostats will give you a temperature reading, and let you set a target temperature.
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+            <!-- Device Section -->
+            <section id="configureDevices">
+              <h3>Devices</h3>
               <div class="mdl-grid">
                 <!-- Left Column (form) -->
                 <div class="mdl-cell mdl-cell--5-col mdl-cell--12-col-phone mdl-cell--12-col-tablet">
-                  <div class="demo-card-square mdl-card mdl-shadow--2dp">
-                    <!-- Card -->
+                  <!-- Add Device Card -->
+                  <div id="addDeviceCard" class="colored-card--green mdl-card mdl-shadow--2dp">
                     <div class="mdl-card__title mdl-card--expand">
-                      <h2 class="mdl-card__title-text">Map a New Relay</h2>
+                      <h2 class="mdl-card__title-text">Add a Device</h2>
                     </div>
                     <div class="mdl-card__supporting-text">
                       <!-- New Relay Form -->
@@ -74,7 +163,7 @@
                       <div class="mdl-textfield mdl-js-textfield">
                         <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="newRelayNum">
                         <label class="mdl-textfield__label" for="newRelayNum">Relay Number...</label>
-                        <span class="mdl-textfield__error">That's not a number</span>
+                        <span class="mdl-textfield__error">Needs to be a number</span>
                       </div>
                       <!-- Name Input -->
                       <div class="mdl-textfield mdl-js-textfield">
@@ -119,7 +208,6 @@
                       </a>
                     </div>
                   </div>
-
                 </div>
                 <!-- Right Column (table) -->
                 <div class="mdl-cell mdl-cell--7-col mdl-cell--12-col-phone mdl-cell--12-col-tablet">
@@ -160,6 +248,9 @@
               </div>
             </section>
             <hr>
+          </div>
+          <!-- Slack Area -->
+          <div class="demo-graphs mdl-shadow--2dp mdl-color--white mdl-cell mdl-cell--12-col">
             <!-- Slack Section -->
             <section id="configureSlack">
               <h4>Configure Slack</h4>

@@ -3,6 +3,10 @@ html, body {
   height: 100%;
 }
 
+#addControllerCard, #addDeviceCard {
+  width: 100%;
+}
+
 #avatar {
   font-size: 50px;
 }
@@ -118,14 +122,20 @@ input:focus, textarea:focus {
   color: white;
 }
 
-/* .blurry {
+.full-width {
+  width: 100%;
+}
 
-} */
-
-.demo-card-square > .mdl-card__title {
+.colored-card--green > .mdl-card__title {
   color: #fff;
   background-color: #46B6AC;
 }
+
+.colored-card--blue > .mdl-card__title {
+  color: #fff;
+  background-color: #2996F3;
+}
+
 
 #itemsTable {
   width: 100%;
