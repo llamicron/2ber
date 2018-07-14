@@ -62,7 +62,7 @@
               <h3>Map Relays</h3>
               <div class="mdl-grid">
                 <!-- Left Column (form) -->
-                <div class="mdl-cell mdl-cell--6-col">
+                <div class="mdl-cell mdl-cell--5-col mdl-cell--12-col-phone mdl-cell--12-col-tablet">
                   <div class="demo-card-square mdl-card mdl-shadow--2dp">
                     <!-- Card -->
                     <div class="mdl-card__title mdl-card--expand">
@@ -92,6 +92,25 @@
                         <label class="mdl-textfield__label" for="newRelayType">Type</label>
                       </div>
 
+                      <div class="mdl-grid">
+                        <div class="mdl-cell mdl-cell--5-col mdl-cell--12-col-phone mdl-cell--12-col-tablet">
+                          <div class="mdl-textfield mdl-js-textfield">
+                            <input class="mdl-textfield__input" type="text" id="divertLocation1">
+                            <label class="mdl-textfield__label" for="divertLocation1">Location 1</label>
+                          </div>
+                        </div>
+                        <div class="mdl-cell mdl-cell--1-col mdl-cell--middle mdl-cell--12-col-phone mdl-cell--12-col-tablet">
+                          <strong>
+                            or
+                          </strong>
+                        </div>
+                        <div class="mdl-cell mdl-cell--6-col mdl-cell--12-col-phone mdl-cell--12-col-tablet">
+                          <div class="mdl-textfield mdl-js-textfield">
+                            <input class="mdl-textfield__input" type="text" id="divertLocation2">
+                            <label class="mdl-textfield__label" for="divertLocation2">Location 2</label>
+                          </div>
+                        </div>
+                      </div>
 
                     </div>
                     <div class="mdl-card__actions mdl-card--border">
@@ -103,10 +122,40 @@
 
                 </div>
                 <!-- Right Column (table) -->
-                <div class="mdl-cell mdl-cell--6-col">
+                <div class="mdl-cell mdl-cell--7-col mdl-cell--12-col-phone mdl-cell--12-col-tablet">
                   <!-- Relays Table -->
-                  Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nam error libero incidunt consequatur delectus enim perferendis,
-                  maiores obcaecati velit molestiae pariatur eligendi ea, impedit in non numquam beatae, a ex?
+                  <table style="width: 100%" class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+                    <thead>
+                      <tr>
+                        <th class="mdl-data-table__cell--non-numeric">Relay Name</th>
+                        <th class="mdl-data-table__cell--non-numeric">Relay Type</th>
+                        <th>Relay Number</th>
+                        <th>State</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <!-- Name -->
+                        <td class="mdl-data-table__cell--non-numeric">RIMS Divert</td>
+                        <!-- Type -->
+                        <td class="mdl-data-table__cell--non-numeric">Divert</td>
+                        <!-- Number -->
+                        <td>3</td>
+                        <!-- State -->
+                        <td>To <code>mash</code> or <code>boil</code></td>
+                      </tr>
+                      <tr>
+                        <!-- Name -->
+                        <td class="mdl-data-table__cell--non-numeric">HLT</td>
+                        <!-- Type -->
+                        <td class="mdl-data-table__cell--non-numeric">Binary</td>
+                        <!-- Number -->
+                        <td>4</td>
+                        <!-- State -->
+                        <td><code>open</code> or <code>closed</code></td>
+                      </tr>
+                    </tbody>
+                  </table>
                 </div>
               </div>
             </section>
