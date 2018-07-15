@@ -1,6 +1,14 @@
+/* Green: #46B6AC */
+/* Blue: #2996F3 */
+/* Red: #D43E2F */
+
 html, body {
   font-family: 'Roboto', 'Helvetica', sans-serif;
   height: 100%;
+}
+
+.device-card {
+  border-top: solid #46B6AC 5px;
 }
 
 p.info {

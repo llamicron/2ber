@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request, jsonify, redirect
 
 class CustomFlask(Flask):
     jinja_options = Flask.jinja_options.copy()
@@ -16,7 +16,12 @@ app = CustomFlask(__name__)
 # Routes
 @app.route('/')
 def index():
+    return redirect('/dashboard')
+
+@app.route('/dashboard')
+def dashboard():
     return render_template('index.html')
+
 
 @app.route('/configure')
 def configuration_page():

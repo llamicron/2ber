@@ -45,8 +45,8 @@
         <nav class="demo-navigation mdl-navigation mdl-color--blue-grey-800">
           <a class="mdl-navigation__link" href="/configure">
             <i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">build</i>Configure</a>
-          <a class="mdl-navigation__link" href="#">
-            <i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">home</i>Controller</a>
+          <a class="mdl-navigation__link" href="/dashboard">
+            <i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">home</i>Dashboard</a>
           <a class="mdl-navigation__link" href="#">
             <i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">inbox</i>Procedures</a>
         </nav>
@@ -69,15 +69,22 @@
                   </select>
                   <label class="mdl-textfield__label" for="selectConfiguration">Configuration</label>
                 </div>
+                <br>
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                  <input class="mdl-textfield__input" type="text" id="newConfigurationName ">
+                  <label class="mdl-textfield__label" for="newConfigurationName">New Configuration Name</label>
+                </div>
               </div>
               <div class="mdl-cell mdl-cell--6-col mdl-cell--middle">
-                <p class="info">
-                  Configurations let the software know where you've attached all your valves, pumps, thermostats, etc. You can make a new one here, or just load one.
-                </p>
+                <div class="demo-graphs mdl-shadow--2dp mdl-color--white mdl-cell mdl-cell--12-col">
+                  <p class="info">
+                    Configurations let the software know where you've attached all your valves, pumps, thermostats, etc. You can make a new one here, or just load one.
+                  </p>
+                </div>
               </div>
             </div>
           </div>
-          <!-- Controllers and Devices Area -->
+          <!-- Controller Area -->
           <div class="demo-graphs mdl-shadow--2dp mdl-color--white mdl-cell mdl-cell--12-col">
             <section id="configureControllers">
               <h3>Controllers</h3>
@@ -98,13 +105,13 @@
                         <label class="mdl-textfield__label" for="newControllerType">Type</label>
                       </div>
                       <br>
-                      <div class="mdl-textfield mdl-js-textfield">
+                      <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                         <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="newControllerAddress">
                         <label class="mdl-textfield__label" for="newControllerAddress">Controller Address</label>
                         <span class="mdl-textfield__error">Needs to be a number</span>
                       </div>
                       <br>
-                      <div class="mdl-textfield mdl-js-textfield">
+                      <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                         <input class="mdl-textfield__input" type="text" id="newControllerName">
                         <label class="mdl-textfield__label" for="newControllerName">Controller Name</label>
                       </div>
@@ -150,28 +157,22 @@
 
 
                   <!-- Info -->
-                  <div class="colored-card--blue full-width mdl-card mdl-shadow--2dp">
-                    <div class="mdl-card__title mdl-card--expand">
-                      <h2 class="mdl-card__title-text">Info</h2>
-                    </div>
-                    <div class="mdl-card__supporting-text">
-                      <p class="info">
-                        Controllers can be relay boards (STR116, STR008), or a PID (Omega CN7500). Later, you can add a device to each controller.
-                        You can add relays to relay boards, or thermostats to PIDs. You'll need an address for each device.
-                        <br>
-                        <br> Relays can control a few different types of valves, and pumps.
-                        <br>
-                        <br> Thermostats will give you a temperature reading, and let you set a target temperature.
-                      </p>
-                    </div>
+                  <div class="demo-graphs mdl-shadow--2dp mdl-color--white mdl-cell mdl-cell--12-col">
+                    <p class="info">
+                      Controllers can be relay boards (STR116, STR008), or a PID (Omega CN7500). Later, you can add a device to each controller.
+                      You can add relays to relay boards, or thermostats to PIDs. You'll need an address for each device.
+                      <br>
+                      <br> Relays can control a few different types of valves, and pumps.
+                      <br>
+                      <br> Thermostats will give you a temperature reading, and let you set a target temperature.
+                    </p>
                   </div>
                 </div>
               </div>
             </section>
           </div>
+          <!-- Devices Area -->
           <div class="demo-graphs mdl-shadow--2dp mdl-color--white mdl-cell mdl-cell--12-col">
-
-            <!-- Device Section -->
             <section id="configureDevices">
               <h3>Devices</h3>
               <div class="mdl-grid">
@@ -186,11 +187,11 @@
                       <div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
                         <!-- Tabs -->
                         <div class="mdl-tabs__tab-bar">
-                          <a href="#relay-panel" class="mdl-tabs__tab is-active">Valve</a>
+                          <a href="#relay-panel" class="mdl-tabs__tab is-active">Relay</a>
                           <a href="#thermostat-panel" class="mdl-tabs__tab">Thermostat</a>
                         </div>
                         <!-- Tab Content -->
-                        <!-- Valve Tab -->
+                        <!-- Relay Tab -->
                         <div class="mdl-tabs__panel is-active" id="relay-panel">
                           <br>
                           <!-- New Relay Form -->
@@ -203,13 +204,13 @@
                             <label class="mdl-textfield__label" for="newRelayController">Controller</label>
                           </div>
                           <!-- Relay Number input -->
-                          <div class="mdl-textfield mdl-js-textfield">
+                          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                             <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="newRelayNum">
                             <label class="mdl-textfield__label" for="newRelayNum">Relay Address...</label>
                             <span class="mdl-textfield__error">Needs to be a number</span>
                           </div>
                           <!-- Valve Name Input -->
-                          <div class="mdl-textfield mdl-js-textfield">
+                          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                             <input class="mdl-textfield__input" type="text" id="newRelayName">
                             <label class="mdl-textfield__label" for="newRelayName">Relay Name...</label>
                           </div>
@@ -226,7 +227,7 @@
 
                           <div class="mdl-grid">
                             <div class="mdl-cell mdl-cell--5-col mdl-cell--12-col-phone mdl-cell--12-col-tablet">
-                              <div class="mdl-textfield mdl-js-textfield">
+                              <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                                 <input class="mdl-textfield__input" type="text" id="divertLocation1">
                                 <label class="mdl-textfield__label" for="divertLocation1">Location 1</label>
                               </div>
@@ -237,7 +238,7 @@
                               </strong>
                             </div>
                             <div class="mdl-cell mdl-cell--6-col mdl-cell--12-col-phone mdl-cell--12-col-tablet">
-                              <div class="mdl-textfield mdl-js-textfield">
+                              <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                                 <input class="mdl-textfield__input" type="text" id="divertLocation2">
                                 <label class="mdl-textfield__label" for="divertLocation2">Location 2</label>
                               </div>
@@ -255,16 +256,16 @@
                             <label class="mdl-textfield__label" for="newThermoController">Controller</label>
                           </div>
                           <!-- Name Text Field -->
-                          <div class="mdl-textfield mdl-js-textfield">
+                          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                             <input class="mdl-textfield__input" type="text" id="newThermoName">
                             <label class="mdl-textfield__label" for="newThermoName">Name...</label>
                           </div>
                           <!-- Address Text Field -->
-                            <div class="mdl-textfield mdl-js-textfield">
-                              <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="newThermoAddress">
-                              <label class="mdl-textfield__label" for="newThermoAddress">Address...</label>
-                              <span class="mdl-textfield__error">Needs to be a number</span>
-                            </div>
+                          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                            <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="newThermoAddress">
+                            <label class="mdl-textfield__label" for="newThermoAddress">Address...</label>
+                            <span class="mdl-textfield__error">Needs to be a number</span>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -351,7 +352,7 @@
             <!-- Slack Section -->
             <section id="configureSlack">
               <h4>Configure Slack</h4>
-              <div class="mdl-textfield mdl-js-textfield">
+              <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                 <input class="mdl-textfield__input" type="text" id="slack_webhook">
                 <label class="mdl-textfield__label" for="slack_webhook">Slack Webhook</label>
               </div>
