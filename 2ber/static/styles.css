@@ -8,6 +8,10 @@ html, body {
   height: 100%;
 }
 
+th.toggle-column {
+  width: 1px;
+}
+
 label.temp-label {
   font-size: 28px;
 }
@@ -407,14 +411,4 @@ _:-ms-input-placeholder, :root .demo-graph {
   -webkit-align-items: center;
       -ms-flex-align: center;
           align-items: center;
-}
-
-#view-source {
-  position: fixed;
-  display: block;
-  right: 0;
-  bottom: 0;
-  margin-right: 40px;
-  margin-bottom: 40px;
-  z-index: 900;
 }

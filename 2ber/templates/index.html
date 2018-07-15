@@ -55,7 +55,65 @@
       <!-- Main Content -->
       <main class="mdl-layout__content mdl-color--grey-100">
         <section id="tools">
-
+          <div class="mdl-grid">
+            <!-- Left Column | Timer -->
+            <div class="mdl-cell mdl-cell--6-col mdl-cell--12-col-phone mdl-cell--12-col-tablet">
+              <div class="full-width mdl-card mdl-shadow--2dp">
+                <div class="mdl-card__title">
+                  <h2 class="mdl-card__title-text">
+                    Time Remaining: 34:13
+                  </h2>
+                </div>
+                <div class="mdl-card__supporting-text">
+                  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <input class="mdl-textfield__input" pattern="-?[0-9]*(\.[0-9]+)?" type="text" id="newTimerInput">
+                    <label class="mdl-textfield__label" for="newTimerInput">New Timer (Minutes)</label>
+                    <span class="mdl-textfield__error">Needs to be a number</span>
+                  </div>
+                  <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="sendWhenDone">
+                    <input type="checkbox" id="sendWhenDone" class="mdl-checkbox__input">
+                    <span class="mdl-checkbox__label">Send Slack Message When Done</span>
+                  </label>
+                </div>
+                <div class="mdl-card__actions mdl-card--border">
+                  <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+                    <i class="material-icons">play_arrow</i>
+                  </a>
+                  <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+                    <i class="material-icons">pause</i>
+                  </a>
+                  <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+                    Clear
+                  </a>
+                </div>
+              </div>
+            </div>
+            <!-- Right Side | Slack -->
+            <div class="mdl-cell mdl-cell--6-col mdl-cell--12-col-phone mdl-cell--12-col-tablet">
+              <div class="full-width mdl-card mdl-shadow--2dp">
+                <div id="slackCardTitle" class="mdl-card__title">
+                  <h2 class="mdl-card__title-text">Slack</h2>
+                </div>
+                <div class="mdl-card__supporting-text">
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                      <textarea class="mdl-textfield__input" type="text" rows="3" id="slackMessage "></textarea>
+                      <label class="mdl-textfield__label" for="slackMessage">Slack Message</label>
+                    </div>
+                </div>
+                <div class="mdl-card__actions mdl-card--border">
+                  <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+                    <i class="material-icons">send</i>
+                    Send
+                  </a>
+                </div>
+                <div class="mdl-card__menu">
+                  <button onClick="location='https://navasotabrewing.slack.com/'" class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
+                    <i class="material-icons">add_circle</i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
         </section>
         <section id="devices">
           <div class="mdl-grid">
@@ -65,11 +123,9 @@
               <table class="mdl-data-table full-width mdl-js-data-table mdl-shadow--2dp">
                 <thead>
                   <tr>
-                    <th></th>
+                    <th class="toggle-column"></th>
                     <th class="mdl-data-table__cell--non-numeric">Name</th>
                     <th class="mdl-data-table__cell--non-numeric">Type</th>
-                    <th class="mdl-data-table__cell--non-numeric">Controller</th>
-                    <th>Address</th>
                     <th>State</th>
                   </tr>
                 </thead>
@@ -83,12 +139,10 @@
                     </td>
                     <td class="mdl-data-table__cell--non-numeric">RIMS Pump</td>
                     <td class="mdl-data-table__cell--non-numeric">Pump</td>
-                    <td class="mdl-data-table__cell--non-numeric">STR116</td>
-                    <td>4</td>
                     <td>On</td>
                   </tr>
                   <tr>
-                    <td>
+                    <td class="mdl-data-table__cell--non-numeric">
                       <div style="width: 75px" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                         <select class="mdl-textfield__input" id="relay2Toggle" name="relay2Toggle">
                           <option value="0">Mash</option>
@@ -99,8 +153,6 @@
                     </td>
                     <td class="mdl-data-table__cell--non-numeric">HLT Divert</td>
                     <td class="mdl-data-table__cell--non-numeric">Divert</td>
-                    <td class="mdl-data-table__cell--non-numeric">STR116</td>
-                    <td>5</td>
                     <td>Boil</td>
                   </tr>
                 </tbody>
