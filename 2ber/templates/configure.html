@@ -54,35 +54,27 @@
 
       <!-- Main Content -->
       <main class="mdl-layout__content mdl-color--grey-100">
-        <div class="mdl-grid demo-content">
-
+        <div class="mdl-grid">
           <!-- Create Configuration Area -->
-          <div class="demo-graphs mdl-shadow--2dp mdl-color--white mdl-cell mdl-cell--12-col">
-            <div class="mdl-grid">
-              <div class="mdl-cell mdl-cell--6-col">
-                <h4>Select a configuration</h4>
-                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                  <select class="mdl-textfield__input" id="selectConfiguration" name="selectConfiguration">
-                    <option value="create">Create a new one</option>
-                    <option value="base">Base</option>
-                    <option value="testing">Testing</option>
-                  </select>
-                  <label class="mdl-textfield__label" for="selectConfiguration">Configuration</label>
-                </div>
-                <br>
-                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                  <input class="mdl-textfield__input" type="text" id="newConfigurationName ">
-                  <label class="mdl-textfield__label" for="newConfigurationName">New Configuration Name</label>
-                </div>
+          <div style="margin-left: 0;" class="mdl-cell mdl-cell--6-col mdl-cell--12-col-phone mdl-cell--12-col-tablet">
+            <div class="demo-graphs mdl-shadow--2dp mdl-color--white mdl-cell mdl-cell--12-col">
+              <h4>Select a configuration</h4>
+              <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                <select class="mdl-textfield__input" id="selectConfiguration" name="selectConfiguration">
+                  <option value="create">Create a new one</option>
+                  <option value="base">Base</option>
+                  <option value="testing">Testing</option>
+                </select>
+                <label class="mdl-textfield__label" for="selectConfiguration">Configuration</label>
               </div>
-              <div class="mdl-cell mdl-cell--6-col mdl-cell--middle">
-                <div class="demo-graphs mdl-shadow--2dp mdl-color--white mdl-cell mdl-cell--12-col">
-                  <p class="info">
-                    Configurations let the software know where you've attached all your valves, pumps, thermostats, etc. You can make a new one here, or just load one.
-                  </p>
-                </div>
+              <br>
+              <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                <input class="mdl-textfield__input" type="text" id="newConfigurationName ">
+                <label class="mdl-textfield__label" for="newConfigurationName">New Configuration Name</label>
               </div>
             </div>
+            <!-- </div> -->
+
           </div>
           <!-- Controller Area -->
           <div class="demo-graphs mdl-shadow--2dp mdl-color--white mdl-cell mdl-cell--12-col">

@@ -58,47 +58,118 @@
 
         </section>
         <section id="devices">
-          <!-- For each device -->
-          <div class="demo-graphs mdl-shadow--2dp mdl-color--white mdl-cell mdl-cell--12-col">
-            <div class="mdl-grid">
-              <div class="mdl-cell mdl-cell--6-col">
-                <h3>Relays</h3>
-                <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
-                  <thead>
-                    <tr>
-                      <th class="mdl-data-table__cell--non-numeric">Name</th>
-                      <th class="mdl-data-table__cell--non-numeric">Type</th>
-                      <th class="mdl-data-table__cell--non-numeric">Controller</th>
-                      <th>Address</th>
-                      <th>State</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td class="mdl-data-table__cell--non-numeric">RIMS Pump</td>
-                      <td class="mdl-data-table__cell--non-numeric">Pump</td>
-                      <td class="mdl-data-table__cell--non-numeric">STR116</td>
-                      <td>4</td>
-                      <td>On</td>
-                    </tr>
-                  </tbody>
-                </table>
+          <div class="mdl-grid">
+            <!-- Relay Column -->
+            <div class="mdl-cell mdl-cell--6-col mdl-cell--12-col-phone mdl-cell--12-col-tablet">
+              <h3>Relays</h3>
+              <table class="mdl-data-table full-width mdl-js-data-table mdl-shadow--2dp">
+                <thead>
+                  <tr>
+                    <th></th>
+                    <th class="mdl-data-table__cell--non-numeric">Name</th>
+                    <th class="mdl-data-table__cell--non-numeric">Type</th>
+                    <th class="mdl-data-table__cell--non-numeric">Controller</th>
+                    <th>Address</th>
+                    <th>State</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="relay1Toggle">
+                        <input type="checkbox" id="relay1Toggle" class="mdl-switch__input" checked>
+                        <span class="mdl-switch__label"></span>
+                      </label>
+                    </td>
+                    <td class="mdl-data-table__cell--non-numeric">RIMS Pump</td>
+                    <td class="mdl-data-table__cell--non-numeric">Pump</td>
+                    <td class="mdl-data-table__cell--non-numeric">STR116</td>
+                    <td>4</td>
+                    <td>On</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div style="width: 75px" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                        <select class="mdl-textfield__input" id="relay2Toggle" name="relay2Toggle">
+                          <option value="0">Mash</option>
+                          <option value="1">Boil</option>
+                        </select>
+                        <label class="mdl-textfield__label" for="relay2Toggle">Location</label>
+                      </div>
+                    </td>
+                    <td class="mdl-data-table__cell--non-numeric">HLT Divert</td>
+                    <td class="mdl-data-table__cell--non-numeric">Divert</td>
+                    <td class="mdl-data-table__cell--non-numeric">STR116</td>
+                    <td>5</td>
+                    <td>Boil</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <!-- Thermostat Column -->
+            <div class="mdl-cell mdl-cell--6-col mdl-cell--12-col-phone mdl-cell--12-col-tablet">
+              <h3>Thermostats</h3>
+              <!-- Thermostat Card (repeating) -->
+              <div class="mdl-card thermostat-card full-width mdl-shadow--2dp">
+                <div class="mdl-card__title">
+                  <h2 class="mdl-card__title-text">RIMS Thermostat</h2>
+                </div>
+                <div class="mdl-card__supporting-text">
+                  <label class="temp-label" for="thermostat1PV">Current: 33˚F</label>
+                  <div id="thermostat1PV" class="mdl-progress temp-bar mdl-js-progress"></div>
+                  <br>
+                  <label class="temp-label" for="thermostat1SV">Target: 55˚F</label>
+                  <div id="thermostat1SV" class="mdl-progress temp-bar mdl-js-progress"></div>
+                  <script>
+                    document.querySelector('#thermostat1PV').addEventListener('mdl-componentupgraded', function () {
+                      this.MaterialProgress.setProgress(33);
+                      this.MaterialProgress.setBuffer(87);
+                    });
+                    document.querySelector('#thermostat1SV').addEventListener('mdl-componentupgraded', function () {
+                      this.MaterialProgress.setProgress(55);
+                    });
+                  </script>
+                  <div class="mdl-textfield mdl-js-textfield">
+                    <input class="mdl-textfield__input" pattern="-?[0-9]*(\.[0-9]+)?" type="text" id="thermostat1NewSV">
+                    <label class="mdl-textfield__label" for="thermostat1NewSV">New Target Temperature</label>
+                    <span class="mdl-textfield__error">Needs to be a number</span>
+                  </div>
+                </div>
+                <div class="mdl-card__menu">
+                  <button class="mdl-button mdl-js-button mdl-js-ripple-effect">
+                    <i class="material-icons">power_settings_new</i>
+                  </button>
+                </div>
               </div>
-              <div class="mdl-cell mdl-cell--6-col">
-                <h3>Thermostats</h3>
-                <!-- Thermostat Card -->
-                <div class="full-width mdl-card mdl-shadow--2dp">
-                  <div class="mdl-card__title">
-                    <h2 class="mdl-card__title-text">RIMS Thermostat</h2>
+              <div class="mdl-card thermostat-card full-width mdl-shadow--2dp">
+                <div class="mdl-card__title">
+                  <h2 class="mdl-card__title-text">HLT Thermostat</h2>
+                </div>
+                <div class="mdl-card__supporting-text">
+                  <label class="temp-label" for="thermostat2PV">Current: 95˚F</label>
+                  <div id="thermostat2PV" class="mdl-progress temp-bar mdl-js-progress"></div>
+                  <br>
+                  <label class="temp-label" for="thermostat2SV">Target: 95˚F</label>
+                  <div id="thermostat2SV" class="mdl-progress temp-bar mdl-js-progress"></div>
+                  <script>
+                    document.querySelector('#thermostat2PV').addEventListener('mdl-componentupgraded', function () {
+                      this.MaterialProgress.setProgress(95);
+                      this.MaterialProgress.setBuffer(87);
+                    });
+                    document.querySelector('#thermostat2SV').addEventListener('mdl-componentupgraded', function () {
+                      this.MaterialProgress.setProgress(95);
+                    });
+                  </script>
+                  <div class="mdl-textfield mdl-js-textfield">
+                    <input class="mdl-textfield__input" pattern="-?[0-9]*(\.[0-9]+)?" type="text" id="thermostat2NewSV">
+                    <label class="mdl-textfield__label" for="thermostat2NewSV">New Target Temperature</label>
+                    <span class="mdl-textfield__error">Needs to be a number</span>
                   </div>
-                  <div class="mdl-card__supporting-text">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat omnis commodi quidem dicta quasi. Cum, ad inventore! Voluptates laboriosam, nesciunt officia dolores, tempore commodi necessitatibus inventore odit totam accusantium ducimus.
-                  </div>
-                  <div class="mdl-card__menu">
-                    <button class="mdl-button mdl-js-button mdl-js-ripple-effect">
-                      <i class="material-icons">power_settings_new</i>
-                    </button>
-                  </div>
+                </div>
+                <div class="mdl-card__menu">
+                  <button class="mdl-button mdl-js-button mdl-js-ripple-effect">
+                    <i class="material-icons">power_settings_new</i>
+                  </button>
                 </div>
               </div>
             </div>
