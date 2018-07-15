@@ -42,10 +42,6 @@ p.info {
   font-size: 16px !important;
 }
 
-#addControllerCard, #addDeviceCard {
-  width: 100%;
-}
-
 #avatar {
   font-size: 50px;
 }
