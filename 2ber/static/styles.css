@@ -8,6 +8,15 @@ html, body {
   height: 100%;
 }
 
+.variable-valve-state {
+  width: 75px;
+}
+
+.thermo-power-button {
+  color: white;
+  /* margin-bottom: 0.5em; */
+}
+
 #procedureActiveBar {
   display: none;
 }
@@ -177,6 +186,11 @@ input:focus, textarea:focus {
 .colored-card--blue > .mdl-card__title {
   color: #fff;
   background-color: #2996F3;
+}
+
+.colored-card--bluegrey > .mdl-card__title {
+  color: #fff;
+  background-color: #607C8B;
 }
 
 

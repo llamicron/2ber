@@ -138,10 +138,10 @@
                   <h2 class="mdl-card__title-text">Slack</h2>
                 </div>
                 <div class="mdl-card__supporting-text">
-                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                      <textarea class="mdl-textfield__input" type="text" rows="3" id="slackMessage "></textarea>
-                      <label class="mdl-textfield__label" for="slackMessage">Slack Message</label>
-                    </div>
+                  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <textarea class="mdl-textfield__input" type="text" rows="3" id="slackMessage "></textarea>
+                    <label class="mdl-textfield__label" for="slackMessage">Slack Message</label>
+                  </div>
                 </div>
                 <div class="mdl-card__actions mdl-card--border">
                   <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
@@ -160,52 +160,119 @@
         </section>
         <section id="devices">
           <div class="mdl-grid">
-            <!-- Relay Column -->
+            <!-- Valves Column -->
             <div class="mdl-cell mdl-cell--6-col mdl-cell--12-col-phone mdl-cell--12-col-tablet">
-              <h3>Relays</h3>
-              <table class="mdl-data-table full-width mdl-js-data-table mdl-shadow--2dp">
-                <thead>
-                  <tr>
-                    <th class="toggle-column"></th>
-                    <th class="mdl-data-table__cell--non-numeric">Name</th>
-                    <th class="mdl-data-table__cell--non-numeric">Type</th>
-                    <th>State</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>
-                      <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="relay1Toggle">
-                        <input type="checkbox" id="relay1Toggle" class="mdl-switch__input" checked>
-                        <span class="mdl-switch__label"></span>
-                      </label>
-                    </td>
-                    <td class="mdl-data-table__cell--non-numeric">RIMS Pump</td>
-                    <td class="mdl-data-table__cell--non-numeric">Pump</td>
-                    <td>On</td>
-                  </tr>
-                  <tr>
-                    <td class="mdl-data-table__cell--non-numeric">
-                      <div style="width: 75px" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                        <select class="mdl-textfield__input" id="relay2Toggle" name="relay2Toggle">
-                          <option value="0">Mash</option>
-                          <option value="1">Boil</option>
-                        </select>
-                        <label class="mdl-textfield__label" for="relay2Toggle">Location</label>
-                      </div>
-                    </td>
-                    <td class="mdl-data-table__cell--non-numeric">HLT Divert</td>
-                    <td class="mdl-data-table__cell--non-numeric">Divert</td>
-                    <td>Boil</td>
-                  </tr>
-                </tbody>
-              </table>
+              <div class="full-width colored-card--green mdl-card mdl-shadow--2dp">
+                <div class="mdl-card__title">
+                  <h2 class="mdl-card__title-text mdl-cell--hide-phone">
+                    Valves
+                  </h2>
+                </div>
+                <div class="mdl-card__supporting-text">
+                  <div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
+                    <div class="mdl-tabs__tab-bar">
+                      <a href="#OnOff-panel" class="mdl-tabs__tab is-active">On/Off</a>
+                      <a href="#divert-panel" class="mdl-tabs__tab">Diverts</a>
+                      <a href="#variable-panel" class="mdl-tabs__tab">Variables</a>
+                      <a href="#pump-panel" class="mdl-tabs__tab">Pumps</a>
+                    </div>
+                    <br>
+                    <div class="mdl-tabs__panel is-active" id="OnOff-panel">
+                      <table class="mdl-data-table full-width mdl-js-data-table mdl-shadow--2dp">
+                        <thead>
+                          <tr>
+                            <th class="mdl-data-table__cell--non-numeric">Name</th>
+                            <th class="mdl-data-table__cell--non-numeric">State</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td class="mdl-data-table__cell--non-numeric">HLT Valve</td>
+                            <td>
+                              <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="onOff1Toggle">
+                                <input type="checkbox" id="onOff1Toggle" class="mdl-switch__input" checked>
+                                <span class="mdl-switch__label"></span>
+                              </label>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    <div class="mdl-tabs__panel" id="divert-panel">
+                      <table class="mdl-data-table full-width mdl-js-data-table mdl-shadow--2dp">
+                        <thead>
+                          <tr>
+                            <th class="mdl-data-table__cell--non-numeric">Name</th>
+                            <th class="mdl-data-table__cell--non-numeric">Location</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td class="mdl-data-table__cell--non-numeric">HLT Divert</td>
+                            <td class="mdl-data-table__cell--non-numeric">
+                              <div style="width: 75px" class="mdl-textfield mdl-js-textfield">
+                                <select class="mdl-textfield__input" id="divert1Toggle" name="divert1Toggle">
+                                  <option value="0">Mash</option>
+                                  <option value="1">Boil</option>
+                                </select>
+                              </div>
+                            </td>
+                          </tr>
+
+                        </tbody>
+                      </table>
+                    </div>
+                    <div class="mdl-tabs__panel" id="variable-panel">
+                      <table class="mdl-data-table full-width mdl-js-data-table mdl-shadow--2dp">
+                        <thead>
+                          <tr>
+                            <th class="mdl-data-table__cell--non-numeric">Name</th>
+                            <th class="mdl-data-table__cell--non-numeric">State</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td class="mdl-data-table__cell--non-numeric">Propane Valve</td>
+                            <td class="mdl-data-table__cell--non-numeric">
+                              <div class="mdl-textfield variable-valve-state mdl-js-textfield mdl-textfield--floating-label">
+                                <input class="mdl-textfield__input" pattern="-?[0-9]*(\.[0-9]+)?" type="text" id="variable1State">
+                                <label class="mdl-textfield__label" for="variable1State">State</label>
+                                <span class="mdl-textfield__error">Needs to be a number</span>
+                              </div>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    <div class="mdl-tabs__panel" id="pump-panel">
+                      <table class="mdl-data-table full-width mdl-js-data-table mdl-shadow--2dp">
+                        <thead>
+                          <tr>
+                            <th class="mdl-data-table__cell--non-numeric">Name</th>
+                            <th class="mdl-data-table__cell--non-numeric">State</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td class="mdl-data-table__cell--non-numeric">RIMS Pump</td>
+                            <td class="mdl-data-table__cell--non-numeric">
+                              <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="pump1Toggle">
+                                <input type="checkbox" id="pump1Toggle" class="mdl-switch__input" checked>
+                                <span class="mdl-switch__label"></span>
+                              </label>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
             <!-- Thermostat Column -->
             <div class="mdl-cell mdl-cell--6-col mdl-cell--12-col-phone mdl-cell--12-col-tablet">
-              <h3>Thermostats</h3>
               <!-- Thermostat Card (repeating) -->
-              <div class="mdl-card thermostat-card full-width mdl-shadow--2dp">
+              <div class="mdl-card colored-card--bluegrey full-width mdl-shadow--2dp">
                 <div class="mdl-card__title">
                   <h2 class="mdl-card__title-text">RIMS Thermostat</h2>
                 </div>
@@ -232,11 +299,11 @@
                 </div>
                 <div class="mdl-card__menu">
                   <button class="mdl-button mdl-js-button mdl-js-ripple-effect">
-                    <i class="material-icons">power_settings_new</i>
+                    <i class="material-icons thermo-power-button">power_settings_new</i>
                   </button>
                 </div>
               </div>
-              <div class="mdl-card thermostat-card full-width mdl-shadow--2dp">
+              <div class="mdl-card colored-card--bluegrey full-width mdl-shadow--2dp">
                 <div class="mdl-card__title">
                   <h2 class="mdl-card__title-text">HLT Thermostat</h2>
                 </div>
@@ -263,7 +330,7 @@
                 </div>
                 <div class="mdl-card__menu">
                   <button class="mdl-button mdl-js-button mdl-js-ripple-effect">
-                    <i class="material-icons">power_settings_new</i>
+                    <i class="material-icons thermo-power-button">power_settings_new</i>
                   </button>
                 </div>
               </div>
