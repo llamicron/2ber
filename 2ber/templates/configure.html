@@ -180,8 +180,8 @@
                         <!-- Tabs -->
                         <div class="mdl-tabs__tab-bar">
                           <a href="#valve-panel" class="mdl-tabs__tab is-active">Valve</a>
-                          <a href="#pump-panel" class="mdl-tabs__tab">Pump</a>
                           <a href="#variable-panel" class="mdl-tabs__tab">Variable</a>
+                          <a href="#pump-panel" class="mdl-tabs__tab">Pump</a>
                           <a href="#thermostat-panel" class="mdl-tabs__tab">Thermostat</a>
                         </div>
                         <!-- Valve Tab -->
@@ -199,13 +199,13 @@
                           <!-- Relay Number input -->
                           <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                             <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="newValveAddress">
-                            <label class="mdl-textfield__label" for="newValveAddress">Relay Address...</label>
+                            <label class="mdl-textfield__label" for="newValveAddress">Relay Address</label>
                             <span class="mdl-textfield__error">Needs to be a number</span>
                           </div>
                           <!-- Valve Name Input -->
                           <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                             <input class="mdl-textfield__input" type="text" id="newValveName">
-                            <label class="mdl-textfield__label" for="newValveName">Valve Name...</label>
+                            <label class="mdl-textfield__label" for="newValveName">Valve Name</label>
                           </div>
                           <!-- Type Select -->
                           <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
@@ -236,26 +236,6 @@
                             </div>
                           </div>
                         </div>
-                        <!-- Pump Tab -->
-                        <div class="mdl-tabs__panel" id="pump-panel">
-                          <br>
-                          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                            <select class="mdl-textfield__input" id="newPumpController" name="newPumpController">
-                              <option value="str116">Main STR116</option>
-                              <option value="str008">Secondary STR008</option>
-                            </select>
-                            <label class="mdl-textfield__label" for="newPumpController">Controller</label>
-                          </div>
-                          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                            <input class="mdl-textfield__input" pattern="-?[0-9]*(\.[0-9]+)?" type="text" id="newPumpAddress">
-                            <label class="mdl-textfield__label" for="newPumpAddress">Relay Address</label>
-                            <span class="mdl-textfield__error">Needs to be a number</span>
-                          </div>
-                          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                            <input class="mdl-textfield__input" type="text" id="newPumpName">
-                            <label class="mdl-textfield__label" for="newPumpName">Pump Name</label>
-                          </div>
-                        </div>
                         <!-- Proportional Tab -->
                         <div class="mdl-tabs__panel" id="variable-panel">
                           <br>
@@ -276,6 +256,26 @@
                             <label class="mdl-textfield__label" for="newVariableName">Variable Valve Name</label>
                           </div>
                         </div>
+                        <!-- Pump Tab -->
+                        <div class="mdl-tabs__panel" id="pump-panel">
+                          <br>
+                          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                            <select class="mdl-textfield__input" id="newPumpController" name="newPumpController">
+                              <option value="str116">Main STR116</option>
+                              <option value="str008">Secondary STR008</option>
+                            </select>
+                            <label class="mdl-textfield__label" for="newPumpController">Controller</label>
+                          </div>
+                          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                            <input class="mdl-textfield__input" pattern="-?[0-9]*(\.[0-9]+)?" type="text" id="newPumpAddress">
+                            <label class="mdl-textfield__label" for="newPumpAddress">Relay Address</label>
+                            <span class="mdl-textfield__error">Needs to be a number</span>
+                          </div>
+                          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                            <input class="mdl-textfield__input" type="text" id="newPumpName">
+                            <label class="mdl-textfield__label" for="newPumpName">Pump Name</label>
+                          </div>
+                        </div>
                         <!-- Thermostat Tab -->
                         <div class="mdl-tabs__panel" id="thermostat-panel">
                           <br>
@@ -286,16 +286,16 @@
                             </select>
                             <label class="mdl-textfield__label" for="newThermoController">Controller</label>
                           </div>
-                          <!-- Name Text Field -->
-                          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                            <input class="mdl-textfield__input" type="text" id="newThermoName">
-                            <label class="mdl-textfield__label" for="newThermoName">Name...</label>
-                          </div>
                           <!-- Address Text Field -->
                           <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                             <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="newThermoAddress">
-                            <label class="mdl-textfield__label" for="newThermoAddress">Address...</label>
+                            <label class="mdl-textfield__label" for="newThermoAddress">Address</label>
                             <span class="mdl-textfield__error">Needs to be a number</span>
+                          </div>
+                          <!-- Name Text Field -->
+                          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                            <input class="mdl-textfield__input" type="text" id="newThermoName">
+                            <label class="mdl-textfield__label" for="newThermoName">Thermostat Name</label>
                           </div>
                         </div>
                       </div>
