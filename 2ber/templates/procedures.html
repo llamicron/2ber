@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="description" content="A front-end template that helps you build fast, modern mobile web apps.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+  <title>Procedures</title>
+
+  <!-- Add to homescreen for Chrome on Android -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <link rel="icon" sizes="192x192" href="(( url_for('static', filename='images/android-desktop.png') ))">
+
+  <!-- Add to homescreen for Safari on iOS -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="Material Design Lite">
+  <link rel="apple-touch-icon-precomposed" href="(( url_for('static', filename='images/ios-desktop.png') ))">
+
+  <link rel="shortcut icon" href="images/favicon.png">
+
+  <script src="(( url_for('static', filename='Chart.bundle.js') ))"></script>
+  <script src="(( url_for('static', filename='axios.min.js') ))"></script>
+  <script src="(( url_for('static', filename='material.min.js') ))"></script>
+  <script src="(( url_for('static', filename='vue.js') ))"></script>
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.blue_grey-indigo.min.css" />
+  <link rel="stylesheet" href="(( url_for('static', filename='styles.css') ))">
+
+</head>
+
+<body>
+  <div id="procedures">
+    <div class="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
+      <!-- Header -->
+      <header class="demo-header mdl-layout__header mdl-color--grey-100 mdl-color-text--grey-600">
+        <div class="mdl-layout__header-row">
+          <span class="mdl-layout-title">Procedures</span>
+        </div>
+      </header>
+      <!-- Drawer -->
+      <div class="demo-drawer mdl-layout__drawer mdl-color--blue-grey-900 mdl-color-text--blue-grey-50">
+        <nav class="demo-navigation mdl-navigation mdl-color--blue-grey-800">
+          <a class="mdl-navigation__link" href="/dashboard">
+            <i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">home</i>Dashboard</a>
+          <a class="mdl-navigation__link" href="/configure">
+            <i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">build</i>Configure</a>
+          <a class="mdl-navigation__link" href="/procedures">
+            <i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">sort</i>Procedures</a>
+        </nav>
+      </div>
+
+      <!-- Main Content -->
+      <main class="mdl-layout__content mdl-color--grey-100">
+        <section id="procedures">
+          <div class="mdl-grid">
+            <div class="mdl-cell mdl-cell--4-col">
+              <div class="full-width mdl-card colored-card--green mdl-shadow--2dp">
+                <div class="mdl-card__title">
+                  <h2 class="mdl-card__title-text mdl-cell--hide-phone">
+                    Items
+                  </h2>
+                </div>
+                <div class="mdl-card__supporting-text">
+                  <!-- Search field -->
+                  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <input class="mdl-textfield__input" type="text" id="itemSearch">
+                    <label class="mdl-textfield__label" for="itemSearch">Search</label>
+                  </div>
+                  <section id="onOffValves">
+                    <h5>On/Off Valves</h5>
+
+                  </section>
+                  <section id="divertValves">
+                    <h5>Divert Valves</h5>
+
+                  </section>
+                  <section id="variableValves">
+                    <h5>Variable Valves</h5>
+
+                  </section>
+                  <section id="pumps">
+                    <h5>Pumps</h5>
+
+                  </section>
+                  <section id="thermostats">
+                    <h5>Thermostats</h5>
+
+                  </section>
+                  <section id="tools">
+                    <h5>Tools</h5>
+
+                  </section>
+                </div>
+              </div>
+            </div>
+            <div class="mdl-cell mdl-cell--8-col">
+
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+</body>
+
+</html>

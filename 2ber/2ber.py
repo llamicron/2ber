@@ -22,10 +22,13 @@ def index():
 def dashboard():
     return render_template('index.html')
 
-
 @app.route('/configure')
 def configuration_page():
     return render_template('configure.html')
+
+@app.route('/procedures')
+def procedure_page():
+    return render_template('procedures.html')
 
 if __name__ == '__main__':
     app.debug = True
