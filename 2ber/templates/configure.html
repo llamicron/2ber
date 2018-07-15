@@ -195,7 +195,10 @@
                         <!-- Tabs -->
                         <div class="mdl-tabs__tab-bar">
                           <a href="#valve-panel" class="mdl-tabs__tab is-active">Valve</a>
+                          <a href="#divert-panel" class="mdl-tabs__tab">Divert</a>
                           <a href="#variable-panel" class="mdl-tabs__tab">Variable</a>
+                        </div>
+                        <div class="mdl-tabs__tab-bar">
                           <a href="#pump-panel" class="mdl-tabs__tab">Pump</a>
                           <a href="#thermostat-panel" class="mdl-tabs__tab">Thermostat</a>
                         </div>
@@ -222,15 +225,32 @@
                             <input class="mdl-textfield__input" type="text" id="newValveName">
                             <label class="mdl-textfield__label" for="newValveName">Valve Name</label>
                           </div>
-                          <!-- Type Select -->
+                          <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+                            Add
+                          </a>
+                        </div>
+                        <!-- Divert Panel -->
+                        <div class="mdl-tabs__panel" id="divert-panel">
+                          <br>
+                          <!-- Controller Number input -->
                           <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                            <select class="mdl-textfield__input" id="newValveType" name="newValveType">
-                              <option value="binary">Binary</option>
-                              <option value="divert">Divert</option>
+                            <select class="mdl-textfield__input" id="newValveController" name="newValveController">
+                              <option value="str116">Main STR116</option>
+                              <option value="str008">Secondary STR008</option>
                             </select>
-                            <label class="mdl-textfield__label" for="newValveType">Type</label>
+                            <label class="mdl-textfield__label" for="newValveController">Controller</label>
                           </div>
-
+                          <!-- Relay Number input -->
+                          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                            <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="newValveAddress">
+                            <label class="mdl-textfield__label" for="newValveAddress">Relay Address</label>
+                            <span class="mdl-textfield__error">Needs to be a number</span>
+                          </div>
+                          <!-- Valve Name Input -->
+                          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                            <input class="mdl-textfield__input" type="text" id="newValveName">
+                            <label class="mdl-textfield__label" for="newValveName">Valve Name</label>
+                          </div>
                           <div class="mdl-grid">
                             <div class="mdl-cell mdl-cell--5-col mdl-cell--12-col-phone mdl-cell--12-col-tablet">
                               <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
@@ -250,6 +270,9 @@
                               </div>
                             </div>
                           </div>
+                          <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+                            Add
+                          </a>
                         </div>
                         <!-- Proportional Tab -->
                         <div class="mdl-tabs__panel" id="variable-panel">
@@ -270,6 +293,9 @@
                             <input class="mdl-textfield__input" type="text" id="newVariableName">
                             <label class="mdl-textfield__label" for="newVariableName">Variable Valve Name</label>
                           </div>
+                          <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+                            Add
+                          </a>
                         </div>
                         <!-- Pump Tab -->
                         <div class="mdl-tabs__panel" id="pump-panel">
@@ -290,6 +316,9 @@
                             <input class="mdl-textfield__input" type="text" id="newPumpName">
                             <label class="mdl-textfield__label" for="newPumpName">Pump Name</label>
                           </div>
+                          <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+                            Add
+                          </a>
                         </div>
                         <!-- Thermostat Tab -->
                         <div class="mdl-tabs__panel" id="thermostat-panel">
@@ -312,13 +341,11 @@
                             <input class="mdl-textfield__input" type="text" id="newThermoName">
                             <label class="mdl-textfield__label" for="newThermoName">Thermostat Name</label>
                           </div>
+                          <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+                            Add
+                          </a>
                         </div>
                       </div>
-                    </div>
-                    <div class="mdl-card__actions mdl-card--border">
-                      <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
-                        Add
-                      </a>
                     </div>
                   </div>
                 </div>
@@ -335,6 +362,8 @@
                           <a href="#onOff-display-panel" class="mdl-tabs__tab is-active">Valves</a>
                           <a href="#divert-display-panel" class="mdl-tabs__tab">Diverts</a>
                           <a href="#variable-display-panel" class="mdl-tabs__tab">Variables</a>
+                        </div>
+                        <div class="mdl-tabs__tab-bar">
                           <a href="#pump-display-panel" class="mdl-tabs__tab">Pumps</a>
                           <a href="#thermostat-display-panel" class="mdl-tabs__tab">Thermostats</a>
                         </div>

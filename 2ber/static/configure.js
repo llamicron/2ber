@@ -63,6 +63,9 @@ var x = new Vue({
       name: '',
       address: ''
     },
+    newValve: {
+
+    }
 
   },
 
