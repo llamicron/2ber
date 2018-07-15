@@ -106,10 +106,10 @@
                     </div>
                     <div class="mdl-card__supporting-text">
                       <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                        <select v-model="newController.type" class="mdl-textfield__input" id="newControllerType" name="newControllerType">
-                          <option value="str116">STR116</option>
-                          <option value="str008">STR008</option>
-                          <option value="omegacn7500">Omega CN7500</option>
+                        <select v-model="newControllerType" class="mdl-textfield__input" id="newControllerType" name="newControllerType">
+                          <option value="STR116">STR116</option>
+                          <option value="STR008">STR008</option>
+                          <option value="OmegaCN7500">Omega CN7500</option>
                         </select>
                         <label class="mdl-textfield__label" for="newControllerType">Type</label>
                       </div>
@@ -149,7 +149,7 @@
                           </tr>
                         </thead>
                         <tbody>
-                          <tr v-for="controller in controllers">
+                          <tr v-for="controllers in controllers.items">
                             <!-- Name -->
                             <td class="mdl-data-table__cell--non-numeric">{{ controller.name }}</td>
                             <!-- Type -->
