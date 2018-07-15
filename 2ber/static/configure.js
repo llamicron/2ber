@@ -63,8 +63,46 @@ var x = new Vue({
       name: '',
       address: ''
     },
-    newValve: {
-
+    newOnOff: {
+      "name": "",
+      "type": "onOff",
+      "address": "",
+      "controller_address": '',
+      "state": ''
+    },
+    newDivert: {
+      "name": "",
+      "type": "divert",
+      "address": '',
+      "controller_address": '',
+      "locations": {
+        "0": "",
+        "1": ""
+      },
+      "state": ''
+    },
+    newVariable: {
+      "name": "",
+      "type": "variable",
+      "address": '',
+      "controller_address": '',
+      "state": ''
+    },
+    newPump: {
+      "name": "",
+      "type": "pump",
+      "address": '',
+      "controller_address": '',
+      "state": ''
+    },
+    newThermo: {
+      "name": "",
+      "type": "thermostat",
+      "address": '',
+      "controller_address": '',
+      "pv": 0,
+      "sv": 0,
+      "state": 0
     }
 
   },
@@ -75,12 +113,79 @@ var x = new Vue({
       return this.devices.filter(x => x.type == type)
     },
 
+    controllerType(type) {
+      return this.controllers.filter(x => x.type == type)
+    },
+
     addController() {
       // Pushes new controller onto the configuration model to be sent and clears newController
       this.controllers.push(this.newController);
       this.newController = {
         name: '',
         address: ''
+      }
+    },
+
+    addDevice(type) {
+      if (type == 'onOff') {
+        this.devices.push(this.newOnOff);
+        this.newOnOff = {
+          "name": "",
+          "type": "onOff",
+          "address": "",
+          "controller_address": '',
+          "state": ''
+        }
+      }
+
+      if (type == 'divert') {
+        this.devices.push(this.newDivert);
+        this.newDivert = {
+          "name": "",
+          "type": "divert",
+          "address": '',
+          "controller_address": '',
+          "locations": {
+            "0": "",
+            "1": ""
+          },
+          "state": ''
+        }
+      }
+
+      if (type == 'variable') {
+        this.devices.push(this.newVariable);
+        this.newVariable = {
+          "name": "",
+          "type": "variable",
+          "address": '',
+          "controller_address": '',
+          "state": ''
+        }
+      }
+
+      if (type == 'pump') {
+        this.devices.push(this.newPump);
+        this.newPump = {
+          "name": "",
+          "type": "pump",
+          "address": '',
+          "controller_address": '',
+          "state": ''
+        }
+      }
+
+      if (type == 'thermostat') {
+        this.devices.push(this.newThermo);
+        this.newThermo = {
+          "name": "",
+          "type": "thermostat",
+          "address": '',
+          "controller_address": '',
+          "pv": 0,
+          "sv": 0,
+          "state": 0
+        }
       }
     },
 

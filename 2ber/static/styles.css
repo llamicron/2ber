@@ -17,6 +17,10 @@ html, body {
   /* margin-bottom: 0.5em; */
 }
 
+#createConfigurationArea {
+  margin-left: 0px;
+}
+
 /* .mdl-tabs__tab {
   font-size: 12px;
 } */

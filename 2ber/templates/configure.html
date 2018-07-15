@@ -59,7 +59,7 @@
       <main class="mdl-layout__content mdl-color--grey-100">
         <div class="mdl-grid">
           <!-- Create Configuration Area -->
-          <div style="margin-left: 0;" class="mdl-cell mdl-cell--6-col mdl-cell--12-col-phone mdl-cell--12-col-tablet">
+          <div id="createConfigurationArea" class="mdl-cell mdl-cell--6-col mdl-cell--12-col-phone mdl-cell--12-col-tablet">
             <div class="demo-graphs mdl-shadow--2dp mdl-color--white mdl-cell mdl-cell--12-col">
               <h4>Select a configuration</h4>
               <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
@@ -205,27 +205,25 @@
                         <!-- Valve Tab -->
                         <div class="mdl-tabs__panel is-active" id="valve-panel">
                           <br>
-                          <!-- New Relay Form -->
                           <!-- Controller Number input -->
                           <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                            <select class="mdl-textfield__input" id="newValveController" name="newValveController">
-                              <option value="str116">Main STR116</option>
-                              <option value="str008">Secondary STR008</option>
+                            <select v-model="newOnOff.controller_address" class="mdl-textfield__input" id="newValveController" name="newValveController">
+                              <option v-for="controller in controllers" :value="controller.address">{{ controller.name }}</option>
                             </select>
                             <label class="mdl-textfield__label" for="newValveController">Controller</label>
                           </div>
                           <!-- Relay Number input -->
                           <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                            <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="newValveAddress">
+                            <input v-model="newOnOff.address" class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="newValveAddress">
                             <label class="mdl-textfield__label" for="newValveAddress">Relay Address</label>
                             <span class="mdl-textfield__error">Needs to be a number</span>
                           </div>
                           <!-- Valve Name Input -->
                           <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                            <input class="mdl-textfield__input" type="text" id="newValveName">
+                            <input v-model="newOnOff.name" class="mdl-textfield__input" type="text" id="newValveName">
                             <label class="mdl-textfield__label" for="newValveName">Valve Name</label>
                           </div>
-                          <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+                          <a @click="addDevice('onOff')" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
                             Add
                           </a>
                         </div>
@@ -234,27 +232,26 @@
                           <br>
                           <!-- Controller Number input -->
                           <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                            <select class="mdl-textfield__input" id="newValveController" name="newValveController">
-                              <option value="str116">Main STR116</option>
-                              <option value="str008">Secondary STR008</option>
+                            <select v-model="newDivert.controller_address" class="mdl-textfield__input" id="newValveController" name="newValveController">
+                              <option v-for="controller in controllers" :value="controller.address">{{ controller.name }}</option>
                             </select>
                             <label class="mdl-textfield__label" for="newValveController">Controller</label>
                           </div>
                           <!-- Relay Number input -->
                           <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                            <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="newValveAddress">
+                            <input v-model="newDivert.address" class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="newValveAddress">
                             <label class="mdl-textfield__label" for="newValveAddress">Relay Address</label>
                             <span class="mdl-textfield__error">Needs to be a number</span>
                           </div>
                           <!-- Valve Name Input -->
                           <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                            <input class="mdl-textfield__input" type="text" id="newValveName">
+                            <input v-model="newDivert.name" class="mdl-textfield__input" type="text" id="newValveName">
                             <label class="mdl-textfield__label" for="newValveName">Valve Name</label>
                           </div>
                           <div class="mdl-grid">
                             <div class="mdl-cell mdl-cell--5-col mdl-cell--12-col-phone mdl-cell--12-col-tablet">
                               <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                                <input class="mdl-textfield__input" type="text" id="divertLocation1">
+                                <input v-model="newDivert.locations[0]" class="mdl-textfield__input" type="text" id="divertLocation1">
                                 <label class="mdl-textfield__label" for="divertLocation1">Location 1</label>
                               </div>
                             </div>
@@ -265,35 +262,34 @@
                             </div>
                             <div class="mdl-cell mdl-cell--6-col mdl-cell--12-col-phone mdl-cell--12-col-tablet">
                               <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                                <input class="mdl-textfield__input" type="text" id="divertLocation2">
+                                <input v-model="newDivert.locations[1]" class="mdl-textfield__input" type="text" id="divertLocation2">
                                 <label class="mdl-textfield__label" for="divertLocation2">Location 2</label>
                               </div>
                             </div>
                           </div>
-                          <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+                          <a @click="addDevice('divert')" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
                             Add
                           </a>
                         </div>
-                        <!-- Proportional Tab -->
+                        <!-- Variable Tab -->
                         <div class="mdl-tabs__panel" id="variable-panel">
                           <br>
                           <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                            <select class="mdl-textfield__input" id="newVariableController" name="newVariableController">
-                              <option value="str116">Main STR116</option>
-                              <option value="str008">Secondary STR008</option>
+                            <select v-model="newVariable.controller_address" class="mdl-textfield__input" id="newVariableController" name="newVariableController">
+                              <option v-for="controller in controllers" :value="controller.address">{{ controller.name }}</option>
                             </select>
                             <label class="mdl-textfield__label" for="newVariableController">Controller</label>
                           </div>
                           <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                            <input class="mdl-textfield__input" pattern="-?[0-9]*(\.[0-9]+)?" type="text" id="newVariableAddress">
+                            <input v-model="newVariable.address" class="mdl-textfield__input" pattern="-?[0-9]*(\.[0-9]+)?" type="text" id="newVariableAddress">
                             <label class="mdl-textfield__label" for="newVariableAddress">Relay Address</label>
                             <span class="mdl-textfield__error">Needs to be a number</span>
                           </div>
                           <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                            <input class="mdl-textfield__input" type="text" id="newVariableName">
+                            <input v-model="newVariable.name" class="mdl-textfield__input" type="text" id="newVariableName">
                             <label class="mdl-textfield__label" for="newVariableName">Variable Valve Name</label>
                           </div>
-                          <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+                          <a @click="addDevice('variable')" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
                             Add
                           </a>
                         </div>
@@ -301,22 +297,21 @@
                         <div class="mdl-tabs__panel" id="pump-panel">
                           <br>
                           <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                            <select class="mdl-textfield__input" id="newPumpController" name="newPumpController">
-                              <option value="str116">Main STR116</option>
-                              <option value="str008">Secondary STR008</option>
+                            <select v-model="newPump.controller_address" class="mdl-textfield__input" id="newPumpController" name="newPumpController">
+                              <option v-for="controller in controllers" :value="controller.address">{{ controller.name }}</option>
                             </select>
                             <label class="mdl-textfield__label" for="newPumpController">Controller</label>
                           </div>
                           <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                            <input class="mdl-textfield__input" pattern="-?[0-9]*(\.[0-9]+)?" type="text" id="newPumpAddress">
+                            <input v-model="newPump.address" class="mdl-textfield__input" pattern="-?[0-9]*(\.[0-9]+)?" type="text" id="newPumpAddress">
                             <label class="mdl-textfield__label" for="newPumpAddress">Relay Address</label>
                             <span class="mdl-textfield__error">Needs to be a number</span>
                           </div>
                           <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                            <input class="mdl-textfield__input" type="text" id="newPumpName">
+                            <input v-model="newPump.name" class="mdl-textfield__input" type="text" id="newPumpName">
                             <label class="mdl-textfield__label" for="newPumpName">Pump Name</label>
                           </div>
-                          <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+                          <a @click="addDevice('pump')" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
                             Add
                           </a>
                         </div>
@@ -325,23 +320,23 @@
                           <br>
                           <!-- Controller Select -->
                           <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                            <select class="mdl-textfield__input" id="newThermoController" name="newThermoController">
-                              <option value="0">Omega CN7500</option>
+                            <select v-model="newThermo.controller_address" class="mdl-textfield__input" id="newThermoController" name="newThermoController">
+                              <option v-for="controller in controllers" :value="controller.address">{{ controller.name }}</option>
                             </select>
                             <label class="mdl-textfield__label" for="newThermoController">Controller</label>
                           </div>
                           <!-- Address Text Field -->
                           <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                            <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="newThermoAddress">
+                            <input v-model="newThermo.address" class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="newThermoAddress">
                             <label class="mdl-textfield__label" for="newThermoAddress">Address</label>
                             <span class="mdl-textfield__error">Needs to be a number</span>
                           </div>
                           <!-- Name Text Field -->
                           <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                            <input class="mdl-textfield__input" type="text" id="newThermoName">
+                            <input v-model="newThermo.name" class="mdl-textfield__input" type="text" id="newThermoName">
                             <label class="mdl-textfield__label" for="newThermoName">Thermostat Name</label>
                           </div>
-                          <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+                          <a @click="addDevice('thermostat')" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
                             Add
                           </a>
                         </div>
