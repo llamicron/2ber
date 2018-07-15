@@ -8,6 +8,15 @@ html, body {
   height: 100%;
 }
 
+@media screen and (min-width: 1400px) {
+  #slackCard {
+    background-image: url(/static/slack.png);
+    background-repeat: no-repeat;
+    background-size: auto;
+    background-position: right;
+  }
+}
+
 th.toggle-column {
   width: 1px;
 }

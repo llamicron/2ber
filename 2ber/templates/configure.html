@@ -48,7 +48,7 @@
           <a class="mdl-navigation__link" href="/dashboard">
             <i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">home</i>Dashboard</a>
           <a class="mdl-navigation__link" href="#">
-            <i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">inbox</i>Procedures</a>
+            <i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">sort</i>Procedures</a>
         </nav>
       </div>
 
@@ -73,8 +73,22 @@
                 <label class="mdl-textfield__label" for="newConfigurationName">New Configuration Name</label>
               </div>
             </div>
-            <!-- </div> -->
-
+          </div>
+          <!-- Slack Area -->
+          <div id="slackCard" class="demo-graphs mdl-shadow--2dp mdl-color--white mdl-cell mdl-cell--6-col mdl-cell--12-col-phone mdl-cell--12-col-tablet">
+            <!-- Slack Section -->
+            <h4>Configure Slack</h4>
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+              <input class="mdl-textfield__input" type="text" id="slack_webhook">
+              <label class="mdl-textfield__label" for="slack_webhook">Slack Webhook</label>
+            </div>
+            <br>
+            <button style="width: 200px" class="mdl-button mdl-js-button mdl-button--colored mdl-js-ripple-effect">
+              <i class="material-icons">
+                send
+              </i>
+              Test
+            </button>
           </div>
           <!-- Controller Area -->
           <div class="demo-graphs mdl-shadow--2dp mdl-color--white mdl-cell mdl-cell--12-col">
@@ -145,20 +159,6 @@
                       </tr>
                     </tbody>
                   </table>
-                  <hr>
-
-
-                  <!-- Info -->
-                  <div class="demo-graphs mdl-shadow--2dp mdl-color--white mdl-cell mdl-cell--12-col">
-                    <p class="info">
-                      Controllers can be relay boards (STR116, STR008), or a PID (Omega CN7500). Later, you can add a device to each controller.
-                      You can add relays to relay boards, or thermostats to PIDs. You'll need an address for each device.
-                      <br>
-                      <br> Relays can control a few different types of valves, and pumps.
-                      <br>
-                      <br> Thermostats will give you a temperature reading, and let you set a target temperature.
-                    </p>
-                  </div>
                 </div>
               </div>
             </section>
@@ -338,24 +338,6 @@
               </div>
             </section>
             <hr>
-          </div>
-          <!-- Slack Area -->
-          <div class="demo-graphs mdl-shadow--2dp mdl-color--white mdl-cell mdl-cell--12-col">
-            <!-- Slack Section -->
-            <section id="configureSlack">
-              <h4>Configure Slack</h4>
-              <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                <input class="mdl-textfield__input" type="text" id="slack_webhook">
-                <label class="mdl-textfield__label" for="slack_webhook">Slack Webhook</label>
-              </div>
-              <br>
-              <button style="width: 200px" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
-                <i class="material-icons">
-                  send
-                </i>
-                Test
-              </button>
-            </section>
           </div>
         </div>
       </main>
