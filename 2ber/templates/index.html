@@ -202,11 +202,11 @@
                           </tr>
                         </thead>
                         <tbody>
-                          <tr>
-                            <td class="mdl-data-table__cell--non-numeric">HLT Valve</td>
+                          <tr v-for="valve in deviceType('onOff')">
+                            <td class="mdl-data-table__cell--non-numeric">{{ valve.name }}</td>
                             <td>
-                              <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="onOff1Toggle">
-                                <input type="checkbox" id="onOff1Toggle" class="mdl-switch__input" checked>
+                              <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" :for="valve.name + 'OnOffState'">
+                                <input type="checkbox" :id="valve.name + 'OnOffState'" class="mdl-switch__input" checked>
                                 <span class="mdl-switch__label"></span>
                               </label>
                             </td>
@@ -223,18 +223,17 @@
                           </tr>
                         </thead>
                         <tbody>
-                          <tr>
-                            <td class="mdl-data-table__cell--non-numeric">HLT Divert</td>
+                          <tr v-for="valve in deviceType('divert')">
+                            <td class="mdl-data-table__cell--non-numeric">{{ valve.name }}</td>
                             <td class="mdl-data-table__cell--non-numeric">
                               <div style="width: 75px" class="mdl-textfield mdl-js-textfield">
-                                <select class="mdl-textfield__input" id="divert1Toggle" name="divert1Toggle">
-                                  <option value="0">Mash</option>
-                                  <option value="1">Boil</option>
+                                <select class="mdl-textfield__input" :id="valve.name + 'DivertState'" :name="valve.name + 'DivertState'">
+                                  <option value="0">{{ valve.locations["0"] }}</option>
+                                  <option value="1">{{ valve.locations["1"] }}</option>
                                 </select>
                               </div>
                             </td>
                           </tr>
-
                         </tbody>
                       </table>
                     </div>
@@ -247,12 +246,12 @@
                           </tr>
                         </thead>
                         <tbody>
-                          <tr>
-                            <td class="mdl-data-table__cell--non-numeric">Propane Valve</td>
+                          <tr v-for="valve in deviceType('variable')">
+                            <td class="mdl-data-table__cell--non-numeric">{{ valve.name }}</td>
                             <td class="mdl-data-table__cell--non-numeric">
                               <div class="mdl-textfield variable-valve-state mdl-js-textfield mdl-textfield--floating-label">
-                                <input class="mdl-textfield__input" pattern="-?[0-9]*(\.[0-9]+)?" type="tel" id="variable1State">
-                                <label class="mdl-textfield__label" for="variable1State">State</label>
+                                <input class="mdl-textfield__input" pattern="-?[0-9]*(\.[0-9]+)?" type="tel" :id="valve.name + 'variableState'">
+                                <label class="mdl-textfield__label" :for="valve.name + 'variableState'">State</label>
                                 <span class="mdl-textfield__error">Needs to be a number</span>
                               </div>
                             </td>
@@ -269,12 +268,11 @@
                           </tr>
                         </thead>
                         <tbody>
-                          <tr>
-                            <td class="mdl-data-table__cell--non-numeric">RIMS Pump</td>
+                          <tr v-for="pump in deviceType('pump')">
+                            <td class="mdl-data-table__cell--non-numeric">{{ pump.name }}</td>
                             <td class="mdl-data-table__cell--non-numeric">
-                              <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="pump1Toggle">
-                                <input type="checkbox" id="pump1Toggle" class="mdl-switch__input" checked>
-                                <span class="mdl-switch__label"></span>
+                              <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" :for="pump.name + 'PumpState'">
+                                <input type="checkbox" :id="pump.name + 'PumpState'" class="mdl-switch__input" checked>
                               </label>
                             </td>
                           </tr>

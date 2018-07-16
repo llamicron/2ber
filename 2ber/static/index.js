@@ -12,6 +12,7 @@ let x = new Vue({
   },
 
   methods: {
+    // Configurations
     getConfigurations() {
       // Get the list of saved configurations to choose from
       axios.get('/configurations').then(response => {
@@ -26,6 +27,15 @@ let x = new Vue({
     selectConfiguration(name) {
       // finds a configuration from the list by name and sets it as the current one
       this.configuration = this.configurations.filter(x => x.name == name)[0];
+    },
+    deviceType(type) {
+      // Returns an array of devices of a certain type
+      return this.configuration.devices.filter(x => x.type == type)
+    },
+
+    controllerType(type) {
+      // returns an array of controllers of a certain type
+      return this.configuration.controllers.filter(x => x.type == type)
     },
 
     // Slack Methods
@@ -52,6 +62,7 @@ let x = new Vue({
       window.open('https://navasotabrewing.slack.com/', '_blank');
     },
 
+    // Timer
     startTimer() {
       if (this.timerInput.length == 2) {
         this.timerInput = '00:' + this.timerInput;
@@ -59,7 +70,6 @@ let x = new Vue({
       this.timer.start(this.timerInput);
       this.timerInput = '';
     },
-
     pauseTimer() {
       if (this.timeRemaining == 'Done.') {
         return false;
@@ -67,14 +77,11 @@ let x = new Vue({
       this.timerInput = this.timeRemaining;
       this.timer.stop();
     },
-
     resetTimer() {
       this.timer.stop()
       this.timeRemaining = 'Done.';
       this.timerInput = '';
     },
-
-    // Timer
     timerDone() {
       if (this.sendWhenDone) {
         this.sendSlackMessage();
