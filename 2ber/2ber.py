@@ -1,5 +1,7 @@
 from flask import Flask, render_template, request, jsonify, redirect
 
+import json
+
 class CustomFlask(Flask):
     jinja_options = Flask.jinja_options.copy()
     jinja_options.update(dict(
@@ -29,6 +31,19 @@ def configuration_page():
 @app.route('/procedures')
 def procedure_page():
     return render_template('procedures.html')
+
+
+@app.route('/configurations', methods=['POST', 'GET'])
+def manage_configurations():
+    if request.method == 'POST':
+        print("POST HAHA")
+
+    if request.method == 'GET':
+        # Get configurations from json file and send
+        with open('2ber/data/configurations.json') as fi:
+            return jsonify(json.load(fi))
+    return "False"
+
 
 if __name__ == '__main__':
     app.debug = True

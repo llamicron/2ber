@@ -1,64 +1,16 @@
 var x = new Vue({
   el: '#configure',
   data: {
+    // These are the old ones
+    configurations: [],
     configurationSelect: 'create',
-    newConfigurationName: '',
-    slackWebhook: '',
-    controllers: [
-      {
-        "name": "Main STR116",
-        "type": "STR116",
-        "address": 0
-      },
-      {
-        "name": "Main Omega",
-        "type": "OmegaCN7500",
-        "address": 1
-      }
-    ],
-    devices: [
-      {
-        "name": "HLT Valve",
-        "type": "onOff",
-        "address": "4",
-        "controller_address": 0,
-        "state": 0
-      },
-      {
-        "name": "RIMS Divert",
-        "type": "divert",
-        "address": 3,
-        "controller_address": 0,
-        "locations": {
-          "0": "boil",
-          "1": "mash"
-        },
-        "state": 1
-      },
-      {
-        "name": "Propane Valve",
-        "type": "variable",
-        "address": 2,
-        "controller_address": 0,
-        "state": 0.4
-      },
-      {
-        "name": "RIMS Pump",
-        "type": "pump",
-        "address": 1,
-        "controller_address": 0,
-        "state": 1
-      },
-      {
-        "name": "RIMS Thermostat",
-        "type": "thermostat",
-        "address": 0,
-        "controller_address": 1,
-        "pv": 82.4,
-        "sv": 142.7,
-        "state": 1
-      }
-    ],
+    // This is the current one
+    configuration: {
+      name: '',
+      slackWebhook: '',
+      controllers: [],
+      devices: [],
+    },
     newController: {
       name: '',
       address: ''
@@ -110,16 +62,16 @@ var x = new Vue({
   methods: {
     deviceType(type) {
       // Returns an array of devices of a vertain type
-      return this.devices.filter(x => x.type == type)
+      return this.configuration.devices.filter(x => x.type == type)
     },
 
     controllerType(type) {
-      return this.controllers.filter(x => x.type == type)
+      return this.configuration.controllers.filter(x => x.type == type)
     },
 
     addController() {
       // Pushes new controller onto the configuration model to be sent and clears newController
-      this.controllers.push(this.newController);
+      this.configuration.controllers.push(this.newController);
       this.newController = {
         name: '',
         address: ''
@@ -128,7 +80,7 @@ var x = new Vue({
 
     addDevice(type) {
       if (type == 'onOff') {
-        this.devices.push(this.newOnOff);
+        this.configuration.devices.push(this.newOnOff);
         this.newOnOff = {
           "name": "",
           "type": "onOff",
@@ -139,7 +91,7 @@ var x = new Vue({
       }
 
       if (type == 'divert') {
-        this.devices.push(this.newDivert);
+        this.configuration.devices.push(this.newDivert);
         this.newDivert = {
           "name": "",
           "type": "divert",
@@ -154,7 +106,7 @@ var x = new Vue({
       }
 
       if (type == 'variable') {
-        this.devices.push(this.newVariable);
+        this.configuration.devices.push(this.newVariable);
         this.newVariable = {
           "name": "",
           "type": "variable",
@@ -165,7 +117,7 @@ var x = new Vue({
       }
 
       if (type == 'pump') {
-        this.devices.push(this.newPump);
+        this.configuration.devices.push(this.newPump);
         this.newPump = {
           "name": "",
           "type": "pump",
@@ -176,7 +128,7 @@ var x = new Vue({
       }
 
       if (type == 'thermostat') {
-        this.devices.push(this.newThermo);
+        this.configuration.devices.push(this.newThermo);
         this.newThermo = {
           "name": "",
           "type": "thermostat",
@@ -190,11 +142,50 @@ var x = new Vue({
     },
 
     controllerNameByAddress(adr) {
-      con = this.controllers.filter(x => x.address == adr)[0];
+      con = this.configuration.controllers.filter(x => x.address == adr)[0];
       if (con) {
         return con.name;
       }
       return '';
+    },
+
+    saveConfiguration() {
+      axios.post('/configurations', {
+        configuration: {
+          name: this.newConfigurationName,
+          slackWebhook: this.slackWebhook,
+          controllers: this.controllers,
+          devices: this.devices
+        }
+      }).then(response => {
+        console.log(response);
+      }).catch(error => {
+        console.log(error);
+      })
+    },
+
+    getSavedConfigurations() {
+      // Get from Flask
+      axios.get('/configurations').then(response => {
+        this.configurations = response.data;
+      }).catch(error => {
+        console.log(error);
+      });
+    },
+
+    testSlack() {
+      // Sends a message to make sure the slack webhook is correct
+      const options = {
+        text: "Slack works",
+      };
+
+      axios.post(this.configuration.slackWebhook, JSON.stringify(options))
+        .then(response => {
+          console.log(response);
+        })
+        .catch(error => {
+          console.log(error);
+        });
     }
   },
 
@@ -203,6 +194,33 @@ var x = new Vue({
   },
 
   mounted() {
+    this.getSavedConfigurations();
+    // This checks 'dirty' mdl-textfields. Just a patch
+    window.setInterval(function() {
+      var nodeList = document.querySelectorAll('.mdl-textfield');
 
+      Array.prototype.forEach.call(nodeList, function (elem) {
+        elem.MaterialTextfield.checkDirty();
+      });
+    }, 500)
+  },
+
+  watch: {
+    configurationSelect: function () {
+      if (this.configurationSelect != 'create') {
+        this.configuration = this.configurations.filter(x => x.safeName == this.configurationSelect)[0];
+      } else {
+        this.configuration = {
+          name: '',
+          slackWebhook: '',
+          controllers: [],
+          devices: []
+        }
+      }
+    },
+
+    configuration: function () {
+      document.querySelector('.mdl-textfield').MaterialTextfield.change();
+    }
   }
 })
