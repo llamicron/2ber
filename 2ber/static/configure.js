@@ -154,6 +154,7 @@ var x = new Vue({
         configuration: this.configuration
       }).then(response => {
         console.log(response);
+        this.message = "Configuration Saved!";
       }).catch(error => {
         console.log(error);
       })
@@ -203,7 +204,7 @@ var x = new Vue({
   watch: {
     configurationSelect: function () {
       if (this.configurationSelect != 'create') {
-        this.configuration = this.configurations.filter(x => x.safeName == this.configurationSelect)[0];
+        this.configuration = this.configurations.filter(x => x.name == this.configurationSelect)[0];
       } else {
         this.configuration = {
           name: '',

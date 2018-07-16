@@ -62,5 +62,29 @@
     ],
     "name": "Testing",
     "slackWebhook": "https://hooks.slack.com/services/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"
+  },
+  {
+    "name": "Another one",
+    "slackWebhook": "ahh a here it is",
+    "controllers": [
+      {
+        "name": "askdjfh",
+        "address": "234",
+        "type": "STR008"
+      }
+    ],
+    "devices": [
+      {
+        "name": "A new one haha",
+        "type": "divert",
+        "address": "87",
+        "controller_address": "234",
+        "locations": {
+          "0": "here",
+          "1": "there"
+        },
+        "state": ""
+      }
+    ]
   }
 ]
