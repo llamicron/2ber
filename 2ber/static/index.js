@@ -6,6 +6,9 @@ let x = new Vue({
     configuration: {},
     slackMessage: '',
     sendWhenDone: false,
+    timer: null,
+    timeRemaining: 'Done.',
+    timerInput: ''
   },
 
   methods: {
@@ -47,11 +50,52 @@ let x = new Vue({
     },
     openSlack() {
       window.open('https://navasotabrewing.slack.com/', '_blank');
+    },
+
+    startTimer() {
+      if (this.timerInput.length == 2) {
+        this.timerInput = '00:' + this.timerInput;
+      }
+      this.timer.start(this.timerInput);
+      this.timerInput = '';
+    },
+
+    pauseTimer() {
+      if (this.timeRemaining == 'Done.') {
+        return false;
+      }
+      this.timerInput = this.timeRemaining;
+      this.timer.stop();
+    },
+
+    resetTimer() {
+      this.timer.stop()
+      this.timeRemaining = 'Done.';
+      this.timerInput = '';
+    },
+
+    // Timer
+    timerDone() {
+      if (this.sendWhenDone) {
+        this.sendSlackMessage();
+      }
+      this.timeRemaining = 'Done.'
+    },
+    tick() {
+      // Tick of the timer (Tock callback)
+      this.timeRemaining = this.timer.msToTimecode(this.timer.lap());
     }
+
   },
 
   mounted() {
     this.getConfigurations();
+    this.timer = new Tock({
+      countdown: true,
+      interval: 1000,
+      callback: this.tick,
+      complete: this.timerDone,
+    })
   },
 
   watch: {
