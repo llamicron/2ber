@@ -8,6 +8,10 @@ html, body {
   height: 100%;
 }
 
+.small-button {
+  width: 100px;
+}
+
 .variable-valve-state {
   width: 75px;
 }

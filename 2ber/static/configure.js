@@ -151,12 +151,7 @@ var x = new Vue({
 
     saveConfiguration() {
       axios.post('/configurations', {
-        configuration: {
-          name: this.newConfigurationName,
-          slackWebhook: this.slackWebhook,
-          controllers: this.controllers,
-          devices: this.devices
-        }
+        configuration: this.configuration
       }).then(response => {
         console.log(response);
       }).catch(error => {

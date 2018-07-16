@@ -74,6 +74,9 @@
                 <input v-model="configuration.name" :disabled="configurationSelect != 'create'" class="mdl-textfield__input" type="text" id="newConfigurationName ">
                 <label class="mdl-textfield__label" for="newConfigurationName">New Configuration Name</label>
               </div>
+              <button @click="saveConfiguration" class="mdl-button small-button mdl-js-button mdl-button--colored mdl-js-ripple-effect">
+                Save
+              </button>
             </div>
           </div>
           <!-- Slack Area -->
@@ -85,13 +88,14 @@
               <label class="mdl-textfield__label" for="slack_webhook">Slack Webhook</label>
             </div>
             <br>
-            <button @click="testSlack" style="width: 100px" class="mdl-button mdl-js-button mdl-button--colored mdl-js-ripple-effect">
+            <button @click="testSlack" class="mdl-button small-button mdl-js-button mdl-button--colored mdl-js-ripple-effect">
               <i class="material-icons">
                 send
               </i>
               Test
             </button>
           </div>
+
           <!-- Controller Area -->
           <div class="demo-graphs mdl-shadow--2dp mdl-color--white mdl-cell mdl-cell--12-col">
             <section id="configureControllers">
@@ -139,7 +143,7 @@
                     </div>
                     <div class="mdl-card__supporting-text">
                       <!-- Only for tablet and desktop -->
-                      <table class="mdl-data-table mdl-cell--hide-phone full-width mdl-js-data-table mdl-shadow--2dp">
+                      <table v-if="configuration.controllers.length" class="mdl-data-table mdl-cell--hide-phone full-width mdl-js-data-table mdl-shadow--2dp">
                         <thead>
                           <tr>
                             <th class="mdl-data-table__cell--non-numeric">Controller Name</th>
@@ -158,6 +162,7 @@
                           </tr>
                         </tbody>
                       </table>
+                      <h5 v-if="!configuration.controllers.length">No controllers yet</h5>
                       <!-- Only for phone -->
                       <ul class="mdl-list mdl-cell--hide-desktop mdl-cell--hide-tablet">
                         <li class="mdl-list__item">
@@ -364,7 +369,7 @@
                         <br>
                         <!-- onOff Valve Display Tab -->
                         <div class="mdl-tabs__panel is-active" id="onOff-display-panel">
-                          <table class="mdl-data-table full-width mdl-js-data-table mdl-shadow--2dp">
+                          <table v-if="deviceType('onOff').length" class="mdl-data-table full-width mdl-js-data-table mdl-shadow--2dp">
                             <thead>
                               <tr>
                                 <th class="mdl-data-table__cell--non-numeric">Name</th>
@@ -387,7 +392,7 @@
                         </div>
                         <!-- Divert Display -->
                         <div class="mdl-tabs__panel" id="divert-display-panel">
-                          <table class="mdl-data-table full-width mdl-js-data-table mdl-shadow--2dp">
+                          <table v-if="deviceType('divert').length" class="mdl-data-table full-width mdl-js-data-table mdl-shadow--2dp">
                             <thead>
                               <tr>
                                 <th class="mdl-data-table__cell--non-numeric">Name</th>
@@ -419,7 +424,7 @@
                         </div>
                         <!-- Variable Display Tab -->
                         <div class="mdl-tabs__panel" id="variable-display-panel">
-                          <table class="mdl-data-table full-width mdl-js-data-table mdl-shadow--2dp">
+                          <table v-if="deviceType('variable').length" class="mdl-data-table full-width mdl-js-data-table mdl-shadow--2dp">
                             <thead>
                               <tr>
                                 <th class="mdl-data-table__cell--non-numeric">Name</th>
@@ -443,7 +448,7 @@
                         </div>
                         <!-- Pump Display Tab -->
                         <div class="mdl-tabs__panel" id="pump-display-panel">
-                          <table class="mdl-data-table full-width mdl-js-data-table mdl-shadow--2dp">
+                          <table v-if="deviceType('pump').length" class="mdl-data-table full-width mdl-js-data-table mdl-shadow--2dp">
                             <thead>
                               <tr>
                                 <th class="mdl-data-table__cell--non-numeric">Name</th>
@@ -467,7 +472,7 @@
                         </div>
                         <!-- Thermostat Display Tab -->
                         <div class="mdl-tabs__panel" id="thermostat-display-panel">
-                          <table class="mdl-data-table full-width mdl-js-data-table mdl-shadow--2dp">
+                          <table v-if="deviceType('thermostat').length" class="mdl-data-table full-width mdl-js-data-table mdl-shadow--2dp">
                             <thead>
                               <tr>
                                 <th class="mdl-data-table__cell--non-numeric">Name</th>

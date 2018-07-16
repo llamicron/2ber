@@ -1,62 +1,66 @@
 [
   {
-    "name": "Testing",
-    "safeName": "testing",
-    "slackWebhook": "https://hooks.slack.com/services/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",
     "controllers": [
       {
+        "address": 0,
         "name": "Main STR116",
-        "type": "STR116",
-        "address": 0
+        "type": "STR116"
       },
       {
+        "address": 1,
         "name": "Main Omega",
-        "type": "OmegaCN7500",
-        "address": 1
+        "type": "OmegaCN7500"
+      },
+      {
+        "address": "4",
+        "name": "Small STR008",
+        "type": "STR008"
       }
     ],
     "devices": [
       {
-        "name": "HLT Valve",
-        "type": "onOff",
         "address": "4",
         "controller_address": 0,
-        "state": 0
+        "name": "HLT Valve",
+        "state": 0,
+        "type": "onOff"
       },
       {
-        "name": "RIMS Divert",
-        "type": "divert",
         "address": 3,
         "controller_address": 0,
         "locations": {
           "0": "boil",
           "1": "mash"
         },
-        "state": 1
+        "name": "RIMS Divert",
+        "state": 1,
+        "type": "divert"
       },
       {
-        "name": "Propane Valve",
-        "type": "variable",
         "address": 2,
         "controller_address": 0,
-        "state": 0.4
+        "name": "Propane Valve",
+        "state": 0.4,
+        "type": "variable"
       },
       {
-        "name": "RIMS Pump",
-        "type": "pump",
         "address": 1,
         "controller_address": 0,
-        "state": 1
+        "name": "RIMS Pump",
+        "state": 1,
+        "type": "pump"
       },
       {
-        "name": "RIMS Thermostat",
-        "type": "thermostat",
         "address": 0,
         "controller_address": 1,
+        "name": "RIMS Thermostat",
         "pv": 82.4,
+        "state": 1,
         "sv": 142.7,
-        "state": 1
+        "type": "thermostat"
       }
-    ]
+    ],
+    "name": "Testing",
+    "slackWebhook": "https://hooks.slack.com/services/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"
   }
 ]

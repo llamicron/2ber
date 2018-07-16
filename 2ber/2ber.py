@@ -35,14 +35,21 @@ def procedure_page():
 
 @app.route('/configurations', methods=['POST', 'GET'])
 def manage_configurations():
-    if request.method == 'POST':
-        print("POST HAHA")
+    # Get configurations from json file
+    with open('2ber/data/configurations.json') as fi:
+        configs = json.load(fi)
 
-    if request.method == 'GET':
-        # Get configurations from json file and send
-        with open('2ber/data/configurations.json') as fi:
-            return jsonify(json.load(fi))
-    return "False"
+    # If you're saving a config, add it to the configs and write it to the file
+    if request.method == 'POST':
+        new_config = request.get_json()['configuration']
+        configs[:] = [d for d in configs if d.get('name') != new_config['name']]
+        configs.append(new_config)
+        with open('2ber/data/configurations.json', 'w') as fi:
+            json.dump(configs, fi, indent=2)
+
+
+    # Return the master list no matter what
+    return jsonify(configs)
 
 
 if __name__ == '__main__':
