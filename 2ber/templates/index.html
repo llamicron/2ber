@@ -41,6 +41,13 @@
       <header class="demo-header mdl-layout__header mdl-color--grey-100 mdl-color-text--grey-600">
         <div class="mdl-layout__header-row">
           <span class="mdl-layout-title">Dashboard</span>
+          <div class="mdl-layout-spacer"></div>
+          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+            <select v-model="configurationSelect" class="mdl-textfield__input" id="configurationSelect" name="configurationSelect">
+              <option v-for="config in configurations" :value="config.name">{{ config.name }}</option>
+            </select>
+            <label class="mdl-textfield__label" for="configurationSelect">Configuration</label>
+          </div>
         </div>
       </header>
       <!-- Drawer -->
@@ -60,7 +67,7 @@
         <section id="tools">
           <div class="mdl-grid">
             <!-- Left Column | Procedures -->
-            <div class="mdl-cell mdl-cell--6-col mdl-cell--12-col-phone mdl-cell--12-col-tablet">
+            <div id="runProcedure" class="mdl-cell mdl-cell--6-col mdl-cell--12-col-phone mdl-cell--12-col-tablet">
               <div class="full-width mdl-card mdl-shadow--2dp">
                 <div class="mdl-card__title">
                   <h2 class="mdl-card__title-text mdl-cell--hide-phone">
@@ -107,6 +114,7 @@
             </div>
             <!-- Right Column | Tools -->
             <div class="mdl-cell mdl-cell--6-col mdl-cell--12-col-phone mdl-cell--12-col-tablet">
+              <!-- Timer Card -->
               <div class="full-width mdl-card mdl-shadow--2dp">
                 <div class="mdl-card__title">
                   <h2 class="mdl-card__title-text">
@@ -120,7 +128,7 @@
                     <span class="mdl-textfield__error">Needs to be a number</span>
                   </div>
                   <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="sendWhenDone">
-                    <input type="checkbox" id="sendWhenDone" class="mdl-checkbox__input">
+                    <input v-model="sendWhenDone" type="checkbox" id="sendWhenDone" class="mdl-checkbox__input">
                     <span class="mdl-checkbox__label">Send Slack Message When Done</span>
                   </label>
                 </div>
@@ -136,26 +144,31 @@
                   </a>
                 </div>
               </div>
+              <!-- Slack Card -->
               <div class="full-width mdl-card mdl-shadow--2dp">
                 <div id="slackCardTitle" class="mdl-card__title">
                   <h2 class="mdl-card__title-text">Slack</h2>
                 </div>
                 <div class="mdl-card__supporting-text">
+                  <p v-if="configuration.slackChannel" class="info">Posting to:
+                    <code>{{ configuration.slackChannel }}</code>
+                  </p>
                   <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                    <textarea class="mdl-textfield__input" type="text" rows="3" id="slackMessage "></textarea>
+                    <textarea v-model="slackMessage" class="mdl-textfield__input" type="text" rows="3" id="slackMessage "></textarea>
                     <label class="mdl-textfield__label" for="slackMessage">Slack Message</label>
                   </div>
                 </div>
                 <div class="mdl-card__actions mdl-card--border">
-                  <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+                  <a @click="sendSlackMessage" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
                     <i class="material-icons">send</i>
                     Send
                   </a>
                 </div>
                 <div class="mdl-card__menu">
-                  <button onClick="location='https://navasotabrewing.slack.com/'" class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
-                    <i class="material-icons">add_circle</i>
-                  </button>
+                  <button id="slackLink" @click="openSlack" class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect"></button>
+                  <div class="mdl-tooltip mdl-tooltip--large mdl-tooltip--left" for="slackLink">
+                    navasotabrewing.slack.com
+                  </div>
                 </div>
               </div>
             </div>
@@ -285,15 +298,6 @@
                   <br>
                   <label class="temp-label" for="thermostat1SV">Target: 55˚F</label>
                   <div id="thermostat1SV" class="mdl-progress temp-bar mdl-js-progress"></div>
-                  <script>
-                    document.querySelector('#thermostat1PV').addEventListener('mdl-componentupgraded', function () {
-                      this.MaterialProgress.setProgress(33);
-                      this.MaterialProgress.setBuffer(87);
-                    });
-                    document.querySelector('#thermostat1SV').addEventListener('mdl-componentupgraded', function () {
-                      this.MaterialProgress.setProgress(55);
-                    });
-                  </script>
                   <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                     <input class="mdl-textfield__input" pattern="-?[0-9]*(\.[0-9]+)?" type="tel" id="thermostat1NewSV">
                     <label class="mdl-textfield__label" for="thermostat1NewSV">New Target Temperature</label>
@@ -316,15 +320,6 @@
                   <br>
                   <label class="temp-label" for="thermostat2SV">Target: 95˚F</label>
                   <div id="thermostat2SV" class="mdl-progress temp-bar mdl-js-progress"></div>
-                  <script>
-                    document.querySelector('#thermostat2PV').addEventListener('mdl-componentupgraded', function () {
-                      this.MaterialProgress.setProgress(95);
-                      this.MaterialProgress.setBuffer(87);
-                    });
-                    document.querySelector('#thermostat2SV').addEventListener('mdl-componentupgraded', function () {
-                      this.MaterialProgress.setProgress(95);
-                    });
-                  </script>
                   <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                     <input class="mdl-textfield__input" pattern="-?[0-9]*(\.[0-9]+)?" type="tel" id="thermostat2NewSV">
                     <label class="mdl-textfield__label" for="thermostat2NewSV">New Target Temperature</label>
@@ -343,6 +338,8 @@
       </main>
     </div>
   </div>
+
+  <script src="(( url_for('static', filename='index.js') ))"></script>
 </body>
 
 </html>

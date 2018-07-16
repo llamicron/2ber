@@ -12,6 +12,12 @@ html, body {
   cursor: pointer;
 }
 
+#slackLink {
+  background-image: url(/static/slack_circular.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
 .small-button {
   width: 100px;
 }

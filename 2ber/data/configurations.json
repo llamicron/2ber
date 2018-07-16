@@ -2,6 +2,7 @@
   {
     "name": "Another one",
     "slackWebhook": "ahh a here it is",
+    "slackChannel": "#some_channel",
     "controllers": [
       {
         "name": "askdjfh",
@@ -64,6 +65,7 @@
       }
     ],
     "name": "Testing",
+    "slackChannel": "@luke",
     "slackWebhook": "https://hooks.slack.com/services/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"
   }
 ]

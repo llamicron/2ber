@@ -87,6 +87,13 @@
               <input v-model="configuration.slackWebhook" class="mdl-textfield__input" type="text" id="slack_webhook">
               <label class="mdl-textfield__label" for="slack_webhook">Slack Webhook</label>
             </div>
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+              <input v-model="configuration.slackChannel" class="mdl-textfield__input" type="text" id="slackChannel">
+              <label class="mdl-textfield__label" for="slackChannel">Slack Channel</label>
+            </div>
+            <div class="mdl-tooltip mdl-tooltip--large mdl-tooltip--right" for="slackChannel">
+              <i>This is for display purposes only</i>
+            </div>
             <br>
             <button @click="testSlack" class="mdl-button small-button mdl-js-button mdl-button--colored mdl-js-ripple-effect">
               <i class="material-icons">

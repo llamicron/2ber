@@ -16,6 +16,7 @@ var x = new Vue({
     configuration: {
       name: '',
       slackWebhook: '',
+      slackChannel: '',
       controllers: [],
       devices: [],
     },
