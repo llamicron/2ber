@@ -71,6 +71,9 @@ var x = new Vue({
 
     addController() {
       // Pushes new controller onto the configuration model to be sent and clears newController
+      if (!this.validate(this.newController)) {
+        return false;
+      }
       this.configuration.controllers.push(this.newController);
       this.newController = {
         name: '',
@@ -86,8 +89,23 @@ var x = new Vue({
       this.configuration.devices = this.configuration.devices.filter(x => x.name != name);
     },
 
+    validate(item) {
+      delete item['state']
+      for (let key in item) {
+        var value = item[key];
+        if (value.length == 0) {
+          this.validation_message = "Validation failed. Make sure all the fields are filled.";
+          return false;
+        }
+      }
+      return true;
+    },
+
     addDevice(type) {
       if (type == 'onOff') {
+        if (!this.validate(this.newOnOff)) {
+          return false
+        }
         this.configuration.devices.push(this.newOnOff);
         this.newOnOff = {
           "name": "",
@@ -99,6 +117,9 @@ var x = new Vue({
       }
 
       if (type == 'divert') {
+        if (!this.validate(this.newDivert)) {
+          return false
+        }
         this.configuration.devices.push(this.newDivert);
         this.newDivert = {
           "name": "",
@@ -114,6 +135,9 @@ var x = new Vue({
       }
 
       if (type == 'variable') {
+        if (!this.validate(this.newVariable)) {
+          return false
+        }
         this.configuration.devices.push(this.newVariable);
         this.newVariable = {
           "name": "",
@@ -125,6 +149,9 @@ var x = new Vue({
       }
 
       if (type == 'pump') {
+        if (!this.validate(this.newPump)) {
+          return false
+        }
         this.configuration.devices.push(this.newPump);
         this.newPump = {
           "name": "",
@@ -136,6 +163,9 @@ var x = new Vue({
       }
 
       if (type == 'thermostat') {
+        if (!this.validate(this.newThermo)) {
+          return false
+        }
         this.configuration.devices.push(this.newThermo);
         this.newThermo = {
           "name": "",
