@@ -91,8 +91,37 @@ let x = new Vue({
     tick() {
       // Tick of the timer (Tock callback)
       this.timeRemaining = this.timer.msToTimecode(this.timer.lap());
-    }
+    },
 
+    // Temp Charts
+    drawBaseCharts() {
+      for (let i = 0; i < this.deviceType('thermostat').length; i++) {
+        const thermo = this.deviceType('thermostat')[i];
+        data = { series: [] }
+        options = {
+          axisX: {
+            type: Chartist.FixedScaleAxis,
+            divisor: 5,
+            labelInterpolationFnc: function (value) {
+              return moment(value).format('HH:MM:SS');
+            }
+          }
+        }
+        thermo.chart = new Chartist.Line('#thermo' + thermo.address + 'Chart', data, options);
+      }
+    },
+
+    updateThermoTemps(thermo) {
+      axios.post('/update-thermo', {
+        thermostat: thermo
+      }).then(response => {
+
+      })
+    },
+
+    updateCharts() {
+
+    },
   },
 
   mounted() {
@@ -102,7 +131,10 @@ let x = new Vue({
       interval: 1000,
       callback: this.tick,
       complete: this.timerDone,
-    })
+    });
+    setTimeout(() => {
+      this.drawBaseCharts();
+    }, 50);
   },
 
   watch: {

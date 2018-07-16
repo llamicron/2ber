@@ -17,10 +17,10 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   <meta name="apple-mobile-web-app-title" content="Material Design Lite">
   <link rel="apple-touch-icon-precomposed" href="(( url_for('static', filename='images/ios-desktop.png') ))">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.css">
 
   <link rel="shortcut icon" href="images/favicon.png">
 
-  <script src="(( url_for('static', filename='Chart.bundle.js') ))"></script>
   <script src="(( url_for('static', filename='axios.min.js') ))"></script>
   <script src="(( url_for('static', filename='material.min.js') ))"></script>
   <script src="(( url_for('static', filename='vue.js') ))"></script>
@@ -286,43 +286,13 @@
             <!-- Thermostat Column -->
             <div class="mdl-cell mdl-cell--6-col mdl-cell--12-col-phone mdl-cell--12-col-tablet">
               <!-- Thermostat Card (repeating) -->
-              <div class="mdl-card colored-card--bluegrey full-width mdl-shadow--2dp">
+              <div v-for="thermo in deviceType('thermostat')" class="mdl-card colored-card--bluegrey full-width mdl-shadow--2dp">
                 <div class="mdl-card__title">
-                  <h2 class="mdl-card__title-text">RIMS Thermostat</h2>
+                  <h2 class="mdl-card__title-text">{{ thermo.name }}</h2>
                 </div>
                 <div class="mdl-card__supporting-text">
-                  <label class="temp-label" for="thermostat1PV">Current: 33˚F</label>
-                  <div id="thermostat1PV" class="mdl-progress temp-bar mdl-js-progress"></div>
-                  <br>
-                  <label class="temp-label" for="thermostat1SV">Target: 55˚F</label>
-                  <div id="thermostat1SV" class="mdl-progress temp-bar mdl-js-progress"></div>
-                  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                    <input class="mdl-textfield__input" pattern="-?[0-9]*(\.[0-9]+)?" type="tel" id="thermostat1NewSV">
-                    <label class="mdl-textfield__label" for="thermostat1NewSV">New Target Temperature</label>
-                    <span class="mdl-textfield__error">Needs to be a number</span>
-                  </div>
-                </div>
-                <div class="mdl-card__menu">
-                  <button class="mdl-button mdl-js-button mdl-js-ripple-effect">
-                    <i class="material-icons thermo-power-button">power_settings_new</i>
-                  </button>
-                </div>
-              </div>
-              <div class="mdl-card colored-card--bluegrey full-width mdl-shadow--2dp">
-                <div class="mdl-card__title">
-                  <h2 class="mdl-card__title-text">HLT Thermostat</h2>
-                </div>
-                <div class="mdl-card__supporting-text">
-                  <label class="temp-label" for="thermostat2PV">Current: 95˚F</label>
-                  <div id="thermostat2PV" class="mdl-progress temp-bar mdl-js-progress"></div>
-                  <br>
-                  <label class="temp-label" for="thermostat2SV">Target: 95˚F</label>
-                  <div id="thermostat2SV" class="mdl-progress temp-bar mdl-js-progress"></div>
-                  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                    <input class="mdl-textfield__input" pattern="-?[0-9]*(\.[0-9]+)?" type="tel" id="thermostat2NewSV">
-                    <label class="mdl-textfield__label" for="thermostat2NewSV">New Target Temperature</label>
-                    <span class="mdl-textfield__error">Needs to be a number</span>
-                  </div>
+                  <!-- <div class="ct-chart ct-golden-section" /> -->
+                  <div :id="'thermo' + thermo.address + 'Chart'" class="ct-chart thermo-chart ct-octave" />
                 </div>
                 <div class="mdl-card__menu">
                   <button class="mdl-button mdl-js-button mdl-js-ripple-effect">
@@ -337,6 +307,9 @@
     </div>
   </div>
 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
+  <script src="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.js"></script>
+  <script src="(( url_for('static', filename='thermo_charts.js') ))"></script>
   <script src="(( url_for('static', filename='index.js') ))"></script>
 </body>
 

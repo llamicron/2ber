@@ -51,6 +51,26 @@ def manage_configurations():
     # Return the master list no matter what
     return jsonify(configs)
 
+@app.route('/thermo-data', methods=['POST'])
+def update_thermo_data():
+    thermos = request.get_json()['thermostats']
+    for i in len(thermos):
+        thermo = thermos[i]
+        # FIXME: Actually get the PV and SV
+        from random import randint
+        # PV
+        prevPV = thermo.chart.data.series['pv'].data[-1]
+        newPV = prevPV + randint(-5, 5)
+
+        thermo.chart.data.series['pv'].data.append(newPV)
+
+        # SV
+        prevSV = thermo.chart.data.series['sv'].data[-1]
+        newSV = prevSV + randint(-5, 5)
+
+        thermo.chart.data.series['sv'].data.append(newSV)
+    return jsonify(thermos)
+
 
 if __name__ == '__main__':
     app.debug = True
