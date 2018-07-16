@@ -1,3 +1,11 @@
+// This is responsible for creating a new configuration from scratch and sending it to flask to be saved
+// It can also load a previous configuration, edit it, and save it.
+// In the data section:
+//     configurations: The previously saved configurations created by the user.
+//     configuration:  The current loaded configuration. This is gradually changed as the user adds/removes devices and controllers.
+//     newController:  A temporary controller model, created from a form on the page. Once the user hits 'add', this is pushed onto the current configuration and then cleared.
+//     The other variables with the name 'new' and then the device name function the same way as 'newController'
+//     These devices are 'newOnOff', 'newDivert', 'newVariable', 'newPump', and 'newThermo'
 var x = new Vue({
   el: '#configure',
   data: {
@@ -61,16 +69,17 @@ var x = new Vue({
 
   methods: {
     deviceType(type) {
-      // Returns an array of devices of a vertain type
+      // Returns an array of devices of a certain type
       return this.configuration.devices.filter(x => x.type == type)
     },
 
     controllerType(type) {
+      // returns an array of controllers of a certain type
       return this.configuration.controllers.filter(x => x.type == type)
     },
 
     addController() {
-      // Pushes new controller onto the configuration model to be sent and clears newController
+      // Pushes new controller onto the configuration model and clears newController
       if (!this.validate(this.newController)) {
         return false;
       }
@@ -223,13 +232,10 @@ var x = new Vue({
     }
   },
 
-  computed: {
-
-  },
-
   mounted() {
     this.getSavedConfigurations();
-    // This checks 'dirty' mdl-textfields. Just a patch
+
+    // This checks 'dirty' mdl-textfields and fixes if necessary every 500 ms. Just a patch.
     window.setInterval(function() {
       var nodeList = document.querySelectorAll('.mdl-textfield');
 
@@ -241,6 +247,7 @@ var x = new Vue({
 
   watch: {
     configurationSelect: function () {
+      // Load Configuration from select box
       if (this.configurationSelect != 'create') {
         this.configuration = this.configurations.filter(x => x.name == this.configurationSelect)[0];
       } else {
@@ -251,10 +258,6 @@ var x = new Vue({
           devices: []
         }
       }
-    },
-
-    configuration: function () {
-      document.querySelector('.mdl-textfield').MaterialTextfield.change();
     }
   }
 })
