@@ -149,6 +149,8 @@
                             <th class="mdl-data-table__cell--non-numeric">Controller Name</th>
                             <th class="mdl-data-table__cell--non-numeric">Type</th>
                             <th>Address</th>
+                            <!-- Delete button -->
+                            <th></th>
                           </tr>
                         </thead>
                         <tbody>
@@ -159,6 +161,9 @@
                             <td class="mdl-data-table__cell--non-numeric">{{ controller.type }}</td>
                             <!-- Address -->
                             <td>{{ controller.address }}</td>
+                            <td>
+                              <i @click="removeController(controller.name)" class="material-icons close-button">close</i>
+                            </td>
                           </tr>
                         </tbody>
                       </table>
@@ -376,6 +381,7 @@
                                 <th class="mdl-data-table__cell--non-numeric">Controller</th>
                                 <th>Relay Address</th>
                                 <th>State</th>
+                                <th></th>
                               </tr>
                             </thead>
                             <tbody>
@@ -386,6 +392,9 @@
                                 <!-- Number -->
                                 <td>{{ valve.address }}</td>
                                 <td>Open or Closed</td>
+                                <td>
+                                  <i @click="removeDevice(valve.name)" class="material-icons close-button">close</i>
+                                </td>
                               </tr>
                             </tbody>
                           </table>
@@ -399,6 +408,7 @@
                                 <th class="mdl-data-table__cell--non-numeric">Controller</th>
                                 <th>Relay Address</th>
                                 <th>State</th>
+                                <th></th>
                               </tr>
                             </thead>
                             <tbody>
@@ -418,6 +428,9 @@
                                     {{ valve.locations["1"] }}
                                   </code>
                                 </td>
+                                <td>
+                                  <i @click="removeDevice(valve.name)" class="material-icons close-button">close</i>
+                                </td>
                               </tr>
                             </tbody>
                           </table>
@@ -431,6 +444,7 @@
                                 <th class="mdl-data-table__cell--non-numeric">Controller</th>
                                 <th>Relay Address</th>
                                 <th>State</th>
+                                <th></th>
                               </tr>
                             </thead>
                             <tbody>
@@ -442,6 +456,9 @@
                                 <td>{{ valve.address }}</td>
                                 <!-- State -->
                                 <td>Scale %</td>
+                                <td>
+                                  <i @click="removeDevice(valve.name)" class="material-icons close-button">close</i>
+                                </td>
                               </tr>
                             </tbody>
                           </table>
@@ -455,6 +472,7 @@
                                 <th class="mdl-data-table__cell--non-numeric">Controller</th>
                                 <th>Relay Address</th>
                                 <th>State</th>
+                                <th></th>
                               </tr>
                             </thead>
                             <tbody>
@@ -466,6 +484,9 @@
                                 <td>{{ pump.address }}</td>
                                 <!-- State -->
                                 <td>On or Off</td>
+                                <td>
+                                  <i @click="removeDevice(pump.name)" class="material-icons close-button">close</i>
+                                </td>
                               </tr>
                             </tbody>
                           </table>
@@ -478,6 +499,7 @@
                                 <th class="mdl-data-table__cell--non-numeric">Name</th>
                                 <th class="mdl-data-table__cell--non-numeric">Controller</th>
                                 <th>Address</th>
+                                <th></th>
                               </tr>
                             </thead>
                             <tbody>
@@ -487,6 +509,9 @@
                                 <td class="mdl-data-table__cell--non-numeric">{{ controllerNameByAddress(thermo.controller_address) }}</td>
                                 <!-- Number -->
                                 <td>{{ thermo.address }}</td>
+                                <td>
+                                  <i @click="removeDevice(thermo.name)" class="material-icons close-button">close</i>
+                                </td>
                               </tr>
                             </tbody>
                           </table>

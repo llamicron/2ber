@@ -1,20 +1,34 @@
 [
   {
+    "name": "Another one",
+    "slackWebhook": "ahh a here it is",
+    "controllers": [
+      {
+        "name": "askdjfh",
+        "address": "234",
+        "type": "STR008"
+      }
+    ],
+    "devices": [
+      {
+        "name": "A new one haha",
+        "type": "divert",
+        "address": "87",
+        "controller_address": "234",
+        "locations": {
+          "0": "here",
+          "1": "there"
+        },
+        "state": ""
+      }
+    ]
+  },
+  {
     "controllers": [
       {
         "address": 0,
         "name": "Main STR116",
         "type": "STR116"
-      },
-      {
-        "address": 1,
-        "name": "Main Omega",
-        "type": "OmegaCN7500"
-      },
-      {
-        "address": "4",
-        "name": "Small STR008",
-        "type": "STR008"
       }
     ],
     "devices": [
@@ -24,17 +38,6 @@
         "name": "HLT Valve",
         "state": 0,
         "type": "onOff"
-      },
-      {
-        "address": 3,
-        "controller_address": 0,
-        "locations": {
-          "0": "boil",
-          "1": "mash"
-        },
-        "name": "RIMS Divert",
-        "state": 1,
-        "type": "divert"
       },
       {
         "address": 2,
@@ -62,29 +65,5 @@
     ],
     "name": "Testing",
     "slackWebhook": "https://hooks.slack.com/services/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"
-  },
-  {
-    "name": "Another one",
-    "slackWebhook": "ahh a here it is",
-    "controllers": [
-      {
-        "name": "askdjfh",
-        "address": "234",
-        "type": "STR008"
-      }
-    ],
-    "devices": [
-      {
-        "name": "A new one haha",
-        "type": "divert",
-        "address": "87",
-        "controller_address": "234",
-        "locations": {
-          "0": "here",
-          "1": "there"
-        },
-        "state": ""
-      }
-    ]
   }
 ]

@@ -78,6 +78,14 @@ var x = new Vue({
       }
     },
 
+    removeController(name) {
+      this.configuration.controllers = this.configuration.controllers.filter(x => x.name != name);
+    },
+
+    removeDevice(name) {
+      this.configuration.devices = this.configuration.devices.filter(x => x.name != name);
+    },
+
     addDevice(type) {
       if (type == 'onOff') {
         this.configuration.devices.push(this.newOnOff);

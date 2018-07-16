@@ -8,6 +8,10 @@ html, body {
   height: 100%;
 }
 
+.close-button {
+  cursor: pointer;
+}
+
 .small-button {
   width: 100px;
 }
