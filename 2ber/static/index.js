@@ -180,6 +180,9 @@ let x = new Vue({
 
     addData(chart, data) {
       chart.data.datasets.forEach((dataset) => {
+        if (dataset.data.length > 0) {
+          dataset.data = dataset.data.slice(Math.max(dataset.data.length - 20, 0))
+        }
         if (dataset.tempType == 'pv') {
           dataset.data.push(data.new_pv);
         }
@@ -225,7 +228,7 @@ let x = new Vue({
     setTimeout(() => {
       this.initCharts();
     }, 50);
-    setInterval(() => {
+    this.updater = setInterval(() => {
       this.updateAllThermos();
     }, this.thermoUpdateInterval * 1000)
   },
@@ -233,6 +236,14 @@ let x = new Vue({
   watch: {
     configurationSelect: function () {
       this.selectConfiguration(this.configurationSelect);
+    },
+    thermoUpdateInterval: function () {
+      clearInterval(this.updater)
+      if (this.thermoUpdateInterval > 0) {
+        this.updater = setInterval(() => {
+          this.updateAllThermos();
+        }, this.thermoUpdateInterval * 1000)
+      }
     }
   }
 })
