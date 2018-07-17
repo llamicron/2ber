@@ -224,7 +224,7 @@
                           <!-- Controller Number input -->
                           <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                             <select v-model="newOnOff.controller_address" class="mdl-textfield__input" id="newValveController" name="newValveController">
-                              <option v-for="controller in configuration.controllers" :value="controller.address">{{ controller.name }}</option>
+                              <option v-for="controller in allControllers" :value="controller.address">{{ controller.name }}</option>
                             </select>
                             <label class="mdl-textfield__label" for="newValveController">Controller</label>
                           </div>
@@ -249,7 +249,7 @@
                           <!-- Controller Number input -->
                           <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                             <select v-model="newDivert.controller_address" class="mdl-textfield__input" id="newValveController" name="newValveController">
-                              <option v-for="controller in configuration.controllers" :value="controller.address">{{ controller.name }}</option>
+                              <option v-for="controller in allControllers" :value="controller.address">{{ controller.name }}</option>
                             </select>
                             <label class="mdl-textfield__label" for="newValveController">Controller</label>
                           </div>
@@ -292,7 +292,7 @@
                           <br>
                           <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                             <select v-model="newVariable.controller_address" class="mdl-textfield__input" id="newVariableController" name="newVariableController">
-                              <option v-for="controller in configuration.controllers" :value="controller.address">{{ controller.name }}</option>
+                              <option v-for="controller in allControllers" :value="controller.address">{{ controller.name }}</option>
                             </select>
                             <label class="mdl-textfield__label" for="newVariableController">Controller</label>
                           </div>
@@ -314,7 +314,7 @@
                           <br>
                           <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                             <select v-model="newPump.controller_address" class="mdl-textfield__input" id="newPumpController" name="newPumpController">
-                              <option v-for="controller in configuration.controllers" :value="controller.address">{{ controller.name }}</option>
+                              <option v-for="controller in allControllers" :value="controller.address">{{ controller.name }}</option>
                             </select>
                             <label class="mdl-textfield__label" for="newPumpController">Controller</label>
                           </div>
@@ -337,7 +337,7 @@
                           <!-- Controller Select -->
                           <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                             <select v-model="newThermo.controller_address" class="mdl-textfield__input" id="newThermoController" name="newThermoController">
-                              <option v-for="controller in configuration.controllers" :value="controller.address">{{ controller.name }}</option>
+                              <option v-for="controller in allControllers" :value="controller.address">{{ controller.name }}</option>
                             </select>
                             <label class="mdl-textfield__label" for="newThermoController">Controller</label>
                           </div>

@@ -127,7 +127,7 @@
                 </div>
                 <div class="mdl-card__supporting-text">
                   <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                    <input v-model="timerInput" class="mdl-textfield__input" type="tel" id="newTimerInput">
+                    <input @keydown.enter="startTimer" v-model="timerInput" class="mdl-textfield__input" type="tel" id="newTimerInput">
                     <label class="mdl-textfield__label" for="newTimerInput">New Timer (00:00)</label>
                   </div>
                   <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="sendWhenDone">
