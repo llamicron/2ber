@@ -24,6 +24,9 @@ let x = new Vue({
     timerInput: '',
     thermoUpdateInterval: 2,
   },
+  components: {
+    'temp-chart': TempChartComponent
+  },
 
   methods: {
     // Configurations
@@ -227,10 +230,10 @@ let x = new Vue({
     });
     setTimeout(() => {
       this.initCharts();
-    }, 50);
-    this.updater = setInterval(() => {
-      this.updateAllThermos();
-    }, this.thermoUpdateInterval * 1000)
+    }, 2000);
+    // this.updater = setInterval(() => {
+    //   this.updateAllThermos();
+    // }, this.thermoUpdateInterval * 1000)
   },
 
   watch: {
