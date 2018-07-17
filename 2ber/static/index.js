@@ -110,51 +110,85 @@ let x = new Vue({
     },
 
     // Temp Charts
-    drawBaseCharts() {
-      // For each thermostat, find it's DOM element and render it's chart
-      // Also attach the Chartist object to the thermostat
-      for (let i = 0; i < this.deviceType('thermostat').length; i++) {
-        const thermo = this.deviceType('thermostat')[i];
-        data = {
-          series: [{
-            name: 'pv',
-            data: [
-              { x: 1531838135, y: 53 },
-            ]
+    initCharts() {
+      var ctx = document.getElementById("thermo0Chart").getContext('2d');
+      var myChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+          datasets: [
+          {
+            label: 'Current Temp',
+            data: [{
+              x: 1531841870,
+              y: 1
+            },
+            {
+              x: 1531871970,
+              y: 10
+            },
+            {
+              x: 1531884180,
+              y: 8
+            }],
+            backgroundColor: colors.invisible,
+            borderColor: colors.redBorder,
+            borderWidth: 2
           },
           {
-            name: 'sv',
-            data: [
-              { x: 1531838135, y: 53 },
-            ]
-          }]
-        }
-        options = {
-          axisX: {
-            type: Chartist.FixedScaleAxis,
-            divisor: 5,
-            labelInterpolationFnc: function (value) {
-              return moment(value).format('HH:MM:SS');
+            label: 'Target Temp',
+            data: [{
+              x: 1531841870,
+              y: 8
+            },
+            {
+              x: 1531871970,
+              y: 5
+            },
+            {
+              x: 1531884180,
+              y: 8
+            }],
+            backgroundColor: colors.invisible,
+            borderColor: colors.blueBorder,
+            borderWidth: 2
+          }
+        ]
+        },
+        options: {
+          scales: {
+            yAxes: [{
+              ticks: {
+                beginAtZero: false
+              }
+            }],
+            xAxes: [{
+              type: 'time',
+              time: {
+                displayFormats: {
+                  'millisecond': 'hh:mm',
+                  'second': 'hh:mm',
+                  'minute': 'hh:mm',
+                  'hour': 'hh:mm',
+                  'day': 'hh:mm',
+                  'week': 'hh:mm',
+                  'month': 'hh:mm',
+                  'quarter': 'hh:mm',
+                  'year': 'hh:mm',
+                }
+              }
+            }]
+          },
+          elements: {
+            line: {
+              tension: 0.1
             }
           }
         }
-        thermo.chart = new Chartist.Line('#thermo' + thermo.address + 'Chart', data, options);
-      }
+      });
     },
 
     updateThermoTemps() {
-      // Post all thermostats to Flask. Flask will add temperature data and return the collection
-      thermos = this.configuration.devices['thermostat'];
-      axios.post('/update-thermo-data', {
-        // Well I'll be fucked
-        // Chartist has a circular reference -_-
-        thermostats: CircularJSON.stringify(thermos)
-      }).then(response => {
-        this.configuration.devices['thermostat'] = response.data;
-        console.log(response);
-      }).catch(error => {
-        console.log(error);
-      });
+
     },
 
     updateCharts() {
@@ -171,12 +205,12 @@ let x = new Vue({
       complete: this.timerDone,
     });
     setTimeout(() => {
-      this.drawBaseCharts();
+      this.initCharts();
     }, 50);
   },
 
   watch: {
-    configurationSelect: function() {
+    configurationSelect: function () {
       this.selectConfiguration(this.configurationSelect);
     }
   }
