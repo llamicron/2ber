@@ -1,85 +1,79 @@
 [
   {
-    "name": "Another one",
-    "slackWebhook": "ahh a here it is",
-    "slackChannel": "#some_channel",
-    "controllers": [
-      {
-        "name": "askdjfh",
-        "address": "234",
-        "type": "STR008"
-      }
-    ],
-    "devices": [
-      {
-        "name": "A new one haha",
-        "type": "divert",
-        "address": "87",
-        "controller_address": "234",
-        "locations": {
-          "0": "here",
-          "1": "there"
+    "controllers": {
+      "STR116": [
+        {
+          "address": 0,
+          "name": "Main STR116",
+          "type": "STR116"
+        }
+      ],
+      "OmegaCN7500": [
+        {
+          "address": 1,
+          "name": "RIMS Omega",
+          "type": "OmegaCN7500"
+        }
+      ]
+    },
+    "devices": {
+      "onOff": [
+        {
+          "address": "4",
+          "controller_address": 0,
+          "name": "HLT Valve",
+          "state": 0,
+          "type": "onOff"
+        }
+      ],
+      "variable": [
+        {
+          "address": 2,
+          "controller_address": 0,
+          "name": "Propane Valve",
+          "state": 0.4,
+          "type": "variable"
+        }
+      ],
+      "pump": [
+        {
+          "address": 1,
+          "controller_address": 0,
+          "name": "RIMS Pump",
+          "state": 1,
+          "type": "pump"
         },
-        "state": ""
-      }
-    ]
-  },
-  {
-    "controllers": [
-      {
-        "address": 0,
-        "name": "Main STR116",
-        "type": "STR116"
-      }
-    ],
-    "devices": [
-      {
-        "address": "4",
-        "controller_address": 0,
-        "name": "HLT Valve",
-        "state": 0,
-        "type": "onOff"
-      },
-      {
-        "address": 2,
-        "controller_address": 0,
-        "name": "Propane Valve",
-        "state": 0.4,
-        "type": "variable"
-      },
-      {
-        "address": 1,
-        "controller_address": 0,
-        "name": "RIMS Pump",
-        "state": 1,
-        "type": "pump"
-      },
-      {
-        "address": 0,
-        "controller_address": 1,
-        "name": "RIMS Thermostat",
-        "pv": 82.4,
-        "state": 1,
-        "sv": 142.7,
-        "type": "thermostat"
-      },
-      {
-        "address": "4",
-        "controller_address": 0,
-        "locations": {
-          "0": "mash",
-          "1": "boil"
-        },
-        "name": "Some Divert",
-        "type": "divert"
-      },
-      {
-        "name": "One More Pump",
-        "type": "pump",
-        "address": "8",
-        "controller_address": 0
-      }
-    ],
+        {
+          "name": "One More Pump",
+          "type": "pump",
+          "address": "8",
+          "controller_address": 0
+        }
+      ],
+      "thermostat": [
+        {
+          "address": 0,
+          "controller_address": 1,
+          "name": "RIMS Thermostat",
+          "state": 1,
+          "pv": [],
+          "sv": [],
+          "type": "thermostat"
+        }
+      ],
+      "divert": [
+        {
+          "address": "4",
+          "controller_address": 0,
+          "locations": {
+            "0": "mash",
+            "1": "boil"
+          },
+          "name": "Some Divert",
+          "type": "divert"
+        }
+      ]
+    },
     "name": "Testing",
     "slackChannel": "@luke",
     "slackWebhook": "https://hooks.slack.com/services/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"

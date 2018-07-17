@@ -150,7 +150,7 @@
                     </div>
                     <div class="mdl-card__supporting-text">
                       <!-- Only for tablet and desktop -->
-                      <table v-if="configuration.controllers.length" class="mdl-data-table mdl-cell--hide-phone full-width mdl-js-data-table mdl-shadow--2dp">
+                      <table class="mdl-data-table mdl-cell--hide-phone full-width mdl-js-data-table mdl-shadow--2dp">
                         <thead>
                           <tr>
                             <th class="mdl-data-table__cell--non-numeric">Controller Name</th>
@@ -161,7 +161,7 @@
                           </tr>
                         </thead>
                         <tbody>
-                          <tr v-for="controller in configuration.controllers">
+                          <tr v-for="controller in allControllers">
                             <!-- Name -->
                             <td class="mdl-data-table__cell--non-numeric">{{ controller.name }}</td>
                             <!-- Type -->
@@ -169,7 +169,7 @@
                             <!-- Address -->
                             <td>{{ controller.address }}</td>
                             <td>
-                              <i @click="removeController(controller.name)" class="material-icons close-button">close</i>
+                              <i @click="removeController(controller)" class="material-icons close-button">close</i>
                             </td>
                           </tr>
                         </tbody>
@@ -381,7 +381,7 @@
                         <br>
                         <!-- onOff Valve Display Tab -->
                         <div class="mdl-tabs__panel is-active" id="onOff-display-panel">
-                          <table v-if="deviceType('onOff').length" class="mdl-data-table full-width mdl-js-data-table mdl-shadow--2dp">
+                          <table class="mdl-data-table full-width mdl-js-data-table mdl-shadow--2dp">
                             <thead>
                               <tr>
                                 <th class="mdl-data-table__cell--non-numeric">Name</th>
@@ -400,7 +400,7 @@
                                 <td>{{ valve.address }}</td>
                                 <td>Open or Closed</td>
                                 <td>
-                                  <i @click="removeDevice(valve.name)" class="material-icons close-button">close</i>
+                                  <i @click="removeDevice(valve)" class="material-icons close-button">close</i>
                                 </td>
                               </tr>
                             </tbody>
@@ -408,7 +408,7 @@
                         </div>
                         <!-- Divert Display -->
                         <div class="mdl-tabs__panel" id="divert-display-panel">
-                          <table v-if="deviceType('divert').length" class="mdl-data-table full-width mdl-js-data-table mdl-shadow--2dp">
+                          <table class="mdl-data-table full-width mdl-js-data-table mdl-shadow--2dp">
                             <thead>
                               <tr>
                                 <th class="mdl-data-table__cell--non-numeric">Name</th>
@@ -444,7 +444,7 @@
                         </div>
                         <!-- Variable Display Tab -->
                         <div class="mdl-tabs__panel" id="variable-display-panel">
-                          <table v-if="deviceType('variable').length" class="mdl-data-table full-width mdl-js-data-table mdl-shadow--2dp">
+                          <table class="mdl-data-table full-width mdl-js-data-table mdl-shadow--2dp">
                             <thead>
                               <tr>
                                 <th class="mdl-data-table__cell--non-numeric">Name</th>
@@ -472,7 +472,7 @@
                         </div>
                         <!-- Pump Display Tab -->
                         <div class="mdl-tabs__panel" id="pump-display-panel">
-                          <table v-if="deviceType('pump').length" class="mdl-data-table full-width mdl-js-data-table mdl-shadow--2dp">
+                          <table class="mdl-data-table full-width mdl-js-data-table mdl-shadow--2dp">
                             <thead>
                               <tr>
                                 <th class="mdl-data-table__cell--non-numeric">Name</th>
@@ -500,7 +500,7 @@
                         </div>
                         <!-- Thermostat Display Tab -->
                         <div class="mdl-tabs__panel" id="thermostat-display-panel">
-                          <table v-if="deviceType('thermostat').length" class="mdl-data-table full-width mdl-js-data-table mdl-shadow--2dp">
+                          <table class="mdl-data-table full-width mdl-js-data-table mdl-shadow--2dp">
                             <thead>
                               <tr>
                                 <th class="mdl-data-table__cell--non-numeric">Name</th>

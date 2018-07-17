@@ -3,12 +3,25 @@ let x = new Vue({
   data: {
     configurationSelect: 'select',
     configurations: [],
-    configuration: {},
+    configuration: {
+      controllers: {
+        'STR116': [],
+        'STR008': [],
+        'OmegaCN7500': []
+      },
+      devices: {
+        'onOff': [],
+        'divert': [],
+        'variable': [],
+        'pump': [],
+        'thermostat': [],
+      }
+    },
     slackMessage: '',
     sendWhenDone: false,
     timer: null,
     timeRemaining: 'Done.',
-    timerInput: ''
+    timerInput: '',
   },
 
   methods: {
@@ -19,7 +32,6 @@ let x = new Vue({
         this.configurations = response.data;
         // FIXME: Remove this
         this.selectConfiguration('Testing'); // Only for dev
-        console.log(response);
       }).catch(error => {
         console.log(error);
       })
@@ -30,12 +42,16 @@ let x = new Vue({
     },
     deviceType(type) {
       // Returns an array of devices of a certain type
-      return this.configuration.devices.filter(x => x.type == type)
+      // This looks stupid but it's for backwards compatibility
+      if (!this.configuration) return [];
+      return this.configuration.devices[type]
     },
-
     controllerType(type) {
       // returns an array of controllers of a certain type
-      return this.configuration.controllers.filter(x => x.type == type)
+      // This looks stupid but it's for backwards compatibility
+      // console.log(this.configuration)
+      if (!this.configuration) return [];
+      return this.configuration.controllers[type];
     },
 
     // Slack Methods
@@ -95,9 +111,24 @@ let x = new Vue({
 
     // Temp Charts
     drawBaseCharts() {
+      // For each thermostat, find it's DOM element and render it's chart
+      // Also attach the Chartist object to the thermostat
       for (let i = 0; i < this.deviceType('thermostat').length; i++) {
         const thermo = this.deviceType('thermostat')[i];
-        data = { series: [] }
+        data = {
+          series: [{
+            name: 'pv',
+            data: [
+              { x: 1531838135, y: 53 },
+            ]
+          },
+          {
+            name: 'sv',
+            data: [
+              { x: 1531838135, y: 53 },
+            ]
+          }]
+        }
         options = {
           axisX: {
             type: Chartist.FixedScaleAxis,
@@ -111,12 +142,19 @@ let x = new Vue({
       }
     },
 
-    updateThermoTemps(thermo) {
-      axios.post('/update-thermo', {
-        thermostat: thermo
+    updateThermoTemps() {
+      // Post all thermostats to Flask. Flask will add temperature data and return the collection
+      thermos = this.configuration.devices['thermostat'];
+      axios.post('/update-thermo-data', {
+        // Well I'll be fucked
+        // Chartist has a circular reference -_-
+        thermostats: CircularJSON.stringify(thermos)
       }).then(response => {
-
-      })
+        this.configuration.devices['thermostat'] = response.data;
+        console.log(response);
+      }).catch(error => {
+        console.log(error);
+      });
     },
 
     updateCharts() {

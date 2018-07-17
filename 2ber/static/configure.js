@@ -71,12 +71,13 @@ var x = new Vue({
   methods: {
     deviceType(type) {
       // Returns an array of devices of a certain type
-      return this.configuration.devices.filter(x => x.type == type)
+      // This looks stupid but it's for backwards compatibility
+      return this.configuration.devices[type]
     },
-
     controllerType(type) {
       // returns an array of controllers of a certain type
-      return this.configuration.controllers.filter(x => x.type == type)
+      // This looks stupid but it's for backwards compatibility
+      return this.configuration.controllers[type]
     },
 
     addController() {
@@ -84,19 +85,19 @@ var x = new Vue({
       if (!this.validate(this.newController)) {
         return false;
       }
-      this.configuration.controllers.push(this.newController);
+      this.configuration.controllers[this.newController.type].push(this.newController);
       this.newController = {
         name: '',
         address: ''
       }
     },
 
-    removeController(name) {
-      this.configuration.controllers = this.configuration.controllers.filter(x => x.name != name);
+    removeController(con) {
+      this.configuration.controllers[con.type] = this.configuration.controllers[con.type].filter(x => x.name != con.name);
     },
 
-    removeDevice(name) {
-      this.configuration.devices = this.configuration.devices.filter(x => x.name != name);
+    removeDevice(dev) {
+      this.configuration.devices[dev.type] = this.configuration.devices[dev.type].filter(x => x.name != dev.name);
     },
 
     validate(item) {
@@ -114,9 +115,9 @@ var x = new Vue({
     addDevice(type) {
       if (type == 'onOff') {
         if (!this.validate(this.newOnOff)) {
-          return false
+          return false;
         }
-        this.configuration.devices.push(this.newOnOff);
+        this.configuration.devices[type].push(this.newOnOff);
         this.newOnOff = {
           "name": "",
           "type": "onOff",
@@ -130,7 +131,7 @@ var x = new Vue({
         if (!this.validate(this.newDivert)) {
           return false
         }
-        this.configuration.devices.push(this.newDivert);
+        this.configuration.devices[type].push(this.newDivert);
         this.newDivert = {
           "name": "",
           "type": "divert",
@@ -148,7 +149,7 @@ var x = new Vue({
         if (!this.validate(this.newVariable)) {
           return false
         }
-        this.configuration.devices.push(this.newVariable);
+        this.configuration.devices[type].push(this.newVariable);
         this.newVariable = {
           "name": "",
           "type": "variable",
@@ -162,7 +163,7 @@ var x = new Vue({
         if (!this.validate(this.newPump)) {
           return false
         }
-        this.configuration.devices.push(this.newPump);
+        this.configuration.devices[type].push(this.newPump);
         this.newPump = {
           "name": "",
           "type": "pump",
@@ -176,7 +177,7 @@ var x = new Vue({
         if (!this.validate(this.newThermo)) {
           return false
         }
-        this.configuration.devices.push(this.newThermo);
+        this.configuration.devices[type].push(this.newThermo);
         this.newThermo = {
           "name": "",
           "type": "thermostat",
@@ -190,7 +191,9 @@ var x = new Vue({
     },
 
     controllerNameByAddress(adr) {
-      con = this.configuration.controllers.filter(x => x.address == adr)[0];
+      controllers = Object.values(this.configuration.controllers);
+      var flat = [].concat.apply([], controllers);
+      con = flat.filter(x => x.address == adr)[0];
       if (con) {
         return con.name;
       }
@@ -231,6 +234,21 @@ var x = new Vue({
           console.log(error);
         });
     }
+  },
+
+  computed: {
+    allControllers: function() {
+      // Returns a flat array of every controller
+      controllers = Object.values(this.configuration.controllers);
+      var flat = [].concat.apply([], controllers);
+      return flat;
+    },
+    allDevices: function() {
+      // Returns a flat array of every controller
+      devices = Object.values(this.configuration.devices);
+      var flat = [].concat.apply([], devices);
+      return flat;
+    },
   },
 
   mounted() {

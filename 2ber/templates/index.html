@@ -22,6 +22,7 @@
   <link rel="shortcut icon" href="images/favicon.png">
 
   <script src="(( url_for('static', filename='axios.min.js') ))"></script>
+  <script src="(( url_for('static', filename='circular_json.js') ))"></script>
   <script src="(( url_for('static', filename='material.min.js') ))"></script>
   <script src="(( url_for('static', filename='vue.js') ))"></script>
 
@@ -202,7 +203,7 @@
                           </tr>
                         </thead>
                         <tbody>
-                          <tr v-for="valve in deviceType('onOff')">
+                          <tr v-for="valve in configuration.devices['onOff']">
                             <td class="mdl-data-table__cell--non-numeric">{{ valve.name }}</td>
                             <td>
                               <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" :for="valve.name + 'OnOffState'">
@@ -223,7 +224,7 @@
                           </tr>
                         </thead>
                         <tbody>
-                          <tr v-for="valve in deviceType('divert')">
+                          <tr v-for="valve in configuration.devices['divert']">
                             <td class="mdl-data-table__cell--non-numeric">{{ valve.name }}</td>
                             <td class="mdl-data-table__cell--non-numeric">
                               <div style="width: 75px" class="mdl-textfield mdl-js-textfield">
@@ -246,7 +247,7 @@
                           </tr>
                         </thead>
                         <tbody>
-                          <tr v-for="valve in deviceType('variable')">
+                          <tr v-for="valve in configuration.devices['variable']">
                             <td class="mdl-data-table__cell--non-numeric">{{ valve.name }}</td>
                             <td class="mdl-data-table__cell--non-numeric">
                               <div class="mdl-textfield variable-valve-state mdl-js-textfield mdl-textfield--floating-label">
@@ -268,7 +269,7 @@
                           </tr>
                         </thead>
                         <tbody>
-                          <tr v-for="pump in deviceType('pump')">
+                          <tr v-for="pump in configuration.devices['pump']">
                             <td class="mdl-data-table__cell--non-numeric">{{ pump.name }}</td>
                             <td class="mdl-data-table__cell--non-numeric">
                               <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" :for="pump.name + 'PumpState'">
@@ -286,7 +287,7 @@
             <!-- Thermostat Column -->
             <div class="mdl-cell mdl-cell--6-col mdl-cell--12-col-phone mdl-cell--12-col-tablet">
               <!-- Thermostat Card (repeating) -->
-              <div v-for="thermo in deviceType('thermostat')" class="mdl-card colored-card--bluegrey full-width mdl-shadow--2dp">
+              <div v-for="thermo in configuration.devices['thermostat']" class="mdl-card colored-card--bluegrey full-width mdl-shadow--2dp">
                 <div class="mdl-card__title">
                   <h2 class="mdl-card__title-text">{{ thermo.name }}</h2>
                 </div>

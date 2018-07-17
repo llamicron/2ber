@@ -1,6 +1,7 @@
-from flask import Flask, render_template, request, jsonify, redirect
-
+import time
 import json
+
+from flask import Flask, render_template, request, jsonify, redirect
 
 class CustomFlask(Flask):
     jinja_options = Flask.jinja_options.copy()
@@ -51,24 +52,29 @@ def manage_configurations():
     # Return the master list no matter what
     return jsonify(configs)
 
-@app.route('/thermo-data', methods=['POST'])
+@app.route('/update-thermo-data', methods=['POST'])
 def update_thermo_data():
-    thermos = request.get_json()['thermostats']
-    for i in len(thermos):
-        thermo = thermos[i]
+    thermos = json.loads(request.get_json()['thermostats'])
+
+    for thermo in thermos:
         # FIXME: Actually get the PV and SV
         from random import randint
         # PV
-        prevPV = thermo.chart.data.series['pv'].data[-1]
-        newPV = prevPV + randint(-5, 5)
-
-        thermo.chart.data.series['pv'].data.append(newPV)
-
-        # SV
-        prevSV = thermo.chart.data.series['sv'].data[-1]
-        newSV = prevSV + randint(-5, 5)
-
-        thermo.chart.data.series['sv'].data.append(newSV)
+        for series in thermo['chart']['data']['series']:
+            dataset = series['data']
+            dataset.append({
+                'x': round(time.time()),
+                # Get actual temp here
+                'y': randint(50, 200)
+            })
+        # r/badcode
+        # Welcome to hell
+        # Also fuck javascript
+        # (This limits the dataset size to the newest 20 times)
+        for i in range(len(thermo['chart']['data']['series'])):
+            data = thermo['chart']['data']['series'][i]['data']
+            print(data)
+            thermo['chart']['data']['series'][i]['data'] = data[-20:]
     return jsonify(thermos)
 
 
