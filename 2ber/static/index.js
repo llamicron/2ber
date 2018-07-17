@@ -22,6 +22,7 @@ let x = new Vue({
     timer: null,
     timeRemaining: 'Done.',
     timerInput: '',
+    thermoUpdateInterval: 2,
   },
 
   methods: {
@@ -111,48 +112,37 @@ let x = new Vue({
 
     // Temp Charts
     initCharts() {
-      var ctx = document.getElementById("thermo0Chart").getContext('2d');
-      var myChart = new Chart(ctx, {
+      // Makes a new chart for each thermostat
+      for (let i = 0; i < this.deviceType('thermostat').length; i++) {
+        const thermo = this.deviceType('thermostat')[i];
+        thermo.chart = this.newChart('thermo' + thermo.address + "Chart");
+      }
+    },
+
+    newChart(elementId) {
+      // Returns a new Chart (Chart.js)
+      var ctx = document.getElementById(elementId).getContext('2d');
+      var chart = new Chart(ctx, {
         type: 'line',
         data: {
           datasets: [
-          {
-            label: 'Current Temp',
-            data: [{
-              x: 1531841870,
-              y: 1
+            {
+              label: 'Current Temp',
+              data: [],
+              tempType: 'pv',
+              backgroundColor: colors.invisible,
+              borderColor: colors.redBorder,
+              borderWidth: 2
             },
             {
-              x: 1531871970,
-              y: 10
-            },
-            {
-              x: 1531884180,
-              y: 8
-            }],
-            backgroundColor: colors.invisible,
-            borderColor: colors.redBorder,
-            borderWidth: 2
-          },
-          {
-            label: 'Target Temp',
-            data: [{
-              x: 1531841870,
-              y: 8
-            },
-            {
-              x: 1531871970,
-              y: 5
-            },
-            {
-              x: 1531884180,
-              y: 8
-            }],
-            backgroundColor: colors.invisible,
-            borderColor: colors.blueBorder,
-            borderWidth: 2
-          }
-        ]
+              label: 'Target Temp',
+              data: [],
+              tempType: 'sv',
+              backgroundColor: colors.invisible,
+              borderColor: colors.blueBorder,
+              borderWidth: 2
+            }
+          ]
         },
         options: {
           scales: {
@@ -185,14 +175,42 @@ let x = new Vue({
           }
         }
       });
+      return chart;
     },
 
-    updateThermoTemps() {
+    addData(chart, data) {
+      chart.data.datasets.forEach((dataset) => {
+        if (dataset.tempType == 'pv') {
+          dataset.data.push(data.new_pv);
+        }
 
+        if (dataset.tempType == 'sv') {
+          dataset.data.push(data.new_sv);
+        }
+      });
+      chart.update();
     },
 
-    updateCharts() {
+    updateThermo(thermo) {
+      axios.post('/thermo-temps', {
+        // Post the location information so python knows where to look for temps
+        controller_address: thermo.controller_address,
+        address: thermo.address
+      }).then(response => {
+        // Add the returned data
+        this.addData(thermo.chart, response.data);
+        // console.log(response);
+      }).catch(error => {
+        console.log(error);
+      })
+    },
 
+    updateAllThermos() {
+      // I can't send the whole object back because chart js has a circular reference
+      for (let i = 0; i < this.deviceType('thermostat').length; i++) {
+        const thermo = this.deviceType('thermostat')[i];
+        this.updateThermo(thermo);
+      }
     },
   },
 
@@ -207,6 +225,9 @@ let x = new Vue({
     setTimeout(() => {
       this.initCharts();
     }, 50);
+    setInterval(() => {
+      this.updateAllThermos();
+    }, this.thermoUpdateInterval * 1000)
   },
 
   watch: {

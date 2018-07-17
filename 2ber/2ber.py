@@ -52,30 +52,24 @@ def manage_configurations():
     # Return the master list no matter what
     return jsonify(configs)
 
-@app.route('/update-thermo-data', methods=['POST'])
+@app.route('/thermo-temps', methods=['POST'])
 def update_thermo_data():
-    thermos = json.loads(request.get_json()['thermostats'])
+    from random import randint
+    controller_adr = request.get_json()['controller_address']
+    adr = request.get_json()['address']
+    # Get real temp
+    temps = {
+        'new_pv': {
+            'x': time.time(),
+            'y': randint(50, 200)
+        },
+        'new_sv': {
+            'x': time.time(),
+            'y': randint(50, 200)
+        }
+    }
 
-    for thermo in thermos:
-        # FIXME: Actually get the PV and SV
-        from random import randint
-        # PV
-        for series in thermo['chart']['data']['series']:
-            dataset = series['data']
-            dataset.append({
-                'x': round(time.time()),
-                # Get actual temp here
-                'y': randint(50, 200)
-            })
-        # r/badcode
-        # Welcome to hell
-        # Also fuck javascript
-        # (This limits the dataset size to the newest 20 times)
-        for i in range(len(thermo['chart']['data']['series'])):
-            data = thermo['chart']['data']['series'][i]['data']
-            print(data)
-            thermo['chart']['data']['series'][i]['data'] = data[-20:]
-    return jsonify(thermos)
+    return jsonify(temps)
 
 
 if __name__ == '__main__':
