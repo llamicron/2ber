@@ -112,112 +112,6 @@ let x = new Vue({
       // Tick of the timer (Tock callback)
       this.timeRemaining = this.timer.msToTimecode(this.timer.lap());
     },
-
-    // Temp Charts
-    initCharts() {
-      // Makes a new chart for each thermostat
-      for (let i = 0; i < this.deviceType('thermostat').length; i++) {
-        const thermo = this.deviceType('thermostat')[i];
-        thermo.chart = this.newChart('thermo' + thermo.address + "Chart");
-      }
-    },
-
-    newChart(elementId) {
-      // Returns a new Chart (Chart.js)
-      var ctx = document.getElementById(elementId).getContext('2d');
-      var chart = new Chart(ctx, {
-        type: 'line',
-        data: {
-          datasets: [
-            {
-              label: 'Current Temp',
-              data: [],
-              tempType: 'pv',
-              backgroundColor: colors.invisible,
-              borderColor: colors.redBorder,
-              borderWidth: 2
-            },
-            {
-              label: 'Target Temp',
-              data: [],
-              tempType: 'sv',
-              backgroundColor: colors.invisible,
-              borderColor: colors.blueBorder,
-              borderWidth: 2
-            }
-          ]
-        },
-        options: {
-          scales: {
-            yAxes: [{
-              ticks: {
-                beginAtZero: false
-              }
-            }],
-            xAxes: [{
-              type: 'time',
-              time: {
-                displayFormats: {
-                  'millisecond': 'hh:mm',
-                  'second': 'hh:mm',
-                  'minute': 'hh:mm',
-                  'hour': 'hh:mm',
-                  'day': 'hh:mm',
-                  'week': 'hh:mm',
-                  'month': 'hh:mm',
-                  'quarter': 'hh:mm',
-                  'year': 'hh:mm',
-                }
-              }
-            }]
-          },
-          elements: {
-            line: {
-              tension: 0.1
-            }
-          }
-        }
-      });
-      return chart;
-    },
-
-    addData(chart, data) {
-      chart.data.datasets.forEach((dataset) => {
-        if (dataset.data.length > 0) {
-          dataset.data = dataset.data.slice(Math.max(dataset.data.length - 20, 0))
-        }
-        if (dataset.tempType == 'pv') {
-          dataset.data.push(data.new_pv);
-        }
-
-        if (dataset.tempType == 'sv') {
-          dataset.data.push(data.new_sv);
-        }
-      });
-      chart.update();
-    },
-
-    updateThermo(thermo) {
-      axios.post('/thermo-temps', {
-        // Post the location information so python knows where to look for temps
-        controller_address: thermo.controller_address,
-        address: thermo.address
-      }).then(response => {
-        // Add the returned data
-        this.addData(thermo.chart, response.data);
-        // console.log(response);
-      }).catch(error => {
-        console.log(error);
-      })
-    },
-
-    updateAllThermos() {
-      // I can't send the whole object back because chart js has a circular reference
-      for (let i = 0; i < this.deviceType('thermostat').length; i++) {
-        const thermo = this.deviceType('thermostat')[i];
-        this.updateThermo(thermo);
-      }
-    },
   },
 
   mounted() {
@@ -228,12 +122,6 @@ let x = new Vue({
       callback: this.tick,
       complete: this.timerDone,
     });
-    setTimeout(() => {
-      this.initCharts();
-    }, 2000);
-    // this.updater = setInterval(() => {
-    //   this.updateAllThermos();
-    // }, this.thermoUpdateInterval * 1000)
   },
 
   watch: {
@@ -241,12 +129,9 @@ let x = new Vue({
       this.selectConfiguration(this.configurationSelect);
     },
     thermoUpdateInterval: function () {
-      clearInterval(this.updater)
-      if (this.thermoUpdateInterval > 0) {
-        this.updater = setInterval(() => {
-          this.updateAllThermos();
-        }, this.thermoUpdateInterval * 1000)
-      }
+      this.$refs.tempChart.forEach(el => {
+        el.updateInterval = this.thermoUpdateInterval;
+      });
     }
   }
 })

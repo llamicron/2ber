@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="description" content="A front-end template that helps you build fast, modern mobile web apps.">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
-  <title>Configure</title>
+  <title>Dashboard</title>
 
   <!-- Add to homescreen for Chrome on Android -->
   <meta name="mobile-web-app-capable" content="yes">
@@ -35,7 +35,7 @@
   <link rel="stylesheet" href="(( url_for('static', filename='styles.css') ))">
   <script src="(( url_for('static', filename='circular_json.js') ))"></script>
   <script src="(( url_for('static', filename='Tock.js') ))"></script>
-
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
 </head>
 
 <body>
@@ -288,32 +288,8 @@
             </div>
             <!-- Thermostat Column -->
             <div class="mdl-cell mdl-cell--6-col mdl-cell--12-col-phone mdl-cell--12-col-tablet">
-              <div id="thermostatControls" class="demo-graphs mdl-shadow--2dp mdl-color--white mdl-cell mdl-cell--12-col">
-                <h5>Chart Update Interval</h5>
-                <input id="thermoUpdateIntervalSlider" v-model="thermoUpdateInterval" class="mdl-slider mdl-js-slider" type="range" min="0" max="20" value="2" tabindex="0">
-                <div class="mdl-tooltip mdl-tooltip--large" for="thermoUpdateIntervalSlider">
-                  {{ thermoUpdateInterval }} seconds
-                </div>
-              </div>
-
-
-              <!-- Thermostat Card (repeating) -->
-              <temp-chart v-for="thermo in configuration.devices.thermostat" :key="thermo.address" :thermo="thermo"></temp-chart>
-              <!-- <div v-for="thermo in configuration.devices['thermostat']" class="mdl-card colored-card--bluegrey full-width mdl-shadow--2dp">
-                <div class="mdl-card__title">
-                  <h2 class="mdl-card__title-text">{{ thermo.name }}</h2>
-                </div>
-                <div class="mdl-card__supporting-text">
-                  <div class="temp-chart-container">
-                    <canvas :id="'thermo' + thermo.address + 'Chart'"></canvas>
-                  </div>
-                </div>
-                <div class="mdl-card__menu">
-                  <button class="mdl-button mdl-js-button mdl-js-ripple-effect">
-                    <i class="material-icons thermo-power-button">power_settings_new</i>
-                  </button>
-                </div>
-              </div> -->
+              <!-- Thermostat Card Component -->
+              <temp-chart v-for="thermo in configuration.devices.thermostat" ref="tempChart" :key="thermo.address" :thermo="thermo"></temp-chart>
             </div>
           </div>
         </section>
