@@ -41,19 +41,8 @@
 <body>
   <div id="dashboard">
     <div class="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
-      <!-- Header -->
       <main-header @select-config="configuration = $event"></main-header>
-      <!-- Drawer -->
-      <div class="demo-drawer mdl-layout__drawer mdl-color--blue-grey-900 mdl-color-text--blue-grey-50">
-        <nav class="demo-navigation mdl-navigation mdl-color--blue-grey-800">
-          <a class="mdl-navigation__link" href="/dashboard">
-            <i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">home</i>Dashboard</a>
-          <a class="mdl-navigation__link" href="/configure">
-            <i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">build</i>Configure</a>
-          <a class="mdl-navigation__link" href="/procedures">
-            <i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">sort</i>Procedures</a>
-        </nav>
-      </div>
+      <drawer></drawer>
 
 
       <!-- Main Content -->

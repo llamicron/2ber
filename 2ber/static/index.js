@@ -26,7 +26,7 @@ let x = new Vue({
   components: {
     'temp-chart': TempChartComponent,
     'main-header': MainHeaderComponent,
-    // 'drawer': DrawerComponent
+    'drawer': DrawerComponent
   },
 
   methods: {
