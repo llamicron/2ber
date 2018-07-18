@@ -139,8 +139,6 @@ TempChartComponent = Vue.component('temp-chart', {
     </div>"
 });
 
-// This component is reponsible for the header template (obv)
-// And also selecting configurations
 MainHeaderComponent = Vue.component('main-header', {
   data() {
     return {
@@ -204,6 +202,7 @@ TimerComponent = Vue.component('timer', {
       timer: null,
       timeRemaining: 'Done.',
       timerInput: '',
+      shaking: false
     }
   },
   mounted() {
@@ -236,6 +235,7 @@ TimerComponent = Vue.component('timer', {
     },
     timerDone() {
       this.$emit('timer-finish', this.sendWhenDone);
+      this.shaking = true;
     },
     tick() {
       // Tick of the timer (Tock callback)
@@ -243,9 +243,9 @@ TimerComponent = Vue.component('timer', {
     },
   },
   template:
-    "<div class=\"full-width mdl-card mdl-shadow--2dp\">\
+    "<div class=\"full-width mdl-card mdl-shadow--2dp\" @mouseover=\"shaking = false\" :class=\"{ 'shake shake-constant': shaking, }\" >\
       <div class=\"mdl-card__title\">\
-        <h2 class=\"mdl-card__title-text\">\
+        <h2 class=\"mdl-card__title-text \">\
         {{ timeRemaining }}\
         </h2>\
       </div>\
