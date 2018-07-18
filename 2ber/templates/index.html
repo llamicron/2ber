@@ -42,18 +42,7 @@
   <div id="dashboard">
     <div class="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
       <!-- Header -->
-      <header class="demo-header mdl-layout__header mdl-color--grey-100 mdl-color-text--grey-600">
-        <div class="mdl-layout__header-row">
-          <span class="mdl-layout-title">Dashboard</span>
-          <div class="mdl-layout-spacer"></div>
-          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-            <select v-model="configurationSelect" class="mdl-textfield__input" id="configurationSelect" name="configurationSelect">
-              <option v-for="config in configurations" :value="config.name">{{ config.name }}</option>
-            </select>
-            <label class="mdl-textfield__label" for="configurationSelect">Configuration</label>
-          </div>
-        </div>
-      </header>
+      <main-header @select-config="configuration = $event"></main-header>
       <!-- Drawer -->
       <div class="demo-drawer mdl-layout__drawer mdl-color--blue-grey-900 mdl-color-text--blue-grey-50">
         <nav class="demo-navigation mdl-navigation mdl-color--blue-grey-800">
@@ -65,6 +54,7 @@
             <i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">sort</i>Procedures</a>
         </nav>
       </div>
+
 
       <!-- Main Content -->
       <main class="mdl-layout__content mdl-color--grey-100">

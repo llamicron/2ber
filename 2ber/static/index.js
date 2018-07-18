@@ -1,7 +1,6 @@
 let x = new Vue({
   el: '#dashboard',
   data: {
-    configurationSelect: 'select',
     configurations: [],
     configuration: {
       controllers: {
@@ -25,7 +24,9 @@ let x = new Vue({
     thermoUpdateInterval: 2,
   },
   components: {
-    'temp-chart': TempChartComponent
+    'temp-chart': TempChartComponent,
+    'main-header': MainHeaderComponent,
+    // 'drawer': DrawerComponent
   },
 
   methods: {
@@ -34,15 +35,14 @@ let x = new Vue({
       // Get the list of saved configurations to choose from
       axios.get('/configurations').then(response => {
         this.configurations = response.data;
-        // FIXME: Remove this
-        this.selectConfiguration('Testing'); // Only for dev
       }).catch(error => {
         console.log(error);
-      })
+      });
     },
     selectConfiguration(name) {
+      console.log(name);
       // finds a configuration from the list by name and sets it as the current one
-      this.configuration = this.configurations.filter(x => x.name == name)[0];
+      // this.configuration = this.configurations.filter(x => x.name == name)[0];
     },
     deviceType(type) {
       // Returns an array of devices of a certain type
@@ -125,9 +125,6 @@ let x = new Vue({
   },
 
   watch: {
-    configurationSelect: function () {
-      this.selectConfiguration(this.configurationSelect);
-    },
     thermoUpdateInterval: function () {
       this.$refs.tempChart.forEach(el => {
         el.updateInterval = this.thermoUpdateInterval;

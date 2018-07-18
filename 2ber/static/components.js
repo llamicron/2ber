@@ -138,3 +138,48 @@ TempChartComponent = Vue.component('temp-chart', {
       </div>\
     </div>"
 });
+
+// This component is reponsible for the header template (obv)
+// And also selecting configurations
+MainHeaderComponent = Vue.component('main-header', {
+  data() {
+    return {
+      configs: [],
+      configurationSelect: '',
+    }
+  },
+  methods: {
+    getConfigurations() {
+      // Get the list of saved configurations to choose from
+      axios.get('/configurations').then(response => {
+        this.configs = response.data;
+      }).catch(error => {
+        console.log(error);
+      });
+    },
+  },
+  watch: {
+    configurationSelect: function() {
+      if (configurationSelect != '') {
+        this.$emit('select-config', this.configs.filter(x => x.name == this.configurationSelect)[0]);
+      }
+    }
+  },
+  mounted() {
+    this.getConfigurations();
+  },
+  template:
+    "<header class=\"demo-header mdl-layout__header mdl-color--grey-100 mdl-color-text--grey-600\">\
+      <div class=\"mdl-layout__header-row\">\
+        <span class=\"mdl-layout-title\">Dashboard</span>\
+        <div class=\"mdl-layout-spacer\"></div>\
+        <div class=\"mdl-textfield mdl-js-textfield mdl-textfield--floating-label\">\
+          <select v-model=\"configurationSelect\" class=\"mdl-textfield__input\" id=\"configurationSelect\" name=\"configurationSelect\">\
+            <option v-for=\"config in configs\" :value=\"config.name\">{{ config.name }}</option>\
+          </select>\
+          <label class=\"mdl-textfield__label\" for=\"configurationSelect\">Configuration</label>\
+        </div>\
+      </div>\
+    </header>"
+})
+
