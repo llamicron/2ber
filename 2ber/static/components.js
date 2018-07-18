@@ -196,3 +196,79 @@ DrawerComponent = Vue.component('drawer', {
     </nav>\
   </div>"
 })
+
+TimerComponent = Vue.component('timer', {
+  data() {
+    return {
+      sendWhenDone: false,
+      timer: null,
+      timeRemaining: 'Done.',
+      timerInput: '',
+    }
+  },
+  mounted() {
+    this.timer = new Tock({
+      countdown: true,
+      interval: 1000,
+      callback: this.tick,
+      complete: this.timerDone,
+    });
+  },
+  methods: {
+    startTimer() {
+      if (this.timerInput.length == 2) {
+        this.timerInput = '00:' + this.timerInput;
+      }
+      this.timer.start(this.timerInput);
+      this.timerInput = '';
+    },
+    pauseTimer() {
+      if (this.timeRemaining == 'Done.') {
+        return false;
+      }
+      this.timerInput = this.timeRemaining;
+      this.timer.stop();
+    },
+    resetTimer() {
+      this.timer.stop()
+      this.timeRemaining = 'Done.';
+      this.timerInput = '';
+    },
+    timerDone() {
+      this.$emit('timer-finish', this.sendWhenDone);
+    },
+    tick() {
+      // Tick of the timer (Tock callback)
+      this.timeRemaining = this.timer.msToTimecode(this.timer.lap());
+    },
+  },
+  template:
+    "<div class=\"full-width mdl-card mdl-shadow--2dp\">\
+      <div class=\"mdl-card__title\">\
+        <h2 class=\"mdl-card__title-text\">\
+        {{ timeRemaining }}\
+        </h2>\
+      </div>\
+      <div class=\"mdl-card__supporting-text\">\
+        <div class=\"mdl-textfield mdl-js-textfield mdl-textfield--floating-label\">\
+          <input @keydown.enter=\"startTimer\" v-model=\"timerInput\" class=\"mdl-textfield__input\" type=\"tel\" id=\"newTimerInput\">\
+          <label class=\"mdl-textfield__label\" for=\"newTimerInput\">New Timer (00:00)</label>\
+        </div>\
+        <label class=\"mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect\" for=\"sendWhenDone\">\
+          <input v-model=\"sendWhenDone\" type=\"checkbox\" id=\"sendWhenDone\" class=\"mdl-checkbox__input\">\
+          <span class=\"mdl-checkbox__label\">Send Slack Message When Done</span>\
+        </label>\
+      </div>\
+        <div class=\"mdl-card__actions mdl-card--border\">\
+          <a @click=\"startTimer\" class=\"mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect\">\
+            <i class=\"material-icons\">play_arrow</i>\
+          </a>\
+          <a @click=\"pauseTimer\" class=\"mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect\">\
+            <i class=\"material-icons\">pause</i>\
+          </a>\
+          <a @click=\"resetTimer\" class=\"mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect\">\
+            Clear\
+          </a>\
+        </div>\
+      </div>"
+})

@@ -26,7 +26,8 @@ let x = new Vue({
   components: {
     'temp-chart': TempChartComponent,
     'main-header': MainHeaderComponent,
-    'drawer': DrawerComponent
+    'drawer': DrawerComponent,
+    'timer': TimerComponent
   },
 
   methods: {
@@ -59,7 +60,10 @@ let x = new Vue({
     },
 
     // Slack Methods
-    sendSlackMessage() {
+    sendSlackMessage(checked=true) {
+      // Checked is the checkbox in the timer
+      if (!checked) return;
+
       if (this.slackMessage == '') {
         return false;
       }
@@ -116,12 +120,6 @@ let x = new Vue({
 
   mounted() {
     this.getConfigurations();
-    this.timer = new Tock({
-      countdown: true,
-      interval: 1000,
-      callback: this.tick,
-      complete: this.timerDone,
-    });
   },
 
   watch: {
