@@ -267,7 +267,7 @@ TimerComponent = Vue.component('timer', {
       </div>
       <div class="mdl-card__supporting-text">
         <div class="mdl-grid">
-          <div class= "mdl-cell--3-col" >
+          <div class= "mdl-cell--3-col">
             <div class="timer-input-field mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
               <input @keydown.enter="startTimer" v-model="hourInput" class="mdl-textfield__input" pattern="-?[0-9]*(\.[0-9]+)?" type="text" id="hourInput">
               <label class="mdl-textfield__label" for="hourInput">Hours</label>

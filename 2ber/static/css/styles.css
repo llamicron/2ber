@@ -25,7 +25,7 @@ html, body {
 }
 
 #slackLink {
-  background-image: url(/static/slack_circular.png);
+  background-image: url(/static/images/slack_circular.png);
     background-repeat: no-repeat;
     background-size: cover;
 }
@@ -61,7 +61,7 @@ html, body {
 
 @media screen and (min-width: 1400px) {
   #slackCard {
-    background-image: url(/static/slack.png);
+    background-image: url(/static/images/slack.png);
     background-repeat: no-repeat;
     background-size: auto;
     background-position: right;
