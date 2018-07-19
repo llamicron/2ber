@@ -213,7 +213,24 @@ TimerComponent = Vue.component('timer', {
   },
   computed: {
     timerInput: function() {
-      return this.hourInput + ':' + this.minuteInput + ':' + this.secondInput;
+      // r/badcode
+      times = [this.hourInput, this.minuteInput, this.secondInput];
+      timeString = '';
+      times.forEach(time => {
+        if (time.length == 1) {
+          timeString += '0' + time;
+        } else if (time.length == 2) {
+          timeString += time;
+        } else if (time.length > 2) {
+          timeString += time.substr(0, 2);
+        } else {
+          timeString += '00';
+        }
+      });
+      timeString = timeString.substr(0, 4) + ':' + timeString.substr(4);
+      timeString = timeString.substr(0, 2) + ':' + timeString.substr(2);
+
+      return timeString;
     }
   },
   mounted() {
@@ -231,6 +248,10 @@ TimerComponent = Vue.component('timer', {
       this.secondInput = '';
     },
     startTimer() {
+      if (this.timerInput == '00:00:00') {
+        this.resetInputs();
+        return;
+      }
       this.timer.start(this.timerInput);
       this.resetInputs();
     },
@@ -258,6 +279,7 @@ TimerComponent = Vue.component('timer', {
       this.timeRemaining = this.timer.msToTimecode(this.timer.lap());
     },
   },
+
   template: `
     <div class="full-width mdl-card mdl-shadow--2dp" @mouseover="shaking = false" :class="{ 'shake shake-constant': shaking, }">
       <div class="mdl-card__title">
@@ -267,7 +289,7 @@ TimerComponent = Vue.component('timer', {
       </div>
       <div class="mdl-card__supporting-text">
         <div class="mdl-grid">
-          <div class= "mdl-cell--3-col">
+          <div class= "timerInputCell mdl-cell--3-col">
             <div class="timer-input-field mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
               <input @keydown.enter="startTimer" v-model="hourInput" class="mdl-textfield__input" pattern="-?[0-9]*(\.[0-9]+)?" type="text" id="hourInput">
               <label class="mdl-textfield__label" for="hourInput">Hours</label>
@@ -275,14 +297,14 @@ TimerComponent = Vue.component('timer', {
             </div>
           </div>
           <div class="mdl-cell--3-col">
-            <div class="timer-input-field mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+            <div class="timerInputCell timer-input-field mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
               <input @keydown.enter="startTimer" v-model="minuteInput" class="mdl-textfield__input" pattern="-?[0-9]*(\.[0-9]+)?" type="text" id="minuteInput">
               <label class="mdl-textfield__label" for="minuteInput">Minutes</label>
               <span class="mdl-textfield__error">Needs to be a number</span>
             </div>
           </div>
           <div class="mdl-cell--3-col">
-            <div class="timer-input-field mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+            <div class="timerInputCell timer-input-field mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
               <input @keydown.enter="startTimer" v-model="secondInput" class="mdl-textfield__input" pattern="-?[0-9]*(\.[0-9]+)?" type="text" id="secondInput">
               <label class="mdl-textfield__label" for="secondInput">Seconds</label>
               <span class="mdl-textfield__error">Needs to be a number</span>
