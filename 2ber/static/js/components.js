@@ -173,7 +173,7 @@ MainHeaderComponent = Vue.component('main-header', {
       <div class="mdl-layout__header-row">
         <span class="mdl-layout-title">Dashboard</span>
         <div class="mdl-layout-spacer"></div>
-        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+        <div id="configurationSelectContainer" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
           <select v-model="configurationSelect" class="mdl-textfield__input" id="configurationSelect" name="configurationSelect">
             <option v-for="config in configs" :value="config.name">{{ config.name }}</option>
           </select>
@@ -296,14 +296,14 @@ TimerComponent = Vue.component('timer', {
               <span class="mdl-textfield__error">Needs to be a number</span>
             </div>
           </div>
-          <div class="mdl-cell--3-col">
+          <div class="timerInputCell mdl-cell--3-col">
             <div class="timerInputCell timer-input-field mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
               <input @keydown.enter="startTimer" v-model="minuteInput" class="mdl-textfield__input" pattern="-?[0-9]*(\.[0-9]+)?" type="text" id="minuteInput">
               <label class="mdl-textfield__label" for="minuteInput">Minutes</label>
               <span class="mdl-textfield__error">Needs to be a number</span>
             </div>
           </div>
-          <div class="mdl-cell--3-col">
+          <div class="timerInputCell mdl-cell--3-col">
             <div class="timerInputCell timer-input-field mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
               <input @keydown.enter="startTimer" v-model="secondInput" class="mdl-textfield__input" pattern="-?[0-9]*(\.[0-9]+)?" type="text" id="secondInput">
               <label class="mdl-textfield__label" for="secondInput">Seconds</label>
