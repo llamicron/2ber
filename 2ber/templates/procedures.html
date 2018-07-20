@@ -21,6 +21,7 @@
   <script src="(( url_for('static', filename='js/axios.min.js') ))"></script>
   <script src="(( url_for('static', filename='js/material.min.js') ))"></script>
   <script src="(( url_for('static', filename='js/vue.js') ))"></script>
+  <script src="(( url_for('static', filename='js/cookie.js') ))"></script>
 
   <!-- CSS -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
@@ -36,22 +37,9 @@
   <div id="procedures">
     <div class="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
       <!-- Header -->
-      <header class="demo-header mdl-layout__header mdl-color--grey-100 mdl-color-text--grey-600">
-        <div class="mdl-layout__header-row">
-          <span class="mdl-layout-title">Procedures</span>
-        </div>
-      </header>
+      <main-header @select-config="config = $event" title="Procedure Builder"></main-header>
       <!-- Drawer -->
-      <div class="demo-drawer mdl-layout__drawer mdl-color--blue-grey-900 mdl-color-text--blue-grey-50">
-        <nav class="demo-navigation mdl-navigation mdl-color--blue-grey-800">
-          <a class="mdl-navigation__link" href="/dashboard">
-            <i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">home</i>Dashboard</a>
-          <a class="mdl-navigation__link" href="/configure">
-            <i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">build</i>Configure</a>
-          <a class="mdl-navigation__link" href="/procedures">
-            <i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">sort</i>Procedures</a>
-        </nav>
-      </div>
+      <drawer></drawer>
 
       <!-- Main Content -->
       <main class="mdl-layout__content mdl-color--grey-100">
@@ -70,24 +58,8 @@
                     <input class="mdl-textfield__input" type="text" id="itemSearch">
                     <label class="mdl-textfield__label" for="itemSearch">Search</label>
                   </div>
-                  <section id="onOffValves">
-                    <h5>On/Off Valves</h5>
-
-                  </section>
-                  <section id="divertValves">
-                    <h5>Divert Valves</h5>
-
-                  </section>
-                  <section id="variableValves">
-                    <h5>Variable Valves</h5>
-
-                  </section>
-                  <section id="pumps">
-                    <h5>Pumps</h5>
-
-                  </section>
-                  <section id="thermostats">
-                    <h5>Thermostats</h5>
+                  <section id="devices">
+                    <h5>Devices</h5>
 
                   </section>
                   <section id="tools">
@@ -105,6 +77,10 @@
       </main>
     </div>
   </div>
+
+
+  <script src="(( url_for('static', filename='js/components.js') ))"></script>
+  <script src="(( url_for('static', filename='js/procedures.js') ))"></script>
 </body>
 
 </html>

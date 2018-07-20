@@ -45,7 +45,7 @@
 <body>
   <div id="dashboard">
     <div class="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
-      <main-header @select-config="configuration = $event"></main-header>
+      <main-header title="Dashboard" @select-config="configuration = $event"></main-header>
       <drawer></drawer>
       <!-- Main Content -->
       <main class="mdl-layout__content mdl-color--grey-100">
@@ -152,90 +152,16 @@
                     </div>
                     <br>
                     <div class="mdl-tabs__panel is-active" id="OnOff-panel">
-                      <table class="mdl-data-table full-width mdl-js-data-table mdl-shadow--2dp">
-                        <thead>
-                          <tr>
-                            <th class="mdl-data-table__cell--non-numeric">Name</th>
-                            <th class="mdl-data-table__cell--non-numeric">State</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr v-for="valve in configuration.devices['onOff']">
-                            <td class="mdl-data-table__cell--non-numeric">{{ valve.name }}</td>
-                            <td>
-                              <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" :for="valve.name + 'OnOffState'">
-                                <input type="checkbox" :id="valve.name + 'OnOffState'" class="mdl-switch__input" checked>
-                                <span class="mdl-switch__label"></span>
-                              </label>
-                            </td>
-                          </tr>
-                        </tbody>
-                      </table>
+                      <device-control-table :devices="configuration.devices.onOff"></device-control-table>
                     </div>
                     <div class="mdl-tabs__panel" id="divert-panel">
-                      <table class="mdl-data-table full-width mdl-js-data-table mdl-shadow--2dp">
-                        <thead>
-                          <tr>
-                            <th class="mdl-data-table__cell--non-numeric">Name</th>
-                            <th class="mdl-data-table__cell--non-numeric">Location</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr v-for="valve in configuration.devices['divert']">
-                            <td class="mdl-data-table__cell--non-numeric">{{ valve.name }}</td>
-                            <td class="mdl-data-table__cell--non-numeric">
-                              <div style="width: 75px" class="mdl-textfield mdl-js-textfield">
-                                <select class="mdl-textfield__input" :id="valve.name + 'DivertState'" :name="valve.name + 'DivertState'">
-                                  <option value="0">{{ valve.locations["0"] }}</option>
-                                  <option value="1">{{ valve.locations["1"] }}</option>
-                                </select>
-                              </div>
-                            </td>
-                          </tr>
-                        </tbody>
-                      </table>
+                      <device-control-table :devices="configuration.devices.divert"></device-control-table>
                     </div>
                     <div class="mdl-tabs__panel" id="variable-panel">
-                      <table class="mdl-data-table full-width mdl-js-data-table mdl-shadow--2dp">
-                        <thead>
-                          <tr>
-                            <th class="mdl-data-table__cell--non-numeric">Name</th>
-                            <th class="mdl-data-table__cell--non-numeric">State</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr v-for="valve in configuration.devices['variable']">
-                            <td class="mdl-data-table__cell--non-numeric">{{ valve.name }}</td>
-                            <td class="mdl-data-table__cell--non-numeric">
-                              <div class="mdl-textfield variable-valve-state mdl-js-textfield mdl-textfield--floating-label">
-                                <input class="mdl-textfield__input" pattern="-?[0-9]*(\.[0-9]+)?" type="tel" :id="valve.name + 'variableState'">
-                                <label class="mdl-textfield__label" :for="valve.name + 'variableState'">State</label>
-                                <span class="mdl-textfield__error">Needs to be a number</span>
-                              </div>
-                            </td>
-                          </tr>
-                        </tbody>
-                      </table>
+                      <device-control-table :devices="configuration.devices.variable"></device-control-table>
                     </div>
                     <div class="mdl-tabs__panel" id="pump-panel">
-                      <table class="mdl-data-table full-width mdl-js-data-table mdl-shadow--2dp">
-                        <thead>
-                          <tr>
-                            <th class="mdl-data-table__cell--non-numeric">Name</th>
-                            <th class="mdl-data-table__cell--non-numeric">State</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr v-for="pump in configuration.devices['pump']">
-                            <td class="mdl-data-table__cell--non-numeric">{{ pump.name }}</td>
-                            <td class="mdl-data-table__cell--non-numeric">
-                              <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" :for="pump.name + 'PumpState'">
-                                <input type="checkbox" :id="pump.name + 'PumpState'" class="mdl-switch__input" checked>
-                              </label>
-                            </td>
-                          </tr>
-                        </tbody>
-                      </table>
+                      <device-control-table :devices="configuration.devices.pump"></device-control-table>
                     </div>
                   </div>
                 </div>
@@ -255,6 +181,7 @@
 
   <!-- Custom JS -->
   <script src="(( url_for('static', filename='js/components.js') ))"></script>
+  <script src="(( url_for('static', filename='js/device_components.js') ))"></script>
   <script src="(( url_for('static', filename='js/index.js') ))"></script>
 </body>
 

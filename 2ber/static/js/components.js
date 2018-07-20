@@ -177,6 +177,7 @@ TempReading = Vue.component('temp-reading', {
 });
 
 MainHeaderComponent = Vue.component('main-header', {
+  props: ['title'],
   data() {
     return {
       configs: [],
@@ -217,7 +218,7 @@ MainHeaderComponent = Vue.component('main-header', {
   template: `
     <header class="demo-header mdl-layout__header mdl-color--grey-100 mdl-color-text--grey-600">
       <div class="mdl-layout__header-row">
-        <span class="mdl-layout-title">Dashboard</span>
+        <span class="mdl-layout-title">{{ title }}</span>
         <div class="mdl-layout-spacer"></div>
         <div id="configurationSelectContainer" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
           <select v-model="configurationSelect" class="mdl-textfield__input" id="configurationSelect" name="configurationSelect">

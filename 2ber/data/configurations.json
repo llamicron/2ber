@@ -36,6 +36,12 @@
           "name": "HLT Valve",
           "state": 0,
           "type": "onOff"
+        },
+        {
+          "name": "Another On/Off Valve",
+          "type": "onOff",
+          "address": "56",
+          "controller_address": 0
         }
       ],
       "pump": [
@@ -64,12 +70,12 @@
           "type": "thermostat"
         },
         {
-          "name": "Another Thermostat",
-          "type": "thermostat",
           "address": "9",
           "controller_address": 0,
+          "name": "Another Thermostat",
           "pv": 0,
-          "sv": 0
+          "sv": 0,
+          "type": "thermostat"
         }
       ],
       "variable": [
