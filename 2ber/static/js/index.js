@@ -23,7 +23,7 @@ let x = new Vue({
     'main-header': MainHeaderComponent,
     'drawer': DrawerComponent,
     'timer': TimerComponent,
-    'device-control-table': DeviceControlTable,
+    'devices': AllDevicesTabs,
   },
 
   methods: {

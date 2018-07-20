@@ -143,27 +143,7 @@
                   </h2>
                 </div>
                 <div class="mdl-card__supporting-text">
-                  <div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
-                    <div class="mdl-tabs__tab-bar">
-                      <a href="#OnOff-panel" class="mdl-tabs__tab is-active">On/Off</a>
-                      <a href="#divert-panel" class="mdl-tabs__tab">Diverts</a>
-                      <a href="#variable-panel" class="mdl-tabs__tab">Variables</a>
-                      <a href="#pump-panel" class="mdl-tabs__tab">Pumps</a>
-                    </div>
-                    <br>
-                    <div class="mdl-tabs__panel is-active" id="OnOff-panel">
-                      <device-control-table :devices="configuration.devices.onOff"></device-control-table>
-                    </div>
-                    <div class="mdl-tabs__panel" id="divert-panel">
-                      <device-control-table :devices="configuration.devices.divert"></device-control-table>
-                    </div>
-                    <div class="mdl-tabs__panel" id="variable-panel">
-                      <device-control-table :devices="configuration.devices.variable"></device-control-table>
-                    </div>
-                    <div class="mdl-tabs__panel" id="pump-panel">
-                      <device-control-table :devices="configuration.devices.pump"></device-control-table>
-                    </div>
-                  </div>
+                  <devices :devices="configuration.devices" :modifiable="true"></devices>
                 </div>
               </div>
             </div>
