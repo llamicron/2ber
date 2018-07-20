@@ -1,123 +1,123 @@
 TempChartComponent = Vue.component('temp-chart', {
-  props: ['thermo'],
-  data() {
-    return {
-      updateInterval: 2
-    }
-  },
-  mounted() {
-    this.init();
-    this.updater = setInterval(() => {
-      this.updateThermo(this.thermo);
-    }, this.updateInterval * 1000);
-  },
-  watch: {
-    updateInterval: function() {
-      clearInterval(this.updater);
-      if (this.updateInterval == 0) {
-        return;
-      }
-      this.updater = setInterval(() => {
-        this.updateThermo(this.thermo);
-      }, this.updateInterval * 1000)
-    }
-  },
-  methods: {
-    init() {
-      this.thermo.chart = this.newChart('thermo' + this.thermo.address + 'Chart')
-      this.updateThermo(this.thermo);
+    props: ['thermo'],
+    data() {
+        return {
+            updateInterval: 2
+        }
     },
-    updateThermo(thermo) {
-      axios.post('/thermo-temps', {
-        // Post the location information so python knows where to look for temps
-        controller_address: thermo.controller_address,
-        address: thermo.address
-      }).then(response => {
-        // Add the returned data
-        this.addData(thermo.chart, response.data);
-        // console.log(response);
-      }).catch(error => {
-        console.log(error);
-      })
+    mounted() {
+        this.init();
+        this.updater = setInterval(() => {
+            this.updateThermo(this.thermo);
+        }, this.updateInterval * 1000);
     },
-    newChart(elementId) {
-      // Returns a new Chart (Chart.js)
-      el = document.getElementById(elementId)
-      console.log(this.$refs)
-      var ctx = el.getContext('2d');
-
-      var chart = new Chart(ctx, {
-        type: 'line',
-        data: {
-          datasets: [
-            {
-              label: 'Current Temp',
-              data: [],
-              tempType: 'pv',
-              backgroundColor: colors.invisible,
-              borderColor: colors.redBorder,
-              borderWidth: 2
-            },
-            {
-              label: 'Target Temp',
-              data: [],
-              tempType: 'sv',
-              backgroundColor: colors.invisible,
-              borderColor: colors.blueBorder,
-              borderWidth: 2
+    watch: {
+        updateInterval: function() {
+            clearInterval(this.updater);
+            if (this.updateInterval == 0) {
+                return;
             }
-          ]
+            this.updater = setInterval(() => {
+                this.updateThermo(this.thermo);
+            }, this.updateInterval * 1000)
+        }
+    },
+    methods: {
+        init() {
+            this.thermo.chart = this.newChart('thermo' + this.thermo.address + 'Chart')
+            this.updateThermo(this.thermo);
         },
-        options: {
-          scales: {
-            yAxes: [{
-              ticks: {
-                beginAtZero: false
-              }
-            }],
-            xAxes: [{
-              type: 'time',
-              time: {
-                displayFormats: {
-                  'millisecond': 'hh:mm',
-                  'second': 'hh:mm',
-                  'minute': 'hh:mm',
-                  'hour': 'hh:mm',
-                  'day': 'hh:mm',
-                  'week': 'hh:mm',
-                  'month': 'hh:mm',
-                  'quarter': 'hh:mm',
-                  'year': 'hh:mm',
-                }
-              }
-            }]
-          },
-          elements: {
-            line: {
-              tension: 0.1
-            }
-          }
-        }
-      });
-      return chart;
-    },
-    addData(chart, data) {
-      chart.data.datasets.forEach((dataset) => {
-        if (dataset.data.length > 0) {
-          dataset.data = dataset.data.slice(Math.max(dataset.data.length - 20, 0))
-        }
-        if (dataset.tempType == 'pv') {
-          dataset.data.push(data.new_pv);
-        }
+        updateThermo(thermo) {
+            axios.post('/thermo-temps', {
+                // Post the location information so python knows where to look for temps
+                controller_address: thermo.controller_address,
+                address: thermo.address
+            }).then(response => {
+                // Add the returned data
+                this.addData(thermo.chart, response.data);
+                // console.log(response);
+            }).catch(error => {
+                console.log(error);
+            })
+        },
+        newChart(elementId) {
+            // Returns a new Chart (Chart.js)
+            el = document.getElementById(elementId)
+            console.log(this.$refs)
+            var ctx = el.getContext('2d');
 
-        if (dataset.tempType == 'sv') {
-          dataset.data.push(data.new_sv);
-        }
-      });
-      chart.update();
+            var chart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    datasets: [
+                        {
+                            label: 'Current Temp',
+                            data: [],
+                            tempType: 'pv',
+                            backgroundColor: colors.invisible,
+                            borderColor: colors.redBorder,
+                            borderWidth: 2
+                        },
+                        {
+                            label: 'Target Temp',
+                            data: [],
+                            tempType: 'sv',
+                            backgroundColor: colors.invisible,
+                            borderColor: colors.blueBorder,
+                            borderWidth: 2
+                        }
+                    ]
+                },
+                options: {
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: false
+                            }
+                        }],
+                        xAxes: [{
+                            type: 'time',
+                            time: {
+                                displayFormats: {
+                                    'millisecond': 'hh:mm',
+                                    'second': 'hh:mm',
+                                    'minute': 'hh:mm',
+                                    'hour': 'hh:mm',
+                                    'day': 'hh:mm',
+                                    'week': 'hh:mm',
+                                    'month': 'hh:mm',
+                                    'quarter': 'hh:mm',
+                                    'year': 'hh:mm',
+                                }
+                            }
+                        }]
+                    },
+                    elements: {
+                        line: {
+                            tension: 0.1
+                        }
+                    }
+                }
+            });
+            return chart;
+        },
+        addData(chart, data) {
+            chart.data.datasets.forEach((dataset) => {
+                if (dataset.data.length > 0) {
+                    dataset.data = dataset.data.slice(Math.max(dataset.data.length - 20, 0))
+                }
+                if (dataset.tempType == 'pv') {
+                    dataset.data.push(data.new_pv);
+                }
+
+                if (dataset.tempType == 'sv') {
+                    dataset.data.push(data.new_sv);
+                }
+            });
+            chart.update();
+        },
     },
-  },
-  template: `
+    template: `
     <div class="mdl-card colored-card--bluegrey full-width mdl-shadow--2dp">
       <div class="mdl-card__title">
         <h2 class="mdl-card__title-text">{{ thermo.name }}</h2>
@@ -143,30 +143,41 @@ TempChartComponent = Vue.component('temp-chart', {
 
 MainHeaderComponent = Vue.component('main-header', {
   data() {
-    return {
-      configs: [],
-      configurationSelect: '',
-    }
+      return {
+          configs: [],
+          configurationSelect: '',
+      }
   },
   methods: {
-    getConfigurations() {
-      // Get the list of saved configurations to choose from
-      axios.get('/configurations').then(response => {
-        this.configs = response.data;
-      }).catch(error => {
-        console.log(error);
-      });
-    },
+      getConfigurations() {
+          // Get the list of saved configurations to choose from
+          axios.get('/configurations').then(response => {
+              this.configs = response.data;
+          }).catch(error => {
+              console.log(error);
+          });
+      },
   },
   watch: {
     configurationSelect: function() {
       if (configurationSelect != '') {
+        Cookies.set('config-name', this.configurationSelect);
         this.$emit('select-config', this.configs.filter(x => x.name == this.configurationSelect)[0]);
       }
     }
   },
   mounted() {
     this.getConfigurations();
+
+    name = Cookies.get('config-name');
+    if (name) {
+      setTimeout(() => {
+        config = this.configs.filter(x => x.name == name)[0];
+        this.$emit('select-config', config);
+        document.querySelector('#configurationSelect [value="' + name + '"]').selected = true;
+      }, 50);
+    }
+
   },
   template: `
     <header class="demo-header mdl-layout__header mdl-color--grey-100 mdl-color-text--grey-600">
@@ -185,7 +196,7 @@ MainHeaderComponent = Vue.component('main-header', {
 })
 
 DrawerComponent = Vue.component('drawer', {
-  template: `
+    template: `
   <div class="demo-drawer mdl-layout__drawer mdl-color--blue-grey-900 mdl-color-text--blue-grey-50">
     <nav class="demo-navigation mdl-navigation mdl-color--blue-grey-800">
       <a class="mdl-navigation__link" href="/dashboard">
@@ -200,100 +211,100 @@ DrawerComponent = Vue.component('drawer', {
 })
 
 TimerComponent = Vue.component('timer', {
-  data() {
-    return {
-      sendWhenDone: false,
-      timer: null,
-      timeRemaining: 'Done.',
-      overflow: '',
-      overflowTimer: null,
-      shaking: false,
-      hourInput: '',
-      minuteInput: '',
-      secondInput: '',
-    }
-  },
-  computed: {
-    timerInput: function() {
-      // r/badcode
-      times = [this.hourInput, this.minuteInput, this.secondInput];
-      timeString = '';
-      times.forEach(time => {
-        if (time.length == 1) {
-          timeString += '0' + time;
-        } else if (time.length == 2) {
-          timeString += time;
-        } else if (time.length > 2) {
-          timeString += time.substr(0, 2);
-        } else {
-          timeString += '00';
+    data() {
+        return {
+            sendWhenDone: false,
+            timer: null,
+            timeRemaining: 'Done.',
+            overflow: '',
+            overflowTimer: null,
+            shaking: false,
+            hourInput: '',
+            minuteInput: '',
+            secondInput: '',
         }
-      });
-      timeString = timeString.substr(0, 4) + ':' + timeString.substr(4);
-      timeString = timeString.substr(0, 2) + ':' + timeString.substr(2);
+    },
+    computed: {
+        timerInput: function() {
+            // r/badcode
+            times = [this.hourInput, this.minuteInput, this.secondInput];
+            timeString = '';
+            times.forEach(time => {
+                if (time.length == 1) {
+                    timeString += '0' + time;
+                } else if (time.length == 2) {
+                    timeString += time;
+                } else if (time.length > 2) {
+                    timeString += time.substr(0, 2);
+                } else {
+                    timeString += '00';
+                }
+            });
+            timeString = timeString.substr(0, 4) + ':' + timeString.substr(4);
+            timeString = timeString.substr(0, 2) + ':' + timeString.substr(2);
 
-      return timeString;
-    }
-  },
-  mounted() {
-    this.timer = new Tock({
-      countdown: true,
-      interval: 1000,
-      callback: this.tick,
-      complete: this.timerDone,
-    });
-  },
-  methods: {
-    resetInputs() {
-      this.hourInput = '';
-      this.minuteInput = '';
-      this.secondInput = '';
+            return timeString;
+        }
     },
-    startTimer() {
-      if (this.timerInput == '00:00:00') {
-        this.resetInputs();
-        return;
-      }
-      this.timer.start(this.timerInput);
-      this.resetInputs();
+    mounted() {
+        this.timer = new Tock({
+            countdown: true,
+            interval: 1000,
+            callback: this.tick,
+            complete: this.timerDone,
+        });
     },
-    pauseTimer() {
-      if (this.timeRemaining == 'Done.') {
-        return false;
-      }
-      times = this.timeRemaining.split(':');
-      this.hourInput = times[0]
-      this.minuteInput = times[1]
-      this.secondInput = times[2]
-      this.timer.stop();
+    methods: {
+        resetInputs() {
+            this.hourInput = '';
+            this.minuteInput = '';
+            this.secondInput = '';
+        },
+        startTimer() {
+            if (this.timerInput == '00:00:00') {
+                this.resetInputs();
+                return;
+            }
+            this.timer.start(this.timerInput);
+            this.resetInputs();
+        },
+        pauseTimer() {
+            if (this.timeRemaining == 'Done.') {
+                return false;
+            }
+            times = this.timeRemaining.split(':');
+            this.hourInput = times[0]
+            this.minuteInput = times[1]
+            this.secondInput = times[2]
+            this.timer.stop();
+        },
+        resetTimer() {
+            if (this.overflowTimer) {
+                this.overflowTimer.stop();
+                this.overflow = '';
+            }
+            this.timer.stop()
+            this.timeRemaining = 'Done.';
+            this.resetInputs();
+        },
+        timerDone() {
+            this.$emit('timer-finish', this.sendWhenDone);
+            this.shaking = true;
+            this.overflowTimer = new Tock({
+                callback: this.overflowTick
+            });
+            this.overflowTimer.start();
+        },
+        tick() {
+            // Tick of the timer (Tock callback)
+            this.timeRemaining = this.timer.msToTimecode(this.timer.lap());
+        },
+        overflowTick() {
+            this.overflow = "+" + this.overflowTimer.msToTimecode(this.overflowTimer.lap());
+        }
     },
-    resetTimer() {
-      if (this.overflowTimer) {
-        this.overflowTimer.stop();
-        this.overflow = '';
-      }
-      this.timer.stop()
-      this.timeRemaining = 'Done.';
-      this.resetInputs();
-    },
-    timerDone() {
-      this.$emit('timer-finish', this.sendWhenDone);
-      this.shaking = true;
-      this.overflowTimer = new Tock({
-        callback: this.overflowTick
-      });
-      this.overflowTimer.start();
-    },
-    tick() {
-      // Tick of the timer (Tock callback)
-      this.timeRemaining = this.timer.msToTimecode(this.timer.lap());
-    },
-    overflowTick() {
-      this.overflow = "+" + this.overflowTimer.msToTimecode(this.overflowTimer.lap());
-    }
-  },
 
-  template: `
+    template: `
     <div class="full-width mdl-card mdl-shadow--2dp" @mouseover="shaking = false" :class="{ 'shake shake-constant': shaking, }">
       <div class="mdl-card__title">
         <h2 class="mdl-card__title-text ">

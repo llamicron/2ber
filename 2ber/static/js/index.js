@@ -1,7 +1,6 @@
 let x = new Vue({
   el: '#dashboard',
   data: {
-    configurations: [],
     configuration: {
       controllers: {
         'STR116': [],
@@ -18,10 +17,6 @@ let x = new Vue({
     },
     slackMessage: '',
     sendWhenDone: false,
-    timer: null,
-    timeRemaining: 'Done.',
-    timerInput: '',
-    thermoUpdateInterval: 2,
   },
   components: {
     'temp-chart': TempChartComponent,
@@ -31,19 +26,9 @@ let x = new Vue({
   },
 
   methods: {
-    // Configurations
-    getConfigurations() {
-      // Get the list of saved configurations to choose from
-      axios.get('/configurations').then(response => {
-        this.configurations = response.data;
-      }).catch(error => {
-        console.log(error);
-      });
-    },
-    selectConfiguration(name) {
-      console.log(name);
-      // finds a configuration from the list by name and sets it as the current one
-      // this.configuration = this.configurations.filter(x => x.name == name)[0];
+    selectConfiguration(config) {
+
+
     },
     deviceType(type) {
       // Returns an array of devices of a certain type
@@ -85,50 +70,15 @@ let x = new Vue({
     openSlack() {
       window.open('https://navasotabrewing.slack.com/', '_blank');
     },
-
-    // Timer
-    startTimer() {
-      if (this.timerInput.length == 2) {
-        this.timerInput = '00:' + this.timerInput;
-      }
-      this.timer.start(this.timerInput);
-      this.timerInput = '';
-    },
-    pauseTimer() {
-      if (this.timeRemaining == 'Done.') {
-        return false;
-      }
-      this.timerInput = this.timeRemaining;
-      this.timer.stop();
-    },
-    resetTimer() {
-      this.timer.stop()
-      this.timeRemaining = 'Done.';
-      this.timerInput = '';
-    },
-    timerDone() {
-      if (this.sendWhenDone) {
-        this.sendSlackMessage();
-      }
-      this.timeRemaining = 'Done.'
-    },
-    tick() {
-      // Tick of the timer (Tock callback)
-      this.timeRemaining = this.timer.msToTimecode(this.timer.lap());
-    },
   },
 
   mounted() {
-    this.getConfigurations();
   },
 
   watch: {
-    thermoUpdateInterval: function () {
-      this.$refs.tempChart.forEach(el => {
-        el.updateInterval = this.thermoUpdateInterval;
-      });
-    }
+    // Nothing here yet
   },
+
   updated: function() {
     this.$nextTick(function () {
       componentHandler.upgradeDom();
