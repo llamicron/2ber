@@ -205,6 +205,8 @@ TimerComponent = Vue.component('timer', {
       sendWhenDone: false,
       timer: null,
       timeRemaining: 'Done.',
+      overflow: '',
+      overflowTimer: null,
       shaking: false,
       hourInput: '',
       minuteInput: '',
@@ -266,6 +268,10 @@ TimerComponent = Vue.component('timer', {
       this.timer.stop();
     },
     resetTimer() {
+      if (this.overflowTimer) {
+        this.overflowTimer.stop();
+        this.overflow = '';
+      }
       this.timer.stop()
       this.timeRemaining = 'Done.';
       this.resetInputs();
@@ -273,18 +279,29 @@ TimerComponent = Vue.component('timer', {
     timerDone() {
       this.$emit('timer-finish', this.sendWhenDone);
       this.shaking = true;
+      this.overflowTimer = new Tock({
+        callback: this.overflowTick
+      });
+      this.overflowTimer.start();
     },
     tick() {
       // Tick of the timer (Tock callback)
       this.timeRemaining = this.timer.msToTimecode(this.timer.lap());
     },
+    overflowTick() {
+      this.overflow = "+" + this.overflowTimer.msToTimecode(this.overflowTimer.lap());
+    }
   },
 
   template: `
     <div class="full-width mdl-card mdl-shadow--2dp" @mouseover="shaking = false" :class="{ 'shake shake-constant': shaking, }">
       <div class="mdl-card__title">
         <h2 class="mdl-card__title-text ">
-        {{ timeRemaining }}
+          {{ timeRemaining }}
+        </h2>
+        <div class="mdl-layout-spacer"></div>
+        <h2 class="mdl-card__title-text ">
+          {{ overflow }}
         </h2>
       </div>
       <div class="mdl-card__supporting-text">
