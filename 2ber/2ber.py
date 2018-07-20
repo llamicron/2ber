@@ -60,11 +60,11 @@ def update_thermo_data():
     # Get real temp
     temps = {
         'new_pv': {
-            'x': time.time(),
+            'x': round(time.time()),
             'y': randint(50, 200)
         },
         'new_sv': {
-            'x': time.time(),
+            'x': round(time.time()),
             'y': randint(50, 200)
         }
     }
