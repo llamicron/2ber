@@ -278,5 +278,10 @@ var x = new Vue({
         }
       }
     }
+  },
+  updated: function () {
+    this.$nextTick(function () {
+      componentHandler.upgradeDom();
+    });
   }
 })

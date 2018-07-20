@@ -128,5 +128,10 @@ let x = new Vue({
         el.updateInterval = this.thermoUpdateInterval;
       });
     }
+  },
+  updated: function() {
+    this.$nextTick(function () {
+      componentHandler.upgradeDom();
+    });
   }
 })
