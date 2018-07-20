@@ -8,6 +8,15 @@ html, body {
   height: 100%;
 }
 
+.temp-reading {
+  margin: 0.5em;
+  width: 100px;
+}
+
+.temp-reading-label {
+  color: #607C8B !important;
+}
+
 .timer-input-field {
   width: 100px;
 }

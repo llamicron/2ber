@@ -136,14 +136,10 @@ TempChartComponent = Vue.component('temp-chart', {
       <div class="mdl-card__supporting-text">
       <div class="mdl-grid">
         <div class="mdl-cell--6-col mdl-cell--2-col-phone mdl-cell--2-col-tablet">
-          <h5>
-            <h5>{{ 'Current: ' + current('pv') + ' ˚F' }}</h5>
-          </h5>
+          <temp-reading label="Current" :value="current('pv')"></temp-reading>
         </div>
         <div class="mdl-cell--6-col mdl-cell--2-col-phone mdl-cell--2-col-tablet">
-          <h5>
-            <h5>{{ 'Target: ' + current('sv') + ' ˚F' }}</h5>
-          </h5>
+          <temp-reading label="Target" :value="current('sv')"></temp-reading>
         </div>
         </div>
         <template class="mdl-cell mdl-cell--hide-phone">
@@ -161,6 +157,20 @@ TempChartComponent = Vue.component('temp-chart', {
         <button class="mdl-button mdl-js-button mdl-js-ripple-effect">
           <i class="material-icons thermo-power-button">power_settings_new</i>
         </button>
+      </div>
+    </div>
+  `
+});
+
+TempReading = Vue.component('temp-reading', {
+  props: ['label', 'value'],
+  template: `
+    <div class="temp-reading">
+      <div class="temp-reading-label mdl-card__title-text">
+        {{ label }}
+      </div>
+      <div class="mdl-card__title-text">
+        {{ value }}˚F
       </div>
     </div>
   `
