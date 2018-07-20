@@ -110,8 +110,9 @@
                     <code>{{ configuration.slackChannel }}</code>
                   </p>
                   <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                    <textarea v-model="slackMessage" class="mdl-textfield__input" type="text" rows="3" id="slackMessage "></textarea>
-                    <label class="mdl-textfield__label" for="slackMessage">Slack Message</label>
+                    <textarea :disabled="!configuration.slackWebhook" v-model="slackMessage" class="mdl-textfield__input" type="text" rows="3" id="slackMessage "></textarea>
+                    <label v-if="configuration.slackWebhook" class="mdl-textfield__label" for="slackMessage">Slack Message</label>
+                    <label v-else class="mdl-textfield__label" for="slackMessage">Select a configuration first</label>
                   </div>
                 </div>
                 <div class="mdl-card__actions mdl-card--border">
