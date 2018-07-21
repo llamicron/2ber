@@ -45,7 +45,7 @@
       <main class="mdl-layout__content mdl-color--grey-100">
         <section id="procedures">
           <div class="mdl-grid">
-            <div class="mdl-cell mdl-cell--4-col">
+            <div class="mdl-cell mdl-cell--6-col">
               <div class="full-width mdl-card colored-card--green mdl-shadow--2dp">
                 <div class="mdl-card__title">
                   <h2 class="mdl-card__title-text mdl-cell--hide-phone">
@@ -60,16 +60,15 @@
                   </div>
                   <section id="devices">
                     <h5>Devices</h5>
-
                   </section>
                   <section id="tools">
                     <h5>Tools</h5>
-
+                    <tool-item-list @clicked="addItem($event)" :tools="tools"></tool-item-list>
                   </section>
                 </div>
               </div>
             </div>
-            <div class="mdl-cell mdl-cell--8-col">
+            <div class="mdl-cell mdl-cell--6-col">
 
             </div>
           </div>
@@ -80,6 +79,8 @@
 
 
   <script src="(( url_for('static', filename='js/components.js') ))"></script>
+  <script src="(( url_for('static', filename='js/procedure_components.js') ))"></script>
+  <script src="(( url_for('static', filename='js/device_components.js') ))"></script>
   <script src="(( url_for('static', filename='js/procedures.js') ))"></script>
 </body>
 

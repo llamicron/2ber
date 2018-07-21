@@ -375,10 +375,6 @@ TimerComponent = Vue.component('timer', {
             </div>
           </div>
         </div>
-        <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="sendWhenDone">
-          <input v-model="sendWhenDone" type="checkbox" id="sendWhenDone" class="mdl-checkbox__input">
-          <span class="mdl-checkbox__label">Send Slack Message When Done</span>
-        </label>
       </div>
         <div class="mdl-card__actions mdl-card--border">
           <a @click="startTimer" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
@@ -393,4 +389,75 @@ TimerComponent = Vue.component('timer', {
         </div>
       </div>
     `
+})
+
+SlackCard = Vue.component('slack', {
+  props: ['webhook', 'channel'],
+  data() {
+    return {
+      slackMessage: '',
+      sendWhenDone: false,
+    }
+  },
+  watch: {
+    sendWhenDone: function() {
+      this.$emit('send-when-done', this.sendWhenDone);
+    }
+  },
+  methods: {
+    sendSlackMessage(checked = true) {
+      // Checked is the checkbox in the timer
+      if (!checked) return;
+
+      if (this.slackMessage == '') {
+        return false;
+      }
+
+      const options = {
+        text: this.slackMessage,
+      };
+
+      axios.post(this.webhook, JSON.stringify(options))
+        .then(response => {
+          console.log(response);
+        })
+        .catch(error => {
+          console.log(error);
+        });
+
+      this.slackMessage = '';
+    },
+    openSlack() {
+      window.open('https://navasotabrewing.slack.com/', '_blank');
+    },
+  },
+  template: `
+    <div class="full-width mdl-card mdl-shadow--2dp">
+      <div id="slackCardTitle" class="mdl-card__title">
+        <h2 class="mdl-card__title-text">Slack</h2>
+      </div>
+      <div class="mdl-card__supporting-text">
+        <p v-show="channel" class="info">Posting to:
+          <code>{{ channel }}</code>
+        </p>
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+          <textarea :disabled="!webhook" v-model="slackMessage" class="mdl-textfield__input" type="text" rows="3" id="slackMessage"></textarea>
+          <label v-if="webhook" class="mdl-textfield__label" for="slackMessage">Slack Message</label>
+          <label v-else class="mdl-textfield__label" for="slackMessage">Select a configuration first</label>
+        </div>
+      </div>
+      <div class="mdl-card__actions mdl-card--border">
+        <a @click="sendSlackMessage" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+          <i class="material-icons">send</i>
+          Send
+        </a>
+      </div>
+      <div class="mdl-card__menu">
+        <button id="slackLink" @click="openSlack" class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect"></button>
+        <div class="mdl-tooltip mdl-tooltip--large mdl-tooltip--left" for="slackLink">
+          navasotabrewing.slack.com
+        </div>
+      </div>
+    </div>
+  `
 })

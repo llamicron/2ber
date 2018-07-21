@@ -1,0 +1,30 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+2ber.py	../2ber/2ber.py	1;"	kind:file	line:1
+CustomFlask	../2ber/2ber.py	/^class CustomFlask(Flask):$/;"	kind:class	line:6
+Flask	../2ber/2ber.py	/^from flask import Flask, render_template, request, jsonify, redirect$/;"	kind:namespace	line:4
+app	../2ber/2ber.py	/^app = CustomFlask(__name__)$/;"	kind:variable	line:17
+block_end_string	../2ber/2ber.py	/^        block_end_string='%}',$/;"	kind:variable	line:10
+block_start_string	../2ber/2ber.py	/^        block_start_string='{%',$/;"	kind:variable	line:9
+comment_end_string	../2ber/2ber.py	/^        comment_end_string='#)',$/;"	kind:variable	line:14
+comment_start_string	../2ber/2ber.py	/^        comment_start_string='(#',$/;"	kind:variable	line:13
+configuration_page	../2ber/2ber.py	/^def configuration_page():$/;"	kind:function	line:29
+dashboard	../2ber/2ber.py	/^def dashboard():$/;"	kind:function	line:25
+index	../2ber/2ber.py	/^def index():$/;"	kind:function	line:21
+jinja_options	../2ber/2ber.py	/^    jinja_options = Flask.jinja_options.copy()$/;"	kind:variable	line:7
+json	../2ber/2ber.py	/^import json$/;"	kind:namespace	line:2
+jsonify	../2ber/2ber.py	/^from flask import Flask, render_template, request, jsonify, redirect$/;"	kind:namespace	line:4
+manage_configurations	../2ber/2ber.py	/^def manage_configurations():$/;"	kind:function	line:38
+procedure_page	../2ber/2ber.py	/^def procedure_page():$/;"	kind:function	line:33
+randint	../2ber/2ber.py	/^    from random import randint$/;"	kind:namespace	line:57
+redirect	../2ber/2ber.py	/^from flask import Flask, render_template, request, jsonify, redirect$/;"	kind:namespace	line:4
+render_template	../2ber/2ber.py	/^from flask import Flask, render_template, request, jsonify, redirect$/;"	kind:namespace	line:4
+request	../2ber/2ber.py	/^from flask import Flask, render_template, request, jsonify, redirect$/;"	kind:namespace	line:4
+time	../2ber/2ber.py	/^import time$/;"	kind:namespace	line:1
+update_thermo_data	../2ber/2ber.py	/^def update_thermo_data():$/;"	kind:function	line:56
+variable_end_string	../2ber/2ber.py	/^        variable_end_string='))',$/;"	kind:variable	line:12
+variable_start_string	../2ber/2ber.py	/^        variable_start_string='((',$/;"	kind:variable	line:11

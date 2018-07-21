@@ -16,7 +16,7 @@ class CustomFlask(Flask):
 
 app = CustomFlask(__name__)
 
-# Routes
+# Pages
 @app.route('/')
 def index():
     return redirect('/dashboard')
@@ -34,6 +34,8 @@ def procedure_page():
     return render_template('procedures.html')
 
 
+
+# Resources
 @app.route('/configurations', methods=['POST', 'GET'])
 def manage_configurations():
     # Get configurations from json file
@@ -71,6 +73,11 @@ def update_thermo_data():
 
     return jsonify(temps)
 
+@app.route('/update')
+def send_new_state():
+    config = request.get_json()['config']
+    # Update state
+    return jsonify(config)
 
 if __name__ == '__main__':
     app.debug = True
