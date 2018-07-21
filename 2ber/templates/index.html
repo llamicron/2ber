@@ -45,7 +45,7 @@
 <body>
   <div id="dashboard">
     <div class="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
-      <main-header title="Dashboard" @select-config="configuration = $event"></main-header>
+      <main-header title="Dashboard" @select-config="config = $event"></main-header>
       <drawer></drawer>
       <!-- Main Content -->
       <main class="mdl-layout__content mdl-color--grey-100">
@@ -107,12 +107,12 @@
                   <h2 class="mdl-card__title-text">Slack</h2>
                 </div>
                 <div class="mdl-card__supporting-text">
-                  <p v-show="configuration.slackChannel" class="info">Posting to:
-                    <code>{{ configuration.slackChannel }}</code>
+                  <p v-show="config.slackChannel" class="info">Posting to:
+                    <code>{{ config.slackChannel }}</code>
                   </p>
                   <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                    <textarea :disabled="!configuration.slackWebhook" v-model="slackMessage" class="mdl-textfield__input" type="text" rows="3" id="slackMessage "></textarea>
-                    <label v-if="configuration.slackWebhook" class="mdl-textfield__label" for="slackMessage">Slack Message</label>
+                    <textarea :disabled="!config.slackWebhook" v-model="slackMessage" class="mdl-textfield__input" type="text" rows="3" id="slackMessage "></textarea>
+                    <label v-if="config.slackWebhook" class="mdl-textfield__label" for="slackMessage">Slack Message</label>
                     <label v-else class="mdl-textfield__label" for="slackMessage">Select a configuration first</label>
                   </div>
                 </div>
@@ -143,14 +143,14 @@
                   </h2>
                 </div>
                 <div class="mdl-card__supporting-text">
-                  <devices :devices="configuration.devices" :modifiable="true"></devices>
+                  <devices :devices="config.devices" :modifiable="true"></devices>
                 </div>
               </div>
             </div>
             <!-- Thermostat Column -->
             <div class="mdl-cell mdl-cell--6-col mdl-cell--12-col-phone mdl-cell--12-col-tablet">
               <!-- Thermostat Card Component -->
-              <temp-chart v-for="thermo in configuration.devices.thermostat" ref="tempChart" :key="thermo.address" :thermo="thermo"></temp-chart>
+              <temp-chart v-for="thermo in config.devices.thermostat" ref="tempChart" :key="thermo.address" :thermo="thermo"></temp-chart>
             </div>
           </div>
         </section>

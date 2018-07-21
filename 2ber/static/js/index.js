@@ -1,7 +1,7 @@
 let x = new Vue({
   el: '#dashboard',
   data: {
-    configuration: {
+    config: {
       controllers: {
         'STR116': [],
         'STR008': [],
@@ -27,22 +27,18 @@ let x = new Vue({
   },
 
   methods: {
-    selectConfiguration(config) {
-
-
-    },
     deviceType(type) {
       // Returns an array of devices of a certain type
       // This looks stupid but it's for backwards compatibility
-      if (!this.configuration) return [];
-      return this.configuration.devices[type]
+      if (!this.config) return [];
+      return this.config.devices[type]
     },
     controllerType(type) {
       // returns an array of controllers of a certain type
       // This looks stupid but it's for backwards compatibility
-      // console.log(this.configuration)
-      if (!this.configuration) return [];
-      return this.configuration.controllers[type];
+      // console.log(this.config)
+      if (!this.config) return [];
+      return this.config.controllers[type];
     },
 
     // Slack Methods
@@ -58,7 +54,7 @@ let x = new Vue({
         text: this.slackMessage,
       };
 
-      axios.post(this.configuration.slackWebhook, JSON.stringify(options))
+      axios.post(this.config.slackWebhook, JSON.stringify(options))
         .then(response => {
           console.log(response);
         })
