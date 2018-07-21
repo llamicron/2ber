@@ -3,7 +3,9 @@ TempChartComponent = Vue.component('temp-chart', {
   props: ['thermo'],
   data() {
     return {
-      updateInterval: 2
+      // This is for performance enhancement
+      showChart: true,
+      updateInterval: 20
     }
   },
   mounted() {

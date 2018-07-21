@@ -83,6 +83,8 @@ def send_new_state(id):
         config['lastPosted'] = round(time.time())
         print('posted')
         return jsonify(config)
+
+
 if __name__ == '__main__':
     app.debug = True
     app.run('0.0.0.0')

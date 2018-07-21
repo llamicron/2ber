@@ -15,6 +15,7 @@ let x = new Vue({
         'thermostat': [],
       }
     },
+    stateUpdator: null,
   },
   components: {
     'temp-chart': TempChartComponent,
@@ -30,7 +31,6 @@ let x = new Vue({
       axios.get(url)
       .then(response => {
         this.config = response.data;
-        console.log(response);
       }).catch(error => {
         console.log(error);
       })
@@ -48,6 +48,11 @@ let x = new Vue({
     }
   },
 
+  mounted() {
+    this.stateUpdator = setInterval(function() {
+      x.getState();
+    }, 3000)
+  },
   updated: function() {
     this.$nextTick(function () {
       componentHandler.upgradeDom();
