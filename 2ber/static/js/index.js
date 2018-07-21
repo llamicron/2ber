@@ -25,10 +25,22 @@ let x = new Vue({
     'slack': SlackCard
   },
   methods: {
-    updateState() {
-      axios.post('/update', {
+    getState() {
+      url = '/update/config/' + this.config.id
+      axios.get(url)
+      .then(response => {
+        this.config = response.data;
+        console.log(response);
+      }).catch(error => {
+        console.log(error);
+      })
+    },
+    setState() {
+      url = '/update/config/' + this.config.id
+      axios.post(url, {
         config: this.config
       }).then(response => {
+        this.config = response.data;
         console.log(response);
       }).catch(error => {
         console.log(error);

@@ -1,4 +1,5 @@
 TempChartComponent = Vue.component('temp-chart', {
+  // Note: temps are stored on the chart object, NOT the thermo object
   props: ['thermo'],
   data() {
     return {
@@ -24,18 +25,15 @@ TempChartComponent = Vue.component('temp-chart', {
   },
   methods: {
     init() {
-      this.thermo.chart = this.newChart('thermo' + this.thermo.address + 'Chart')
+      this.chart = this.newChart('thermo' + this.thermo.address + 'Chart')
       this.updateThermo(this.thermo);
     },
     updateThermo(thermo) {
       axios.post('/thermo-temps', {
-        // Post the location information so python knows where to look for temps
-        controller_address: thermo.controller_address,
-        address: thermo.address
+        thermo: this.thermo
       }).then(response => {
         // Add the returned data
-        this.addData(thermo.chart, response.data);
-        // console.log(response);
+        this.addData(this.chart, response.data);
       }).catch(error => {
         console.log(error);
       })
@@ -120,7 +118,7 @@ TempChartComponent = Vue.component('temp-chart', {
       // This is ungodly
       // Get's the latest PV
       try {
-        data = this.thermo.chart.data.datasets.filter(x => x.tempType == tempType)[0].data;
+        data = this.chart.data.datasets.filter(x => x.tempType == tempType)[0].data;
         return data[data.length - 1]['y'];
       } catch (error) {
         return '';

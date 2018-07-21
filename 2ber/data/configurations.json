@@ -64,9 +64,7 @@
           "address": 0,
           "controller_address": 1,
           "name": "RIMS Thermostat",
-          "pv": [],
           "state": 1,
-          "sv": [],
           "type": "thermostat"
         },
         {
@@ -89,6 +87,7 @@
       ]
     },
     "name": "Testing",
+    "id": "8675309",
     "slackChannel": "@luke",
     "slackWebhook": "https://hooks.slack.com/services/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"
   }

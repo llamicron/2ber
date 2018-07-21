@@ -15,6 +15,8 @@ class CustomFlask(Flask):
     ))
 
 app = CustomFlask(__name__)
+with open('2ber/data/configurations.json') as fi:
+        app.configs = json.load(fi)
 
 # Pages
 @app.route('/')
@@ -38,27 +40,22 @@ def procedure_page():
 # Resources
 @app.route('/configurations', methods=['POST', 'GET'])
 def manage_configurations():
-    # Get configurations from json file
-    with open('2ber/data/configurations.json') as fi:
-        configs = json.load(fi)
-
     # If you're saving a config, add it to the configs and write it to the file
     if request.method == 'POST':
         new_config = request.get_json()['configuration']
-        configs[:] = [d for d in configs if d.get('name') != new_config['name']]
-        configs.append(new_config)
+        app.configs[:] = [d for d in app.configs if d.get('id') != new_config['id']]
+        app.configs.append(new_config)
         with open('2ber/data/configurations.json', 'w') as fi:
-            json.dump(configs, fi, indent=2)
+            json.dump(app.configs, fi, indent=2)
 
 
     # Return the master list no matter what
-    return jsonify(configs)
+    return jsonify(app.configs)
 
 @app.route('/thermo-temps', methods=['POST'])
-def update_thermo_data():
+def update_chart_data():
     from random import randint
-    controller_adr = request.get_json()['controller_address']
-    adr = request.get_json()['address']
+    thermo = request.get_json()['thermo']
     # Get real temp
     temps = {
         'new_pv': {
@@ -73,12 +70,19 @@ def update_thermo_data():
 
     return jsonify(temps)
 
-@app.route('/update')
-def send_new_state():
-    config = request.get_json()['config']
-    # Update state
-    return jsonify(config)
+@app.route('/update/config/<id>', methods=['GET', 'POST'])
+def send_new_state(id):
+    if request.method == 'GET':
+        config = [c for c in app.configs if c.get('id') == id][0]
+        # Update state
+        config['lastRetrieved'] = round(time.time())
+        return jsonify(config)
 
+    if request.method == 'POST':
+        config = request.get_json()['config']
+        config['lastPosted'] = round(time.time())
+        print('posted')
+        return jsonify(config)
 if __name__ == '__main__':
     app.debug = True
     app.run('0.0.0.0')
