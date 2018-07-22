@@ -1,12 +1,12 @@
 OnOffState = Vue.component('on-off-state', {
   props: ['device', 'id', 'modifiable'],
   computed: {
-    state() {
-      return this.device.state;
+    newState() {
+      return this.device.newState;
     }
   },
   watch: {
-    state() {
+    newState() {
       this.$emit('update', this.device)
     }
   },
@@ -19,6 +19,16 @@ OnOffState = Vue.component('on-off-state', {
 
 DivertState = Vue.component('divert-state', {
   props: ['device', 'id', 'modifiable'],
+  computed: {
+    newState() {
+      return this.device.newState;
+    }
+  },
+  watch: {
+    newState() {
+      this.$emit('update', this.device)
+    }
+  },
   template: `
     <div style="width: 75px;" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
       <select v-model="device.newState" :disabled="!modifiable" class="mdl-textfield__input" :id="id">
@@ -32,6 +42,16 @@ DivertState = Vue.component('divert-state', {
 
 VariableState = Vue.component('variable-state', {
   props: ['device', 'id', 'modifiable'],
+  computed: {
+    newState() {
+      return this.device.newState;
+    }
+  },
+  watch: {
+    newState() {
+      this.$emit('update', this.device)
+    }
+  },
   template: `
     <div class="mdl-textfield variable-valve-state mdl-js-textfield mdl-textfield--floating-label">
       <input v-model="device.newState" :disabled="!modifiable" class="mdl-textfield__input" pattern="-?[0-9]*(\.[0-9]+)?" type="tel" :id="id">
@@ -41,15 +61,14 @@ VariableState = Vue.component('variable-state', {
   `
 })
 
-
 DeviceState = Vue.component('device-state', {
   props: ['device', 'id', 'modifiable'],
   template: `
     <div>
-      <on-off-state @update="$emit('update', $event)" v-if="device.type == 'onOff'" :id="id" :modifiable="modifiable" :device="device"></on-off-state>
-      <divert-state v-if="device.type == 'divert'" :id="id" :modifiable="modifiable" :device="device"></divert-state>
-      <variable-state v-if="device.type == 'variable'" :id="id" :modifiable="modifiable" :device="device"></variable-state>
-      <on-off-state v-if="device.type == 'pump'" :id="id" :modifiable="modifiable" :device="device"></on-off-state>
+      <on-off-state   @update="$emit('update', $event)" v-if="device.type == 'onOff'"    :id="id" :modifiable="modifiable" :device="device"></on-off-state>
+      <divert-state   @update="$emit('update', $event)" v-if="device.type == 'divert'"   :id="id" :modifiable="modifiable" :device="device"></divert-state>
+      <variable-state @update="$emit('update', $event)" v-if="device.type == 'variable'" :id="id" :modifiable="modifiable" :device="device"></variable-state>
+      <on-off-state   @update="$emit('update', $event)" v-if="device.type == 'pump'"     :id="id" :modifiable="modifiable" :device="device"></on-off-state>
     </div>
   `
 })
@@ -100,13 +119,13 @@ AllDevicesTabs = Vue.component('devices', {
         <device-control-table @update="$emit('update', $event)" :modifiable="modifiable" :devices="devices.onOff"></device-control-table>
       </div>
       <div class="mdl-tabs__panel" id="divert-panel">
-        <device-control-table :modifiable="modifiable" :devices="devices.divert"></device-control-table>
+        <device-control-table @update="$emit('update', $event)" :modifiable="modifiable" :devices="devices.divert"></device-control-table>
       </div>
       <div class="mdl-tabs__panel" id="variable-panel">
-        <device-control-table :modifiable="modifiable" :devices="devices.variable"></device-control-table>
+        <device-control-table @update="$emit('update', $event)" :modifiable="modifiable" :devices="devices.variable"></device-control-table>
       </div>
       <div class="mdl-tabs__panel" id="pump-panel">
-        <device-control-table :modifiable="modifiable" :devices="devices.pump"></device-control-table>
+        <device-control-table @update="$emit('update', $event)" :modifiable="modifiable" :devices="devices.pump"></device-control-table>
       </div>
     </div>
   `

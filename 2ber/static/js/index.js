@@ -48,16 +48,15 @@ let x = new Vue({
       return config;
     },
     setState(device) {
-      // url = '/update/config/' + this.config.id
-      // axios.post(url, {
-      //   config: this.config
-      // }).then(response => {
-      //   this.config = response.data;
-      //   console.log(response);
-      // }).catch(error => {
-      //   console.log(error);
-      // })
-      console.log('update');
+      url = '/update/config/' + this.config.id
+      axios.post(url, {
+        config: this.config
+      }).then(response => {
+        this.config = response.data;
+        console.log(response);
+      }).catch(error => {
+        console.log(error);
+      })
     }
   },
 

@@ -3,6 +3,8 @@ import json
 
 from flask import Flask, render_template, request, jsonify, redirect
 
+from pprint import pprint
+
 class CustomFlask(Flask):
     jinja_options = Flask.jinja_options.copy()
     jinja_options.update(dict(
@@ -73,6 +75,7 @@ def update_chart_data():
 @app.route('/update/config/<id>', methods=['GET', 'POST'])
 def send_new_state(id):
     if request.method == 'GET':
+        # Get default config from list and update to actual values
         config = [c for c in app.configs if c.get('id') == id][0]
         # Update state
         config['lastRetrieved'] = round(time.time())
@@ -81,7 +84,18 @@ def send_new_state(id):
     if request.method == 'POST':
         config = request.get_json()['config']
         config['lastPosted'] = round(time.time())
-        print('posted')
+        for dev_type, devs in config['devices'].items():
+            for dev in devs:
+                try:
+                    state = 0
+                    if dev['newState']:
+                        state = 1
+                    dev['state'] = state
+                except KeyError:
+                    pass
+
+        # Temporary, because i don't have access to hardware at the moment
+        app.configs = [config]
         return jsonify(config)
 
 
