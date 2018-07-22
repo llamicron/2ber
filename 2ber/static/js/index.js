@@ -30,30 +30,44 @@ let x = new Vue({
       url = '/update/config/' + this.config.id
       axios.get(url)
       .then(response => {
-        this.config = response.data;
+        this.config = this.addNewStates(response.data);
       }).catch(error => {
         console.log(error);
       })
     },
-    setState() {
-      url = '/update/config/' + this.config.id
-      axios.post(url, {
-        config: this.config
-      }).then(response => {
-        this.config = response.data;
-        console.log(response);
-      }).catch(error => {
-        console.log(error);
-      })
+    addNewStates(config) {
+      for (i in config.devices) {
+        devices = config.devices[i]
+        for (y in devices) {
+          dev = devices[y];
+          // Write the newState from the current vue to the config we just got. This preserves the state set by the user.
+          // Kinda janky, i know, but this shit works, i think
+          dev.newState = this.config.devices[i][y].newState;
+        }
+      }
+      return config;
+    },
+    setState(device) {
+      // url = '/update/config/' + this.config.id
+      // axios.post(url, {
+      //   config: this.config
+      // }).then(response => {
+      //   this.config = response.data;
+      //   console.log(response);
+      // }).catch(error => {
+      //   console.log(error);
+      // })
+      console.log('update');
     }
   },
 
   mounted() {
-    this.stateUpdator = setInterval(function() {
-      x.getState();
+    this.stateUpdator = setInterval(() => {
+      this.getState();
     }, 3000)
   },
   updated: function() {
+    // This is a fix for MDL
     this.$nextTick(function () {
       componentHandler.upgradeDom();
     });

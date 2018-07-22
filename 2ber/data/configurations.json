@@ -21,12 +21,13 @@
         {
           "address": "4",
           "controller_address": 0,
-          "locations": {
+          "states": {
             "0": "mash",
             "1": "boil"
           },
           "name": "Some Divert",
-          "type": "divert"
+          "type": "divert",
+          "state": 0
         }
       ],
       "onOff": [
@@ -34,6 +35,10 @@
           "address": "4",
           "controller_address": 0,
           "name": "HLT Valve",
+          "states": {
+            "0": "Closed",
+            "1": "Open"
+          },
           "state": 0,
           "type": "onOff"
         },
@@ -41,7 +46,12 @@
           "name": "Another On/Off Valve",
           "type": "onOff",
           "address": "56",
-          "controller_address": 0
+          "states": {
+            "0": "Closed",
+            "1": "Open"
+          },
+          "controller_address": 0,
+          "state": 0
         }
       ],
       "pump": [
@@ -49,6 +59,10 @@
           "address": 1,
           "controller_address": 0,
           "name": "RIMS Pump",
+          "states": {
+            "0": "Off",
+            "1": "On"
+          },
           "state": 1,
           "type": "pump"
         },
@@ -56,7 +70,12 @@
           "address": "8",
           "controller_address": 0,
           "name": "One More Pump",
-          "type": "pump"
+          "type": "pump",
+          "states": {
+            "0": "Off",
+            "1": "On"
+          },
+          "state": 0
         }
       ],
       "thermostat": [
@@ -64,6 +83,10 @@
           "address": 0,
           "controller_address": 1,
           "name": "RIMS Thermostat",
+          "states": {
+            "0": "Off",
+            "1": "On"
+          },
           "state": 1,
           "type": "thermostat"
         },
@@ -71,8 +94,11 @@
           "address": "9",
           "controller_address": 0,
           "name": "Another Thermostat",
-          "pv": 0,
-          "sv": 0,
+          "states": {
+            "0": "Off",
+            "1": "On"
+          },
+          "state": 1,
           "type": "thermostat"
         }
       ],
@@ -81,7 +107,11 @@
           "address": 2,
           "controller_address": 0,
           "name": "Propane Valve",
-          "state": 0.4,
+          "states": {
+            "0": "Off",
+            "1": "On"
+          },
+          "state": 1,
           "type": "variable"
         }
       ]

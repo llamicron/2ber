@@ -1,8 +1,18 @@
 OnOffState = Vue.component('on-off-state', {
   props: ['device', 'id', 'modifiable'],
+  computed: {
+    state() {
+      return this.device.state;
+    }
+  },
+  watch: {
+    state() {
+      this.$emit('update', this.device)
+    }
+  },
   template: `
     <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" :for="id">
-      <input :disabled="!modifiable" type="checkbox" :id="id" class="mdl-switch__input" checked>
+      <input v-model="device.newState" :disabled="!modifiable" type="checkbox" :id="id" class="mdl-switch__input" checked>
     </label>
   `
 })
@@ -11,9 +21,9 @@ DivertState = Vue.component('divert-state', {
   props: ['device', 'id', 'modifiable'],
   template: `
     <div style="width: 75px;" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-      <select :disabled="!modifiable" class="mdl-textfield__input" :id="id">
-        <option :value="device.locations[0]">{{ device.locations[0] }}</option>
-        <option :value="device.locations[1]">{{ device.locations[1] }}</option>
+      <select v-model="device.newState" :disabled="!modifiable" class="mdl-textfield__input" :id="id">
+        <option value="0">{{ device.states[0] }}</option>
+        <option value="1">{{ device.states[1] }}</option>
       </select>
       <label class="mdl-textfield__label" :for="id">Location</label>
     </div>
@@ -24,7 +34,7 @@ VariableState = Vue.component('variable-state', {
   props: ['device', 'id', 'modifiable'],
   template: `
     <div class="mdl-textfield variable-valve-state mdl-js-textfield mdl-textfield--floating-label">
-      <input :disabled="!modifiable" class="mdl-textfield__input" pattern="-?[0-9]*(\.[0-9]+)?" type="tel" :id="id">
+      <input v-model="device.newState" :disabled="!modifiable" class="mdl-textfield__input" pattern="-?[0-9]*(\.[0-9]+)?" type="tel" :id="id">
       <label class="mdl-textfield__label" :for="id">State</label>
       <span class="mdl-textfield__error">Needs to be a number</span>
     </div>
@@ -36,7 +46,7 @@ DeviceState = Vue.component('device-state', {
   props: ['device', 'id', 'modifiable'],
   template: `
     <div>
-      <on-off-state v-if="device.type == 'onOff'" :id="id" :modifiable="modifiable" :device="device"></on-off-state>
+      <on-off-state @update="$emit('update', $event)" v-if="device.type == 'onOff'" :id="id" :modifiable="modifiable" :device="device"></on-off-state>
       <divert-state v-if="device.type == 'divert'" :id="id" :modifiable="modifiable" :device="device"></divert-state>
       <variable-state v-if="device.type == 'variable'" :id="id" :modifiable="modifiable" :device="device"></variable-state>
       <on-off-state v-if="device.type == 'pump'" :id="id" :modifiable="modifiable" :device="device"></on-off-state>
@@ -57,13 +67,17 @@ DeviceControlTable = Vue.component('device-control-table', {
         <tr>
           <th class="mdl-data-table__cell--non-numeric">Name</th>
           <th class="mdl-data-table__cell--non-numeric">State</th>
+          <th class="mdl-data-table__cell--non-numeric">New State</th>
         </tr>
       </thead>
       <tbody>
         <tr v-for="device in devices">
           <td class="mdl-data-table__cell--non-numeric">{{ device.name }}</td>
           <td class="mdl-data-table__cell--non-numeric">
-            <device-state :id="id(device)" :modifiable="modifiable" :device="device"></device-state>
+            {{ device.states[device.state] }}
+          </td>
+          <td class="mdl-data-table__cell--non-numeric">
+            <device-state @update="$emit('update', $event)" :id="id(device)" :modifiable="modifiable" :device="device"></device-state>
           </td>
         </tr>
       </tbody>
@@ -83,7 +97,7 @@ AllDevicesTabs = Vue.component('devices', {
       </div>
       <br>
       <div class="mdl-tabs__panel is-active" id="OnOff-panel">
-        <device-control-table :modifiable="modifiable" :devices="devices.onOff"></device-control-table>
+        <device-control-table @update="$emit('update', $event)" :modifiable="modifiable" :devices="devices.onOff"></device-control-table>
       </div>
       <div class="mdl-tabs__panel" id="divert-panel">
         <device-control-table :modifiable="modifiable" :devices="devices.divert"></device-control-table>
