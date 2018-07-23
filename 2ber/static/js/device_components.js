@@ -65,10 +65,10 @@ DeviceState = Vue.component('device-state', {
   props: ['device', 'id', 'modifiable'],
   template: `
     <div>
-      <on-off-state   @update="$emit('update', $event)" v-if="device.type == 'onOff'"    :id="id" :modifiable="modifiable" :device="device"></on-off-state>
-      <divert-state   @update="$emit('update', $event)" v-if="device.type == 'divert'"   :id="id" :modifiable="modifiable" :device="device"></divert-state>
-      <variable-state @update="$emit('update', $event)" v-if="device.type == 'variable'" :id="id" :modifiable="modifiable" :device="device"></variable-state>
-      <on-off-state   @update="$emit('update', $event)" v-if="device.type == 'pump'"     :id="id" :modifiable="modifiable" :device="device"></on-off-state>
+      <on-off-state   @update="$emit('update', $event)" v-if="device.type == 'onOff'"      :id="id" :modifiable="modifiable" :device="device"></on-off-state>
+      <divert-state   @update="$emit('update', $event)" v-if="device.type == 'divert'"     :id="id" :modifiable="modifiable" :device="device"></divert-state>
+      <variable-state @update="$emit('update', $event)" v-if="device.type == 'variable'"   :id="id" :modifiable="modifiable" :device="device"></variable-state>
+      <on-off-state   @update="$emit('update', $event)" v-if="device.type == 'pump'"       :id="id" :modifiable="modifiable" :device="device"></on-off-state>
     </div>
   `
 })
@@ -78,6 +78,11 @@ DeviceControlTable = Vue.component('device-control-table', {
   methods: {
     id(device) {
       return device.controller_address + '-' + device.address + 'State'
+    },
+    clicked(device) {
+      if (!this.modifiable) {
+        this.$emit('clicked', device)
+      }
     }
   },
   template: `
@@ -85,17 +90,17 @@ DeviceControlTable = Vue.component('device-control-table', {
       <thead>
         <tr>
           <th class="mdl-data-table__cell--non-numeric">Name</th>
-          <th class="mdl-data-table__cell--non-numeric">State</th>
-          <th class="mdl-data-table__cell--non-numeric">New State</th>
+          <th v-if="modifiable" class="mdl-data-table__cell--non-numeric">State</th>
+          <th v-if="modifiable" class="mdl-data-table__cell--non-numeric">New State</th>
         </tr>
       </thead>
       <tbody>
-        <tr v-for="device in devices">
-          <td class="mdl-data-table__cell--non-numeric">{{ device.name }}</td>
-          <td class="mdl-data-table__cell--non-numeric">
+        <tr v-for="device in devices" @click="clicked(device)">
+          <td class="mdl-data-table__cell--non-numeric device-table-label">{{ device.name }}</td>
+          <td v-if="modifiable" class="mdl-data-table__cell--non-numeric device-table-label">
             {{ device.states[device.state] }}
           </td>
-          <td class="mdl-data-table__cell--non-numeric">
+          <td v-if="modifiable" class="mdl-data-table__cell--non-numeric">
             <device-state @update="$emit('update', $event)" :id="id(device)" :modifiable="modifiable" :device="device"></device-state>
           </td>
         </tr>
@@ -116,16 +121,16 @@ AllDevicesTabs = Vue.component('devices', {
       </div>
       <br>
       <div class="mdl-tabs__panel is-active" id="OnOff-panel">
-        <device-control-table @update="$emit('update', $event)" :modifiable="modifiable" :devices="devices.onOff"></device-control-table>
+        <device-control-table @clicked="$emit('clicked', $event)" @update="$emit('update', $event)" :modifiable="modifiable" :devices="devices.onOff"></device-control-table>
       </div>
       <div class="mdl-tabs__panel" id="divert-panel">
-        <device-control-table @update="$emit('update', $event)" :modifiable="modifiable" :devices="devices.divert"></device-control-table>
+        <device-control-table @clicked="$emit('clicked', $event)" @update="$emit('update', $event)" :modifiable="modifiable" :devices="devices.divert"></device-control-table>
       </div>
       <div class="mdl-tabs__panel" id="variable-panel">
-        <device-control-table @update="$emit('update', $event)" :modifiable="modifiable" :devices="devices.variable"></device-control-table>
+        <device-control-table @clicked="$emit('clicked', $event)" @update="$emit('update', $event)" :modifiable="modifiable" :devices="devices.variable"></device-control-table>
       </div>
       <div class="mdl-tabs__panel" id="pump-panel">
-        <device-control-table @update="$emit('update', $event)" :modifiable="modifiable" :devices="devices.pump"></device-control-table>
+        <device-control-table @clicked="$emit('clicked', $event)" @update="$emit('update', $event)" :modifiable="modifiable" :devices="devices.pump"></device-control-table>
       </div>
     </div>
   `

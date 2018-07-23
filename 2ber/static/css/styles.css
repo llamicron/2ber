@@ -8,9 +8,18 @@ html, body {
   height: 100%;
 }
 
+#close-button {
+  cursor: pointer;
+}
+
 .temp-reading {
   margin: 0.5em;
   width: 100px;
+}
+
+/* td.device-table-label { */
+td {
+  font-size: 16px;
 }
 
 .temp-reading-label {

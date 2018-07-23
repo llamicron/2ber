@@ -45,7 +45,7 @@
       <main class="mdl-layout__content mdl-color--grey-100">
         <section id="procedures">
           <div class="mdl-grid">
-            <div class="mdl-cell mdl-cell--6-col">
+            <div class="mdl-cell mdl-cell--12-col">
               <div class="full-width mdl-card colored-card--green mdl-shadow--2dp">
                 <div class="mdl-card__title">
                   <h2 class="mdl-card__title-text mdl-cell--hide-phone">
@@ -53,23 +53,61 @@
                   </h2>
                 </div>
                 <div class="mdl-card__supporting-text">
-                  <!-- Search field -->
-                  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                    <input class="mdl-textfield__input" type="text" id="itemSearch">
-                    <label class="mdl-textfield__label" for="itemSearch">Search</label>
-                  </div>
                   <section id="devices">
-                    <h5>Devices</h5>
+                    <h4>Devices</h4>
+                    <devices :devices="config.devices" @clicked="addItem($event)" :modifiable="false"></devices>
+                    <h4>Thermostats</h4>
+                    <table class="mdl-data-table full-width mdl-js-data-table mdl-shadow--2dp">
+                      <tbody>
+                        <tr v-for="thermo in config.devices.thermostat" @click="addItem(thermo)">
+                          <td class="mdl-data-table__cell--non-numeric">{{ thermo.name }}</td>
+                        </tr>
+                      </tbody>
+                    </table>
                   </section>
                   <section id="tools">
-                    <h5>Tools</h5>
+                    <h4>Tools</h4>
                     <tool-item-list @clicked="addItem($event)" :tools="tools"></tool-item-list>
                   </section>
                 </div>
               </div>
             </div>
-            <div class="mdl-cell mdl-cell--6-col">
-
+            <div class="mdl-cell mdl-cell--12-col">
+              <div class="full-width mdl-card colored-card--green mdl-shadow--2dp">
+                <div class="mdl-card__title">
+                  <h2 class="mdl-card__title-text mdl-cell--hide-phone">
+                    Procedure
+                  </h2>
+                </div>
+                <div class="mdl-card__supporting-text">
+                  <!-- Procedure Table -->
+                  <table class="mdl-data-table full-width mdl-js-data-table mdl-shadow--2dp">
+                    <thead>
+                      <tr>
+                        <th class="mdl-data-table__cell--non-numeric">Item</th>
+                        <th class="mdl-data-table__cell--non-numeric">State</th>
+                        <th class="mdl-data-table__cell--non-numeric">Description</th>
+                        <th></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr v-for="item in procedure">
+                        <td class="mdl-data-table__cell--non-numeric">{{ item.name }}</td>
+                        <!-- Input -->
+                        <td class="mdl-data-table__cell--non-numeric">
+                          <thermo-input :thermo="item" v-if="item.type == 'thermostat'"></thermo-input>
+                          <tool-input v-else-if="item.type == 'tool'" :tool="item"></tool-input>
+                          <device-state v-else :device="item" :modifiable="true" :id="item.controller_address + '-' + item.address + 'State'"></item-state>
+                        </td>
+                        <td class="mdl-data-table__cell--non-numeric">{{ item.desc }}</td>
+                        <td>
+                          <i id="close-button" @click="removeItem(item)" class="material-icons">close</i>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
             </div>
           </div>
         </section>

@@ -17,3 +17,34 @@ ToolItemList = Vue.component('tool-item-list', {
     </table>
   `
 })
+
+ThermoInput = Vue.component('thermo-input', {
+  props: ['thermo'],
+  methods: {
+    id() {
+      return this.thermo.controller_address + '-' + this.thermo.address;
+    }
+  },
+  template: `
+    <div style="width: 200px" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+      <input v-model="thermo.newTemp" class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" :id="id(thermo) + 'NewTemp'">
+      <label class="mdl-textfield__label" :for="id(thermo) + 'NewTemp'">New Temp</label>
+      <span class="mdl-textfield__error">Needs to be a number</span>
+    </div>
+  `
+})
+
+ToolInput = Vue.component('tool-input', {
+  props: ['tool'],
+  methods: {
+    id() {
+      return this.tool.id + 'Input';
+    },
+  },
+  template: `
+    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+      <input v-model="tool.value" class="mdl-textfield__input" type="text" :id="id">
+      <label class="mdl-textfield__label" :for="id">Value</label>
+    </div>
+  `
+});

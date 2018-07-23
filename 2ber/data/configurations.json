@@ -108,10 +108,10 @@
           "controller_address": 0,
           "name": "Propane Valve",
           "states": {
-            "0": "Off",
-            "1": "On"
+            "0": "Closed",
+            "1": "Open"
           },
-          "state": 1,
+          "state": 0,
           "type": "variable"
         }
       ]
