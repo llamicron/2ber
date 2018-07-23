@@ -11,7 +11,7 @@ ToolItemList = Vue.component('tool-item-list', {
       <tbody>
         <tr v-for="tool in tools" @click="$emit('clicked', Object.assign(tool))">
           <td class="mdl-data-table__cell--non-numeric">{{ tool.name }}</td>
-          <td>{{ tool.desc }}</td>
+          <td>{{ tool.proc_desc }}</td>
         </tr>
       </tbody>
     </table>
@@ -41,10 +41,12 @@ ToolInput = Vue.component('tool-input', {
       return this.tool.id + 'Input';
     },
   },
+  // This pattern on the input is a nightmare
   template: `
-    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-      <input v-model="tool.value" class="mdl-textfield__input" type="text" :id="id">
+    <div style="width: 200px" v-if="tool.name != 'Wait'" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+      <input v-model="tool.value" :pattern="tool.name == 'Sleep' ? '\\\\d\\\\d:\\\\d\\\\d:\\\\d\\\\d' : '.+'" class="mdl-textfield__input" type="text" :id="id">
       <label class="mdl-textfield__label" :for="id">Value</label>
+      <span class="mdl-textfield__error">Needs to be in the format 00:00:00</span>
     </div>
   `
 });

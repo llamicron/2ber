@@ -27,7 +27,8 @@
           },
           "name": "Some Divert",
           "type": "divert",
-          "state": 0
+          "state": 0,
+          "proc_desc": "A divert valve. Select a location"
         }
       ],
       "onOff": [
@@ -40,7 +41,8 @@
             "1": "Open"
           },
           "state": 0,
-          "type": "onOff"
+          "type": "onOff",
+          "proc_desc": "A regular valve. Open or closed."
         },
         {
           "name": "Another On/Off Valve",
@@ -51,7 +53,8 @@
             "1": "Open"
           },
           "controller_address": 0,
-          "state": 0
+          "state": 0,
+          "proc_desc": "A regular valve. Open or closed."
         }
       ],
       "pump": [
@@ -64,7 +67,8 @@
             "1": "On"
           },
           "state": 1,
-          "type": "pump"
+          "type": "pump",
+          "proc_desc": "A pump. On or off."
         },
         {
           "address": "8",
@@ -75,7 +79,8 @@
             "0": "Off",
             "1": "On"
           },
-          "state": 0
+          "state": 0,
+          "proc_desc": "A pump. On or off."
         }
       ],
       "thermostat": [
@@ -88,7 +93,8 @@
             "1": "On"
           },
           "state": 1,
-          "type": "thermostat"
+          "type": "thermostat",
+          "proc_desc": "A thermostat. Set a temperature, or 0 to turn it off"
         },
         {
           "address": "9",
@@ -99,7 +105,8 @@
             "1": "On"
           },
           "state": 1,
-          "type": "thermostat"
+          "type": "thermostat",
+          "proc_desc": "A thermostat. Set a temperature, or 0 to turn it off"
         }
       ],
       "variable": [
@@ -112,7 +119,8 @@
             "1": "Open"
           },
           "state": 0,
-          "type": "variable"
+          "type": "variable",
+          "proc_desc": "A variable stepper valve. Enter a decimal between 0 and 1."
         }
       ]
     },

@@ -55,7 +55,7 @@ VariableState = Vue.component('variable-state', {
   template: `
     <div class="mdl-textfield variable-valve-state mdl-js-textfield mdl-textfield--floating-label">
       <input v-model="device.newState" :disabled="!modifiable" class="mdl-textfield__input" pattern="-?[0-9]*(\.[0-9]+)?" type="tel" :id="id">
-      <label class="mdl-textfield__label" :for="id">State</label>
+      <label class="mdl-textfield__label" :for="id">State (%)</label>
       <span class="mdl-textfield__error">Needs to be a number</span>
     </div>
   `

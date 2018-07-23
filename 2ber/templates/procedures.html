@@ -82,14 +82,14 @@
                 <div class="mdl-card__supporting-text">
                   <!-- Procedure Table -->
                   <table class="mdl-data-table full-width mdl-js-data-table mdl-shadow--2dp">
-                    <thead>
+                    <!-- <thead>
                       <tr>
                         <th class="mdl-data-table__cell--non-numeric">Item</th>
                         <th class="mdl-data-table__cell--non-numeric">State</th>
                         <th class="mdl-data-table__cell--non-numeric">Description</th>
                         <th></th>
                       </tr>
-                    </thead>
+                    </thead> -->
                     <tbody>
                       <tr v-for="item in procedure">
                         <td class="mdl-data-table__cell--non-numeric">{{ item.name }}</td>
@@ -99,7 +99,7 @@
                           <tool-input v-else-if="item.type == 'tool'" :tool="item"></tool-input>
                           <device-state v-else :device="item" :modifiable="true" :id="item.controller_address + '-' + item.address + 'State'"></item-state>
                         </td>
-                        <td class="mdl-data-table__cell--non-numeric">{{ item.desc }}</td>
+                        <td class="mdl-data-table__cell--non-numeric">{{ item.proc_desc }}</td>
                         <td>
                           <i id="close-button" @click="removeItem(item)" class="material-icons">close</i>
                         </td>

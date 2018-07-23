@@ -10,24 +10,22 @@ var x = new Vue({
       {
         name: 'Sleep',
         value: '',
-        desc: 'Wait for a period of time',
+        proc_desc: 'Wait for a period of time. Format: 00:00:00',
         type: 'tool'
       },
       {
         name: 'Slack',
         value: '',
-        desc: 'Send a message in Slack',
+        proc_desc: 'Send a message in Slack',
         type: 'tool'
       },
       {
         name: 'Wait',
-        value: '',
-        desc: 'Wait for an amount of time',
+        proc_desc: 'Stops procedure until you click "continue"',
         type: 'tool'
       }
     ],
-    // procedure: []
-    procedure: [{ "address": "4", "controller_address": 0, "name": "HLT Valve", "newState": false, "state": 0, "states": { "0": "Closed", "1": "Open" }, "type": "onOff", "id": "osdsio6cf" }, { "address": 0, "controller_address": 1, "name": "RIMS Thermostat", "state": 1, "states": { "0": "Off", "1": "On" }, "type": "thermostat", "id": "mc31uilho" }, { "address": "9", "controller_address": 0, "name": "Another Thermostat", "state": 1, "states": { "0": "Off", "1": "On" }, "type": "thermostat", "id": "w4fvv65i5", "newState": false }, { "name": "Wait", "value": "", "desc": "Wait for an amount of time", "type": "tool", "id": "00zal54d6" }, { "name": "Slack", "value": "", "desc": "Send a message in Slack", "type": "tool", "id": "tdkdql3kw" }]
+    procedure: []
   },
   components: {
     'main-header': MainHeaderComponent,
